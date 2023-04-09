@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title></title>
+    </head>
+    <body>
+        <!-- comentario html
+        <h3>HTML</h3>
+        Definiendo la edad de Juanito</br>
+        La edad de Juanito es ...</br>?
+        -->
+        </br>
+        <script>
+            // COMMENT
+            document.write("<!--");
+            //alert("La edad de Juanito es ...");
+            //alert("?");
+            document.write("<h3>JavaScript</h3>");
+            document.write("La edad de Juanito es ...</br>");
+            document.write("25 str");
+            document.write("</br>");
+            document.write(100/4);
+            document.write("</br>");
+            document.write("20" + 5);
+            document.write("</br>");
+            
+            document.write("</br></hr></br>");
+
+            document.write("El año de nacimiento es Louis es...</br>");
+            document.write(2023-38);
+
+            document.write("</br></hr></br>");
+
+            document.write("El promedio de edad de Juan, Pedro, Carlos es...");
+            document.write("<br>");
+            document.write((20+25+13)/3);
+            document.write("<br>");
+            document.write("la suma no funciona sin parentensis 20+25+15 = "+20+25+13);
+            document.write("<br>");
+            document.write("El promedio de edad de Juan, Pedro, Carlos es..."+(20+25+13)/3);
+            document.write("<br>");
+            
+            document.write("</br></hr></br>");
+
+            document.write("Juan nacio en el año...");
+            document.write("</br>");
+            document.write(2023 - 20);
+            document.write("</br></br>");
+
+            document.write("Pedro nacio en el año...");
+            document.write("</br>");
+            document.write(2023 - 25);
+            document.write("</br></br>");
+
+            document.write("Carlos nacio en el año...");
+            document.write("</br>");
+            document.write(2023 - 13);
+            document.write("</br></br>");
+
+            document.write("</br></hr></br>");
+            document.write("-->");
+            // END-COMMENT
+
+
+            
+            function saltar_linea(cantidad=1){
+                document.write("</br>".repeat(cantidad));
+            }
+
+            function separador(){
+                saltar_linea();
+                document.write("</hr>");
+                saltar_linea();
+            }
+
+            document.write("<h2>Logica de programación, primeros pasos 03 Variables</h2>");
+            saltar_linea();
+            
+            ano = 2030;
+            document.write("Año "+ano+" | Juan tiene: "+ (ano-2000) +" años.");
+            saltar_linea(2);
+            document.write("Año "+ano+" | Pedro tiene: "+ (ano-1995) +" años.");
+            saltar_linea(2);
+            document.write("Año "+ano+" | Carlos tiene: "+ (ano-2005) +" años.");
+            saltar_linea(2);
+            
+            var ano = 2023;
+            document.write("Año "+ano+" | Juan tiene: "+ (ano-2000) +" años.");
+            saltar_linea(2);
+            document.write("Año "+ano+" | Pedro tiene: "+ (ano-1995) +" años.");
+            saltar_linea(2);
+            document.write("Año "+ano+" | Carlos tiene: "+ (ano-2005) +" años.");
+            saltar_linea(2);
+
+            var edad_juan = ano-2000;
+            var edad_pedro = ano-1995;
+            var edad_carlos = ano-2005;
+
+            var nombre1 = "Juan";
+            var nombre2 = "Pedro";
+            var nombre3 = "Carlos";
+
+            var promedio = (edad_juan + edad_pedro + edad_carlos)/3
+            promedio = Math.round(promedio)
+            saltar_linea();
+            document.write("El promedio de edad de "+nombre1+", "+nombre2+" y "+nombre3+" es: "+ promedio+" años.");
+            saltar_linea();
+
+            separador();
+
+            function imprimir(cadena){
+                document.write(cadena);
+                saltar_linea();
+            }
+
+            imprimir("Imprimiendo con mi función imprimir()");
+            imprimir("Mi función tiene salto de linea por defecto");
+
+        </script>
+        
+    </body>
+</html>

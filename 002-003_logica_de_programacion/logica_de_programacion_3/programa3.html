@@ -1,0 +1,36 @@
+<canvas width="600" height="400"> </canvas>
+
+<script>
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillStyle = "magenta"; // propiedad
+    pincel.fillRect(0,0,600,400); // función
+
+    function dibujar_cuadrado(pos_x,pos_y, color, borde){
+        pincel.fillStyle = color;
+        pincel.strokeStyle = borde;
+        pincel.fillRect(pos_x,pos_y,50,50);
+        pincel.strokeRect(pos_x,pos_y,50,50);
+    }
+
+    // Semaforo
+    //dibujar_cuadrado(0,0,"red","black");
+    //dibujar_cuadrado(0,50,"yellow","black");
+    //dibujar_cuadrado(0,100,"green","black");
+
+    var x = 0;
+    while (x <= 600){
+        dibujar_cuadrado(x,200,"yellow","black");
+        dibujar_cuadrado(x,250,"green","black");
+        dibujar_cuadrado(x,300,"red","black");
+        dibujar_cuadrado(x,350,"yellow","black");
+        x += 50;
+    }
+
+    for (let x=0; x<=600; x+=50){
+        dibujar_cuadrado(x,0,"red","black");
+        dibujar_cuadrado(x,50,"yellow","black");
+        dibujar_cuadrado(x,100,"green","black");
+        dibujar_cuadrado(x,150,"red","black");
+    }
+</script>

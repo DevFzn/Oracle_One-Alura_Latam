@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Ejercicio Inicio de Sesión</title>
+    </head>
+    <body>
+        <h2>Inicio de sesión</h2>
+        <script>
+            function saltar_linea(cantidad=1){
+                document.write("</br>".repeat(cantidad));
+            }
+
+            function separador(){
+                saltar_linea();
+                document.write("</hr>");
+                saltar_linea();
+            }
+
+            function imprimir(cadena){
+                document.write(cadena);
+                saltar_linea();
+            }
+
+            var usuario_registrado = "alura";
+            var password_registrado = "alura321";
+            var intentos = 3;
+            var contador = 0;
+
+            while (contador < intentos){
+                var usuario_entrada = prompt("Ingresa tu nombre de usuario");
+                var passwd_entrada = prompt("Ingresa tu contraseña");
+                if (usuario_entrada == usuario_registrado && passwd_entrada == password_registrado){
+                    alert("Bienvenido al sistema " + usuario_entrada);
+                    imprimir("Sesion Iniciada: "+ usuario_entrada);
+                    brake;
+                }
+                contador++;
+                if (contador < intentos){
+                    alert("("+contador+") Datos incorrectos, favor intentar nuevamente");
+                } else {
+                    alert("("+contador+") Datos incorrectos, volver a intentar en 5 minutos");
+                    imprimir("Login bloqueado durante 5 minutos");
+                }
+            }
+        </script>
+        
+    </body>
+</html>

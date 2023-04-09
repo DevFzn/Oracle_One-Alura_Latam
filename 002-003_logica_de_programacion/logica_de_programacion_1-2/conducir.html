@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Juego de Adivinación</title>
+    </head>
+    <body>
+        <script>
+            function saltar_linea(cantidad=1){
+                document.write("</br>".repeat(cantidad));
+            }
+
+            function separador(){
+                saltar_linea();
+                document.write("</hr>");
+                saltar_linea();
+            }
+
+            function imprimir(cadena){
+                document.write(cadena);
+                saltar_linea();
+            }
+            var edad = parseInt(prompt("¿Cual es tu edad?"));
+            if (edad >= 18){
+                var tiene_licencia = prompt("¿Tiene liciencia?, Responde S o N");
+                if (tiene_licencia == "S"){
+                    imprimir("Puedes conducir.");
+                } else if (tiene_licencia == "N"){
+                    imprimir("No puedes conducir.");
+                } else {
+                    imprimir("Debes responder 'S' o 'N'");
+                }
+            } else if (edad < 18 || tiene_licencia == "N") {
+                imprimir("No puedes conducir.");
+            }
+        </script>
+        
+    </body>
+</html>

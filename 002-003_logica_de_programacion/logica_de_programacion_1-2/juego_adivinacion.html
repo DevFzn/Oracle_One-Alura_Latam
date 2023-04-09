@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Juego de Adivinación</title>
+    </head>
+    <body>
+        <script>
+            function saltar_linea(cantidad=1){
+                document.write("</br>".repeat(cantidad));
+            }
+
+            function separador(){
+                saltar_linea();
+                document.write("</hr>");
+                saltar_linea();
+            }
+
+            function imprimir(cadena){
+                document.write(cadena);
+                saltar_linea();
+            }
+            var numero_pensado = Math.round(Math.random()*10);
+            imprimir("Numero: "+ numero_pensado);
+            var numero_lanzado = parseInt(prompt("Ingesa un ńumero entre 0-10"));
+            if (numero_pensado == numero_lanzado){
+                imprimir("Ganaste!!!");
+            } else if (numero_lanzado > numero_pensado){
+                imprimir("Muy alto!");
+            } else if (numero_lanzado < numero_pensado){
+                imprimir("Muy bajo!");
+            }
+
+        </script>
+        
+    </body>
+</html>

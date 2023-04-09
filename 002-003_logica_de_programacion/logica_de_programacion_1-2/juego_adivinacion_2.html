@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Juego de Adivinación</title>
+    </head>
+    <body>
+        <script>
+            function saltar_linea(cantidad=1){
+                document.write("</br>".repeat(cantidad));
+            }
+
+            function separador(){
+                saltar_linea();
+                document.write("</hr>");
+                saltar_linea();
+            }
+
+            function imprimir(cadena){
+                document.write(cadena);
+                saltar_linea();
+            }
+            var numero_pensado = Math.round(Math.random()*10);
+            var intentos = 3;
+            var contador = 1;
+            alert("Numero: "+ numero_pensado);
+
+            while (contador <= intentos){
+                var numero_lanzado = parseInt(prompt("Ingesa un ńumero entre 0-10"));
+                if (numero_pensado == numero_lanzado){
+                    alert("Ganaste!!!");
+                    imprimir("<h1>GANASTE!!!</h1>")
+                    imprimir("Solo te tomo "+contador+" intento(s).");
+                    brake;
+                } else if (numero_lanzado > numero_pensado){
+                    alert("(intento "+contador+" de "+intentos+") - Muy alto!");
+                } else if (numero_lanzado < numero_pensado){
+                    alert("(intento "+contador+" de "+intentos+") - Muy bajo!");
+                }
+                contador++;
+            }
+            alert("Perdiste!!!");
+            imprimir("<h1>PERDISTE!!!</h1>")
+        </script>
+        
+    </body>
+</html>

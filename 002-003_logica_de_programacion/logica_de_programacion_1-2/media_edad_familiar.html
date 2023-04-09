@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Media Familiar</title>
+    </head>
+    <body>
+        <h2>Media edades familia</h2>
+        <script>
+            function saltar_linea(cantidad=1){
+                document.write("</br>".repeat(cantidad));
+            }
+
+            function separador(){
+                saltar_linea();
+                document.write("</hr>");
+                saltar_linea();
+            }
+
+            function imprimir(cadena){
+                document.write(cadena);
+                saltar_linea();
+            }
+
+            var nro_miembros = parseInt(prompt("Cuantos miembros componen la familia?"));
+            var contador = 1;
+            var total_edades = 0;
+            while (contador <= nro_miembros){
+                var edad = parseInt(prompt("Ingresa la edad del familiar "+contador+" de "+nro_miembros));
+                total_edades += edad;
+                contador++;
+            }
+            var media = (total_edades/nro_miembros);
+            imprimir("La media de las edades es "+media);
+        </script>
+    </body>
+</html>

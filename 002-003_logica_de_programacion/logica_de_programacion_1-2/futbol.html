@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Futbol</title>
+    </head>
+    <body>
+        <script>
+            function saltar_linea(cantidad=1){
+                document.write("</br>".repeat(cantidad));
+            }
+
+            function separador(){
+                saltar_linea();
+                document.write("</hr>");
+                saltar_linea();
+            }
+
+            function imprimir(cadena){
+                document.write(cadena);
+                saltar_linea();
+            }
+
+            var nombre = parseInt(prompt("parseInt(str) -> Not-a-Number -> NaN\n\nIngresa tu nombre:"));
+            //var nombre = prompt("(Ingresa tu nombre");
+            imprimir(nombre);
+
+            var victorias = parseInt(prompt("Ingresar cantidad de victorias:"));
+            var empates = parseInt(prompt("Ingresar cantidad de empates:"));
+
+            var puntos_total = (victorias * 3) + empates;
+
+            imprimir("El equipo tiene "+ puntos_total +" puntos.");
+
+            if (puntos_total > 28){
+                imprimir("El equipo esta mejor que el año pasado"); 
+            } else if (puntos_total < 28){
+                imprimir("El equipo esta peor el año pasado"); 
+            } else if (puntos_total == 28){
+                imprimir("El equipo esta igual que el año pasado"); 
+            } else {
+                imprimir("Como llegué aquí?, quizas ingresaste letras en vez de numeros?");
+            }
+
+        </script>
+        
+    </body>
+</html>

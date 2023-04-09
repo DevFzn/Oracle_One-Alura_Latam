@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Pares de 1 al 100</title>
+    </head>
+    <body>
+        <h2>Imprimir números pares del 1 al 100</h2>
+        <script>
+            function saltar_linea(cantidad=1){
+                document.write("</br>".repeat(cantidad));
+            }
+
+            function imprimir(cadena){
+                document.write(cadena);
+                saltar_linea();
+            }
+
+            var limite = 100;
+            var contador = 1;
+            while (contador <= limite){
+                if (contador % 2 == 0){
+                    imprimir(contador);
+                }
+                contador++;
+            }
+            imprimir("FIN");
+        </script>
+    </body>
+</html>

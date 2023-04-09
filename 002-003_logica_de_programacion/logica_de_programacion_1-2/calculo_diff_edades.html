@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Cálculo Diferencia de Edades</title>
+    </head>
+    <body>
+        <h3>Diferencia de edades</h3>
+        </br>
+        <script>
+
+            function saltar_linea(cantidad=1){
+                document.write("</br>".repeat(cantidad));
+            }
+
+            function imprimir(cadena){
+                document.write(cadena);
+                saltar_linea();
+            }
+
+            var edad1 = 35;
+            var edad2 = 26;
+            var diferencia = edad1-edad2;
+            imprimir("La edad de Pepe es "+ edad1 +" años.");
+            imprimir("La edad de Juan es "+ edad2 +" años.");
+            imprimir("La diferencia en las edades de Pepe y Juan es de  "+diferencia+" años.");
+
+        </script>
+        
+    </body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Cálculo de consumo</title>
+    </head>
+    <body>
+        <h3>¿Alcohol o gasolina?</h3>
+        <script>
+
+            var capacidad = 40;
+            var recorrido = 480;
+            var rendimiento = Math.round(recorrido/capacidad);
+
+            document.write("<h4>Cálculo de rendimiento para vehículo a gasolina</h4>");
+            document.write("Para un estanque de "+capacidad+" lts. que recorre "+recorrido+" kms. ");
+            document.write("El rendimiento es de "+rendimiento+" kms/lt.</br></br>")
+
+            recorrido = 300;
+            rendimiento = Math.round(recorrido/capacidad);
+            document.write("<h4>Cálculo de rendimiento para vehículo a alcohol</h4>");
+            document.write("Para un estanque de "+capacidad+" lts. que recorre "+recorrido+" kms. ");
+            document.write("El rendimiento es de "+rendimiento+" kms/lt.</br></br>")
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Ingredientes repetidos no!</title>
+    </head>
+    <body>
+        <h1>Recetas de Armando</h1>
+        <script>
+            var ingredientes = [];
+            var cantidad = parseInt(prompt("¿Cuántos ingredientes vas a añadir?"));
+            var contador = 1;
+
+            document.write("<ul>");
+            while( contador <= cantidad) {
+                var ingrediente = prompt("Informe el ingrediente " + contador);
+                if (!ingredientes.includes(ingrediente)){
+                    ingredientes.push(ingrediente);
+                    contador++;
+                    document.write("<li>"+ingrediente+"</li>");
+                } else {
+                    alert("Ingrediente Repetido");
+                }
+            }
+            document.write("</ul>");
+            console.log(ingredientes);
+        </script>
+    </body>
+</html>

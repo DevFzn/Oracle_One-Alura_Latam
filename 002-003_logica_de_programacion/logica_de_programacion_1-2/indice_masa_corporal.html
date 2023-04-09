@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title></title>
+    </head>
+    <body>
+        <script>
+            function saltar_linea(cantidad=1){
+                document.write("</br>".repeat(cantidad));
+            }
+
+            function separador(){
+                saltar_linea();
+                document.write("</hr>");
+                saltar_linea();
+            }
+
+            function imprimir(cadena){
+                document.write(cadena);
+                saltar_linea();
+            }
+
+            function calcular_imc(nombre, peso, altura){
+                if (peso%(altura*altura) > 0 ){
+                    imc = (peso/(altura*altura)).toFixed(3);
+                } else {
+                    imc = (peso/(altura*altura));
+                }
+                return [nombre, imc];
+            }
+
+            function imprimir_imc(nombre, peso, altura){
+                imc = calcular_imc(nombre, peso, altura);
+                imprimir("El IMC de "+ nombre +" es :"+ imc[1]);
+            }
+
+            imprimir_imc("Pepe", 75, 1.72);
+            saltar_linea();
+
+            imprimir_imc("Jacinta", 75, 1,45);
+            saltar_linea();
+
+            function promImc(persona1, persona2){
+                var prom_imc = (persona1[1]+persona2[1])/2;
+                imprimir("El promedio del IMC de "+persona1[0]+" y "+persona2[0]+" es :"+prom_imc);
+                saltar_linea();
+            }
+
+            personaA = calcular_imc("Pepe", 75, 1.72);
+            personaB = calcular_imc("Jacinta", 75, 1,45);
+            promImc(personaA, personaB);
+
+            
+            function imc_interactivo() {
+                entrada_nombre = prompt("Ingresa tu nombre:");
+                entrada_peso = prompt("Ingresa tu peso:");
+                entrada_altura = prompt("Ingresa tu altura:");
+                imprimir_imc(entrada_nombre, entrada_peso, entrada_altura);
+            }
+
+            imc_interactivo();
+
+        </script>
+        
+    </body>
+</html>

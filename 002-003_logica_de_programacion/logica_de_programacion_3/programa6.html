@@ -1,0 +1,68 @@
+<canvas width="600" height="400"> </canvas>
+
+<script>
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    var max_x = 600;
+    var max_y = 400;
+    var aleatorio_x;
+    var aleatorio_y;
+    pincel.fillStyle = "magenta";
+    pincel.fillRect(0,0,600,400);
+
+    var radio = 10;
+    var minimo = radio*3;
+
+    function crear_circunferencia(pos_x, pos_y, radio, color="black"){
+        pincel.fillStyle = color;
+        pincel.beginPath();
+        pincel.arc(pos_x, pos_y, radio, 0, 2*Math.PI);
+        pincel.fill();
+    }
+    
+    function limpiar_pantalla(){
+        pincel.clearRect(0, 0, 600, 400);
+    }
+
+    function crear_diana(pos_x, pos_y){
+        crear_circunferencia(pos_x,pos_y, radio*3+1, "black");
+        crear_circunferencia(pos_x,pos_y, radio*3, "red");
+        crear_circunferencia(pos_x,pos_y, radio*2, "white");
+        crear_circunferencia(pos_x,pos_y, radio, "red");
+    }
+
+    function posic_aleatoria(maximo){
+        let aleatorio = minimo+(Math.floor(Math.random()*(maximo-minimo*2)));
+        return aleatorio;
+        //@deprecated Validador
+        //if (aleatorio < minimo || aleatorio > (maximo-minimo)){
+        //    alert("me salí del canvas:\nMax="+maximo+"\nAleatorio: "+aleatorio+"\nradio="+radio);
+        //    posic_aleatoria(maximo);
+        //} else {
+        //    return aleatorio;
+        //}
+    }
+    
+    function actualizar_pantalla(){
+        limpiar_pantalla();
+        aleatorio_x = posic_aleatoria(max_x);
+        aleatorio_y = posic_aleatoria(max_y);
+        crear_diana(aleatorio_x, aleatorio_y);
+    }
+
+    setInterval(actualizar_pantalla, 800);
+
+    function disparar(evento){
+        var pos_x = evento.pageX - pantalla.offsetLeft;
+        var pos_y = evento.pageY - pantalla.offsetTop;
+        if ((pos_x < (aleatorio_x + radio)) &&
+            (pos_x > (aleatorio_x - radio)) &&
+            (pos_y < (aleatorio_y + radio)) &&
+            (pos_y > (aleatorio_y - radio))){
+            alert("Acertaste!!!");
+        }
+    }
+
+    pantalla.onclick = disparar;
+
+</script>

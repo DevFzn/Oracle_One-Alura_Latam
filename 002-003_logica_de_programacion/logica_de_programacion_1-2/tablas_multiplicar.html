@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>While y For</title>
+    </head>
+    <body>
+        <h2>Ciclos while y for</h2>
+        <script>
+            function saltar_linea(cantidad=1){
+                document.write("</br>".repeat(cantidad));
+            }
+
+            function separador(){
+                saltar_linea();
+                document.write("</hr>");
+                saltar_linea();
+            }
+
+            function imprimir(cadena){
+                document.write(cadena);
+                saltar_linea();
+            }
+
+            var año_mundial = 1930;
+            var numero = parseInt(prompt("Ingresa un número para mostrar su tabla de multiplicar"));
+            var contador = 1;
+            imprimir("Ciclo while");
+            while (contador <= 10){
+                imprimir(numero+" x "+contador+" = "+(numero*contador));
+                contador ++;
+            }
+
+            saltar_linea();
+            imprimir("Ciclo for");
+            for (var multiplicador = 1; multiplicador <= 10; multiplicador++){
+                imprimir(numero+" x "+multiplicador+" = "+(numero*multiplicador));
+            }
+        </script>
+        
+    </body>
+</html>

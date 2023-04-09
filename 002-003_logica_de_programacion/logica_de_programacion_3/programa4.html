@@ -1,0 +1,37 @@
+<canvas width="600" height="400"> </canvas>
+
+<script>
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillStyle = "magenta"; // propiedad
+    pincel.fillRect(0,0,600,400); // función
+    
+    var colores = [ "orange", "cyan", "green" ];
+    var color = colores[0];
+
+    function alterarColor() {
+        if (colores.indexOf(color) == (colores.length-1) ) {
+            color = colores[0];
+        } else {
+            color = colores[colores.indexOf(color)+1];
+        }
+        return false;
+    }
+
+    function alerta(evento){
+        var pos_x = evento.pageX - pantalla.offsetLeft;
+        var pos_y = evento.pageY - pantalla.offsetTop;
+
+        pincel.fillStyle = color;
+        pincel.beginPath();
+        pincel.arc(pos_x, pos_y, 10, 0, 2*3.14);
+        pincel.fill();
+        console.log(pos_x + "," + pos_y);
+        //alert("Click!!! "+evento); // diferente segúng navegador ffox o chrome
+        //alert("\nClick en: "+pos_x+", "+ pos_y);
+    }
+
+    pantalla.onclick = alerta;
+    pantalla.oncontextmenu = alterarColor;
+
+</script>
