@@ -10,7 +10,7 @@ Diferencias entre [html y css](https://www.aluracursos.com/blog/html-css-javascr
 
 > en NeoVim `set ff=unix`
 
-Página [barbería](./index.html).
+Página [barbería](./index.html) - estilo.[css](./style.css).
 
 Formas de aplicar estilo CSS:
 
@@ -74,3 +74,4 @@ La representación de los colores en 6 posiciones
 - Copywriter (Generador de Contenido)
 - SEO (Search Engine Optimization)
 
+Final curso HTML5 y CSS parte 1 - Página [barbería](./index.html) - estilo.[css](./style.css).

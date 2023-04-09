@@ -6,6 +6,18 @@ body{
     width: 100%;
 }
 
+.header {
+    padding-top: 2px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 2px;
+}
+
+#header {
+    font-size: 64px;
+    font-family: monospace;
+}
+
 p{
     color: #FFFCC6;
     text-align: center;
