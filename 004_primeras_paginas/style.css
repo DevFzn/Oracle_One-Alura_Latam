@@ -1,0 +1,29 @@
+body{
+    background-color: #1a1c1d;
+}
+
+#banner{
+    width: 100%;
+}
+
+p{
+    color: #FFFCC6;
+    text-align: center;
+    /*background: #fc9304;*/
+    /*background: #df28f6;*/
+}
+
+h1{
+    text-align: center;
+    background: #046dfc;
+}
+
+/* selección de diferentes selectores de stilo*/
+em strong{
+    color: red;
+}
+
+/* selector de id */
+#mision {
+    font-size: 20px;
+}
