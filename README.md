@@ -11,7 +11,7 @@ para certificación ORACLE. Notas, apuntes, resumenes y actividades.
 
 ### Guias de estudio
 
-- Introducción [Hello ONE](./hello_one.md).
+- Introducción [Hello ONE](./001_desarrollo_personal/hello_one.md).
 - [Desarrollo](./001_desarrollo_personal/README.md) Personal.
 - [Principiante](./002-003_logica_de_programacion/README.md) y conceptos
 primoridiales en programación.
