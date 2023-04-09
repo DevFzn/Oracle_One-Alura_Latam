@@ -27,3 +27,33 @@ em strong{
 #mision {
     font-size: 20px;
 }
+
+h2{
+    text-align: center;
+    padding: 25px;
+}
+
+.items {
+    font-style: italic;
+}
+
+ul{
+    display: inline-block;
+    vertical-align: top;
+    width: 30%;
+    margin-right: 15%;
+}
+
+.principal {
+    background: #0e384b;
+    padding: 20px;
+}
+
+.diferencias {
+    background: #cd4f39;
+    padding: 20px;
+}
+
+.imagen_diferencias{
+    width: 50%;
+}
