@@ -1,0 +1,71 @@
+body{
+    background-color: #1a1c1d;
+}
+
+#banner{
+    width: 100%;
+}
+
+.header {
+    padding-top: 2px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 2px;
+}
+
+#header {
+    font-size: 64px;
+    font-family: monospace;
+}
+
+p{
+    color: #FFFCC6;
+    text-align: center;
+    /*background: #fc9304;*/
+    /*background: #df28f6;*/
+}
+
+h1{
+    text-align: center;
+    background: #046dfc;
+}
+
+/* selección de diferentes selectores de stilo*/
+em strong{
+    color: red;
+}
+
+/* selector de id */
+#mision {
+    font-size: 20px;
+}
+
+h2{
+    text-align: center;
+    padding: 25px;
+}
+
+.items {
+    font-style: italic;
+}
+
+ul{
+    display: inline-block;
+    vertical-align: top;
+    width: 30%;
+    margin-right: 15%;
+}
+
+.principal {
+    background: #0e384b;
+    padding: 20px;
+}
+
+.diferencias {
+    background: #cd4f39;
+    padding: 20px;
+}
+
+.imagen_diferencias{
+    width: 50%;
+}
