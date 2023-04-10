@@ -15,7 +15,7 @@ multitarea.
 
 La distraccion es natural, la distarcción perjudica tus ingresos.
 
-..."**DISCIPLINA!!!** No tenel disciplina!!!!"... Junichi Takiyama
+..."**DISCIPLINA!!!** No tenel disciplina!!!!"... [dojo master](https://www.southpark.lat/episodios/dspvu8/south-park-sangre-de-maria-temporada-9-ep-14).
 
 **Fueza de voluntad**
 

@@ -174,9 +174,10 @@ Es importante tomar pausas, caminar, descanzar. dormir.
 #### Formatos de aprendizaje
 
 | Formato | Características |
-| Auditivo | - Podcats</br>- Audio books</br>- Ecuchar grabaciones de clases|
+| - | - |
+| Auditivo | - Podcats</br>- Audio books</br>- Ecuchar grabaciones de clases |
 | Visual | - Infográficos</br>- PowerPoints</br>- Teds</br>- Videoclases</br>- Mapa mental |
-| Lectura/Escritura | - Libros</br>Páginas Web</br>- Blogs</br>- Artículos</br>- Resúmenes |
+| Lectura/Escritura | - Libros</br>- Páginas Web</br>- Blogs</br>- Artículos</br>- Resúmenes |
 | Cenestésica | - Ir a eventos</br>- Participar de proyectos</br>- Pair Programming</br>- Platicar con otras personas |
 
 [Vark Test](https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fvark-learn.com%2Fvrk-learning-preference%2F&src=sdkpreparse)

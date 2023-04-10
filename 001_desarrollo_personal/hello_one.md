@@ -54,11 +54,10 @@ alimentar su portafolio para una posible entrevista de trabajo.
 
 ¿Como paso a la ***etapa 3*** y me convierto en ***estudiante ONE***?
 
-- Finalizar los cursos Lógica de programción: Primeros pasos + Lógica de
-Programación: Conceptios primordiales. **LIMITE 18/04/2023**.
-- Finalizar los **8 cursos** de la primera formación: Principiante en
-Programación + los **4 cursos** de la formación Desarrollo Personal.
-**LIMITE 30/05/2023**.
+- **LIMITE 18/04/2023**: Finalizar los cursos Lógica de programación -> Primeros
+pasos + Lógica de Programación: Conceptos primordiales.
+- **LIMITE 30/05/2023**: Finalizar los **8 cursos** de la primera formación ->
+Principiante en Programación + los **4 cursos** de la formación Desarrollo Personal.
 
 #### Junio a Septiembre 2023 (inclusive)
 
@@ -67,10 +66,16 @@ Formación Back-End + Formación Soft Skills
 
 > En ambas opciones el alumno tendrá acceso a 3 challenges
 
-Discord [#hello-one]()
+----
 
-<img align="center" width="35%" src="./qr_helloONE.png">
+#### Contacto
 
-correo: contacto-one@aluracursos.com
+- Correo: contacto-one@aluracursos.com
+- Discord: [#hello-one]()
+
+<p align="center">
+    <img style="align: center;" width="35%" src="./qr_helloONE.png"/>
+    <br/><br/>
+</p>
 
 

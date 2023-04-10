@@ -1,16 +1,20 @@
 # Formación programacion
 
-### Primeros pasos
+## Primeros pasos
 
-#### 04 Crea tus primeras paginas HTML5 y CSS
+### 04 Crea tus primeras paginas HTML5 y CSS
+
+#### Parte 1 Mi primera página web
 
 Diferencias entre [html y css](https://www.aluracursos.com/blog/html-css-javascript-cuales-son-las-diferencias).
 
-- Descarga archivo [texto-base.txt](./texto-base.txt) (archivo en formato `dos`).
+- Descarga archivo [texto-base.txt](./html_css_parte1/texto-base.txt)
+(archivo en formato `dos`).
 
 > en NeoVim `set ff=unix`
 
-Página [barbería](./index.html) - estilo.[css](./style.css).
+Página [barbería](./html_css_parte1/index.html) -
+estilo.[css](./html_css_parte1/style.css).
 
 Formas de aplicar estilo CSS:
 
@@ -30,7 +34,7 @@ Formas de aplicar estilo CSS:
         </style>
     ```
 
-- style [file](./style.css).
+- style [file](./html_css_parte1/style.css).
 
 ##### Sistema hexadecimal
 
@@ -74,4 +78,9 @@ La representación de los colores en 6 posiciones
 - Copywriter (Generador de Contenido)
 - SEO (Search Engine Optimization)
 
-Final curso HTML5 y CSS parte 1 - Página [barbería](./index.html) - estilo.[css](./style.css).
+Final curso HTML5 y CSS parte 1 - Página
+[barbería](./html_css_parte1/index.html) -
+estilo.[css](./html_css_parte1/style.css).
+
+#### Parte 2 - Posicionamiento, listas y navegación
+
