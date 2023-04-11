@@ -28,6 +28,11 @@ nav a{
     text-decoration: none;
 }
 
+nav a:hover{
+    color: #cd4f39;
+    text-decoration: underline;
+}
+
 .productos{
     width: 80%;
     margin: 0 auto;
@@ -39,20 +44,32 @@ nav a{
     text-align: center;
     width: 30%;
     vertical-align: top;
-    /*background: #cd4f39;*/
+    /*background: #cd4f39; <- se usó para visualizar modificaciones */
     margin: 0 1.5%;
     padding: 30px 20px;
     box-sizing: border-box;
-    /*border-width: 2px;
-    border-style: solid;
-    border-color: #cd4f39;*/
+    /*border-width: 2px;   <- estas 3 propiedades se
+    border-style: solid;   <- pueden reemplazar con la
+    border-color: #cd4f39; <- propiedad de abajo */
     border: 2px solid #cd4f39;
     border-radius: 10px;
+}
+
+.productos li:hover{
+    border-color: #046dfc;
+}
+
+.productos li:active{
+    border-color: #088C19;
 }
 
 .productos h2{
     font-size: 26px;
     font-weight: bold;
+}
+
+.productos li:hover h2{
+    font-size: 32px;
 }
 
 .prod_descripcion {
