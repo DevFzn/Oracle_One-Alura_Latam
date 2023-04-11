@@ -84,3 +84,10 @@ estilo.[css](./html_css_parte1/style.css).
 
 #### Parte 2 - Posicionamiento, listas y navegación
 
+Página [productos](./html_css_parte2/productos.html) y
+[estilo](./html_css_parte2/productos.css).
+
+- Base de un archivo HTML.
+- Lista html no ordenada.
+- Posicionamiento listas y 'menu' de navegación.
+- Posicionamiento encabezado de página.
