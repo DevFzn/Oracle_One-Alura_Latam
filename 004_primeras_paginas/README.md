@@ -91,3 +91,79 @@ Página [productos](./html_css_parte2/productos.html) y
 - Lista html no ordenada.
 - Posicionamiento listas y 'menu' de navegación.
 - Posicionamiento encabezado de página.
+
+**CSS** - La [propiedad](https://www.w3schools.com/css/css_inline-block.asp)
+[`display`](https://www.w3schools.com/css/tryit.asp?filename=trycss_inline-block_span1).
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+    <style>
+        span.a {
+            display: inline; /* the default for span */
+            width: 100px;
+            height: 100px;
+            padding: 5px;
+            border: 1px solid blue;
+            background-color: yellow;
+        }
+
+        span.b {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            padding: 5px;
+            border: 1px solid blue;
+            background-color: yellow;
+        }
+
+        span.c {
+            display: block;
+            width: 100px;
+            height: 100px;
+            padding: 5px;
+            border: 1px solid blue;
+            background-color: yellow;
+        }
+    </style>
+    </head>
+    <body>
+        <h1>The display Property</h1>
+
+        <h2>display: inline</h2>
+        <div>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+            consequat scelerisque elit sit amet consequat. Aliquam erat volutpat.
+            <span class="a">Aliquam</span> <span class="a">venenatis</span> gravida
+            nisl sit amet facilisis. Nullam cursus fermentum velit sed laoreet.
+        </div>
+
+        <h2>display: inline-block</h2>
+        <div>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+            consequat scelerisque elit sit amet consequat. Aliquam erat volutpat.
+            <span class="b">Aliquam</span> <span class="b">venenatis</span>
+            gravida nisl sit amet facilisis. Nullam cursus fermentum velit sed laoreet.
+        </div>
+
+        <h2>display: block</h2>
+        <div>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+            consequat scelerisque elit sit amet consequat.Aliquam erat volutpat.
+            <span class="c">Aliquam</span> <span class="c">venenatis</span>
+            gravida nisl sit amet facilisis. Nullam cursus fermentum velit sed laoreet.
+        </div>
+    </body>
+</html>
+```
+
+<p align="center">
+    <img style="align: center;" width="60%" src="./html_css_parte2/imagenes/css_display_property.png"/>
+    <br/><br/>
+</p>
+
+En la página [productos](./html_css_parte2/productos.html). Se utiliza la
+propiedad`display` con el valor `inline-block` para pode ajustar su contenido
+con [productos.css](./html_css_parte2/productos.css).
+
