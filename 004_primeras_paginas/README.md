@@ -195,3 +195,71 @@ Conexión del **input** () con su **label**.
 
 Uso de `id` para el `input` asociado al atributo `for` del `label`.
 
+Jerarquía en css, ejemplo.
+
+```txt
+    - Peso gráfico:
+       ___________________________
+      |                           |   ___________________
+      |          inline           |  |                   |   _____________
+      |                           |  |         ID        |  |             |   ________
+      |                           |  |                   |  |    class    |  |etiqueta|
+      |           1000            |  |         100       |  |      10     |  |____1___|
+      |                           |  |                   |  |_____________|
+      |                           |  |___________________|
+      |___________________________|
+
+    - Peso valores:
+
+      form p = 1+1 = 2
+      p = 1
+      .test = 10
+      p.test = 1+10 = 11
+      #test = 100
+```
+
+<details><summary markdown="span">html</summary>
+
+```html
+    ...
+    <form>
+        ...
+        <div>
+            <p class="test" id="test">Como prefieres que te contactemos?</p>
+
+            <label for="radio-email"><input type="radio" name="contacto"
+            value="email" id="radio-email"> Email</label>
+
+            <label for="radio-telefono"><input type="radio" name="contacto"
+            value="telefono" id="radio-telefono"> Teléfono</label>
+
+            <label for="radio-whatsap"><input type="radio" name="contacto"
+            value="whatsap" id="radio-whatsap"> Whatsapp</label>
+        </div>
+        ...
+    </form>
+    ...
+```
+
+</details></br>
+
+<details><summary markdown="span">css</summary>
+
+```css
+...
+
+form p { color: blue; }
+
+p { color: red; }
+
+.test { color: yellow; }
+
+p.test { color: magenta; }
+
+#test { color: cyan; }
+
+/* la configuración de estilo inline sobrescribe todo */
+```
+
+</details></br>
+

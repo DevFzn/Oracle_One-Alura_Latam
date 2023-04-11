@@ -15,12 +15,12 @@ nav {
     right: 0px;
 }
 
-nav li{
+nav li {
     display: inline;
     margin: 0 0 0 15px;
 }
 
-nav a{
+nav a {
     text-transform: uppercase;
     color: #000000;
     font-weight: bold;
@@ -28,18 +28,18 @@ nav a{
     text-decoration: none;
 }
 
-nav a:hover{
+nav a:hover {
     color: #cd4f39;
     text-decoration: underline;
 }
 
-.productos{
+.productos {
     width: 80%;
     margin: 0 auto;
     padding: 30px;
 }
 
-.productos li{
+.productos li {
     display: inline-block;
     text-align: center;
     width: 30%;
@@ -56,20 +56,20 @@ nav a:hover{
     border-radius: 10px;
 }
 
-.productos li:hover{
+.productos li:hover {
     border-color: #046dfc;
 }
 
-.productos li:active{
+.productos li:active {
     border-color: #088C19;
 }
 
-.productos h2{
+.productos h2 {
     font-size: 26px;
     font-weight: bold;
 }
 
-.productos li:hover h2{
+.productos li:hover h2 {
     font-size: 32px;
 }
 
@@ -103,15 +103,43 @@ form {
     margin: 50px 0%;
 }
 
-form label{
+form label, form p {
     display: block;
     font-size: 20px;
     margin: 0 0 10px;
 }
 
-form input{
+.input-padron {
     display: block;
     margin: 0 0 20px;
     padding: 10px 25px;
     width: 50%;
 }
+
+.checkbox {
+    margin: 20px 0;
+}
+
+/* Usados para observar Jerarquía en CSS
+form p {
+    color: blue;
+}
+
+p {
+    color: red;
+}
+
+.test {
+    color: yellow;
+}
+
+p.test {
+    color: magenta;
+}
+
+#test {
+    color: cyan;
+} */
+
+/* la configuración de stilo inline sobrescribe todo */
+
