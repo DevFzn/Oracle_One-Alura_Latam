@@ -4,7 +4,7 @@
 
 ### 04 Crea tus primeras paginas HTML5 y CSS
 
-#### Parte 1 Mi primera página web
+#### Parte 1 - Primera página web
 
 Diferencias entre [html y css](https://www.aluracursos.com/blog/html-css-javascript-cuales-son-las-diferencias).
 
@@ -168,9 +168,10 @@ Página [productos](./html_css_parte2/productos.html) y
 
 En la página [productos](./html_css_parte2/productos.html) se utiliza la
 propiedad `display` con el valor `inline-block` para poder ajustar su contenido
-en [productos.css](./html_css_parte2/productos.css). Se utiliza una imagen como
-fondo con la propiedad css background `background: url(./imagenes/bg.jpg)` para
-la etiqueta `<footer>`.
+en [productos.css](./html_css_parte2/productos.css).
+
+Se utiliza una imagen como fondo con la propiedad css background
+`background: url(./imagenes/bg.jpg)` para la etiqueta `<footer>`.
 
 [Centrar](https://www.aluracursos.com/blog/centrar-un-elemento-con-css) un
 elemento con css.
@@ -179,4 +180,7 @@ Caracteres especiales, unicode
 [wiki](https://en.wikipedia.org/wiki/List_of_Unicode_characters).
 
 Final curso HTML5 y CSS parte 2
+
+#### Parte 3 - Formularios y Tablas
+
 
