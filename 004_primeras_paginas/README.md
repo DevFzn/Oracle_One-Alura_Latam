@@ -183,4 +183,15 @@ Final curso HTML5 y CSS parte 2
 
 #### Parte 3 - Formularios y Tablas
 
+Nueva página, [contacto.html](./html_css_parte3/contacto.html).
+
+Se renombraron los estilos css: productos.css como [style.css](./html_css_parte3/style.css),
+y style.css como [style_home](./html_css_parte3/style_home.css).
+
+Creación de formulario HTML, tags `<form>`', `<input>` (text y submit)
+para entradas de usuario. Tag `<label>` como etiqueta.
+
+Conexión del **input** () con su **label**.
+
+Uso de `id` para el `input` asociado al atributo `for` del `label`.
 

@@ -46,7 +46,8 @@ nav a:hover{
     vertical-align: top;
     /*background: #cd4f39; <- se usó para visualizar modificaciones */
     margin: 0 1.5%;
-    padding: 30px 20px;
+    /*padding: 30px 20px;*/
+    padding: 5% 2%;
     box-sizing: border-box;
     /*border-width: 2px;   <- estas 3 propiedades se
     border-style: solid;   <- pueden reemplazar con la
@@ -91,4 +92,26 @@ footer {
 .copyright {
     color: #6f6f6f;
     font-size: 14px;
+}
+
+main {
+    width: 80%;
+    margin: 0 auto;
+}
+
+form {
+    margin: 50px 0%;
+}
+
+form label{
+    display: block;
+    font-size: 20px;
+    margin: 0 0 10px;
+}
+
+form input{
+    display: block;
+    margin: 0 0 20px;
+    padding: 10px 25px;
+    width: 50%;
 }
