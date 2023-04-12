@@ -294,5 +294,11 @@ p.test { color: magenta; }
 
 - Etiqueta `<fieldset>` como agrupador y `<legend>` como parrafo.
 - Descripción de imagenes `alt="Descripción de imagen"`.
-- Clase css *enviar* para input submit "Enviar Formulario" [contacto](./html_css_parte3/contacto.html#L63).
-- Propiedades: cursor (pointer), transition, transform (scale, rotate).
+- Clase css *enviar* para input submit "Enviar Formulario"
+[contacto](./html_css_parte3/contacto.html#L63).
+- [Propiedades](./html_css_parte3/style.css#L123): cursor (pointer), transition,
+transform (scale, rotate).
+- [Tablas](./html_css_parte3/contacto.html#L66) y [estilo](./html_css_parte3/style.css#L142).
+
+Final curso HTML5 y CSS parte 3
+

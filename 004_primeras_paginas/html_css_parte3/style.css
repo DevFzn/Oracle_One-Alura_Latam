@@ -139,6 +139,21 @@ form label, form legend {
     transform: scale(1.2) rotate(4deg);
 }
 
+table {
+    margin: 40px 40px;
+}
+
+thead {
+    background: #046dfc;
+    color: #f1f1f1;
+    font-weight: bold;
+}
+
+td, th {
+    border: 1px solid #046dfc;
+    padding: 8px 15px;
+}
+
 /* Usados para observar Jerarquía en CSS
 form p {
     color: blue;
