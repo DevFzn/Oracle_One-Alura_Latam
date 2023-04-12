@@ -2,9 +2,9 @@
 
 ## Primeros pasos
 
-### 04 Crea tus primeras paginas HTML5 y CSS
+**04** Crea tus primeras paginas HTML5 y CSS
 
-#### Parte 1 - Primera página web
+### Parte 1 - Primera página web
 
 Diferencias entre [html y css](https://www.aluracursos.com/blog/html-css-javascript-cuales-son-las-diferencias).
 
@@ -36,7 +36,7 @@ Formas de aplicar estilo CSS:
 
 - style [file](./html_css_parte1/style.css).
 
-##### Sistema hexadecimal
+#### Sistema hexadecimal
 
 Sistema número que consta de las 6 primeras letras del alfabeto y los números
 del 0 al 9.
@@ -70,7 +70,7 @@ La representación de los colores en 6 posiciones
   Blanco -> rgb(255,255,255)
 ```
 
-##### Equipo de Front End
+#### Equipo de Front End
 
 - Programador Front End
 - Responsable por UX (user experiencie)
@@ -82,7 +82,7 @@ Final curso HTML5 y CSS parte 1 - Página
 [barbería](./html_css_parte1/index.html) -
 estilo.[css](./html_css_parte1/style.css).
 
-#### Parte 2 - Posicionamiento, listas y navegación
+### Parte 2 - Posicionamiento, listas y navegación
 
 Página [productos](./html_css_parte2/productos.html) y
 [estilo](./html_css_parte2/productos.css).
@@ -181,7 +181,7 @@ Caracteres especiales, unicode
 
 Final curso HTML5 y CSS parte 2
 
-#### Parte 3 - Formularios y Tablas
+### Parte 3 - Formularios y Tablas
 
 Nueva página, [contacto.html](./html_css_parte3/contacto.html).
 
@@ -263,3 +263,40 @@ p.test { color: magenta; }
 
 </details></br>
 
+
+#### HTML input types
+
+[w3schools input types](https://www.w3schools.com/html/html_form_input_types.asp)
+
+<details><summary markdown="span">lista</summary>
+
+```html
+    <input type="button">
+    <input type="checkbox">
+    <input type="color">
+    <input type="date">
+    <input type="datetime-local">
+    <input type="email">
+    <input type="file">
+    <input type="hidden">
+    <input type="image">
+    <input type="month">
+    <input type="number">
+    <input type="password">
+    <input type="radio">
+    <input type="range">
+    <input type="reset">
+    <input type="search">
+    <input type="submit">
+    <input type="tel">
+    <input type="text">
+    <input type="time">
+    <input type="url">
+    <input type="week">
+```
+
+</details></br>
+
+Etiqueta `<fieldset>` como agrupador y `<legend>` como parrafo.
+
+Descripción de imagenes `alt="Descripción de imagen"`.
