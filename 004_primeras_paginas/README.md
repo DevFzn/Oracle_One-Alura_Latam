@@ -173,27 +173,22 @@ en [productos.css](./html_css_parte2/productos.css).
 Se utiliza una imagen como fondo con la propiedad css background
 `background: url(./imagenes/bg.jpg)` para la etiqueta `<footer>`.
 
-[Centrar](https://www.aluracursos.com/blog/centrar-un-elemento-con-css) un
+- [Centrar](https://www.aluracursos.com/blog/centrar-un-elemento-con-css) un
 elemento con css.
-
-Caracteres especiales, unicode
+- Caracteres especiales, unicode
 [wiki](https://en.wikipedia.org/wiki/List_of_Unicode_characters).
 
 Final curso HTML5 y CSS parte 2
 
 ### Parte 3 - Formularios y Tablas
 
-Nueva página, [contacto.html](./html_css_parte3/contacto.html).
-
-Se renombraron los estilos css: productos.css como [style.css](./html_css_parte3/style.css),
+- Nueva página, [contacto.html](./html_css_parte3/contacto.html).
+- Se renombraron los estilos css: productos.css como [style.css](./html_css_parte3/style.css),
 y style.css como [style_home](./html_css_parte3/style_home.css).
-
-Creación de formulario HTML, tags `<form>`', `<input>` (text y submit)
+- Creación de formulario HTML, tags `<form>`', `<input>` (text y submit)
 para entradas de usuario. Tag `<label>` como etiqueta.
-
-Conexión del **input** () con su **label**.
-
-Uso de `id` para el `input` asociado al atributo `for` del `label`.
+- Conexión del **input** () con su **label**.
+- Uso de `id` para el `input` asociado al atributo `for` del `label`.
 
 Jerarquía en css, ejemplo.
 
@@ -297,6 +292,7 @@ p.test { color: magenta; }
 
 </details></br>
 
-Etiqueta `<fieldset>` como agrupador y `<legend>` como parrafo.
-
-Descripción de imagenes `alt="Descripción de imagen"`.
+- Etiqueta `<fieldset>` como agrupador y `<legend>` como parrafo.
+- Descripción de imagenes `alt="Descripción de imagen"`.
+- Clase css *enviar* para input submit "Enviar Formulario" [contacto](./html_css_parte3/contacto.html#L63).
+- Propiedades: cursor (pointer), transition, transform (scale, rotate).

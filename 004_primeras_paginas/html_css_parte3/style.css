@@ -120,6 +120,25 @@ form label, form legend {
     margin: 20px 0;
 }
 
+.enviar {
+    width: 40%;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #f1f1f1;
+    background: #046dfc;
+    border: none;
+    border-radius: 5px;
+    /*transition: 0.3s background;*/
+    transition: 0.3s all;
+    cursor: pointer;
+}
+
+.enviar:hover{
+    background-color: #cd4f39;
+    transform: scale(1.2) rotate(4deg);
+}
+
 /* Usados para observar Jerarquía en CSS
 form p {
     color: blue;
