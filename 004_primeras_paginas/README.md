@@ -292,9 +292,10 @@ p.test { color: magenta; }
 
 </details></br>
 
-- Etiqueta `<fieldset>` como agrupador y `<legend>` como parrafo.
+- Etiqueta [fieldset](./html_css_parte3/contacto.html#L40) como agrupador y
+[leyend](./html_css_parte3/contacto.html#L41) como parrafo.
 - Descripción de imagenes `alt="Descripción de imagen"`.
-- Clase css *enviar* para input submit "Enviar Formulario"
+- Clase css [enviar](./html_css_parte3/style.css#L123) para input submit "Enviar Formulario"
 [contacto](./html_css_parte3/contacto.html#L63).
 - [Propiedades](./html_css_parte3/style.css#L123): cursor (pointer), transition,
 transform (scale, rotate).
@@ -325,6 +326,41 @@ utilizar [style.css](./html_css_parte4/style.css).
     - [Noto Music](https://fonts.google.com/noto/specimen/Noto+Music)
 </details>
 
-- [Mapa](./html_css_parte4/index.html#L52) incrustado (embedded) y [estilo](./html_css_parte4/style.css#L234).
-- [Video](./html_css_parte4/index.html#L73) incrustado y [estilo](./html_css_parte4/style.css#L284).
+- [Mapa](./html_css_parte4/index.html#L52) incrustado (embedded) y [estilo](./html_css_parte4/style.css#L237).
+- [Video](./html_css_parte4/index.html#L73) incrustado y [estilo](./html_css_parte4/style.css#L287).
+
+#### Selectores avanzados CSS
+
+Aplicar estilo solo los hijos directos de `<main>`, ejemplos.
+
+```css
+main > p{
+    background: red;
+}
+```
+
+Aplicar estilo solo parrafo que esté despues de una imagen `<img>`.
+
+```css
+img + p{
+    background: yellow;
+}
+```
+
+Aplicar estilo a todos los parrafos que estén despues de una imagen `<img>`.
+
+```css
+img ~ p{
+    background: green;
+}
+```
+
+Aplicar estilo a todos los parrafos que estén despues de una imagen a excepcion
+de aquellos que tengan el id `mision`.
+
+```css
+.principal p:not(#mision){
+    background: cyan;
+}
+```
 
