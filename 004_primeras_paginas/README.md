@@ -324,10 +324,17 @@ utilizar [style.css](./html_css_parte4/style.css).
     - [Monserrat](https://fonts.google.com/specimen/Montserrat)
     - [Noto Sans Symbols 2](https://fonts.google.com/noto/specimen/Noto+Sans+Symbols+2)
     - [Noto Music](https://fonts.google.com/noto/specimen/Noto+Music)
+
 </details>
 
-- [Mapa](./html_css_parte4/index.html#L52) incrustado (embedded) y [estilo](./html_css_parte4/style.css#L237).
-- [Video](./html_css_parte4/index.html#L73) incrustado y [estilo](./html_css_parte4/style.css#L287).
+- [Mapa](./html_css_parte4/index.html#L52) incrustado (embedded) y
+[estilo](./html_css_parte4/style.css#L239).
+- [Video](./html_css_parte4/index.html#L73) incrustado y
+[estilo](./html_css_parte4/style.css#L297).
+
+> [CSS Background](https://developer.mozilla.org/en-US/docs/Web/CSS/background) -
+developer.mozilla.org.  
+> Juegos para [practicar](https://flexboxfroggy.com/)/aprender css.
 
 #### Selectores avanzados CSS
 
@@ -363,4 +370,16 @@ de aquellos que tengan el id `mision`.
     background: cyan;
 }
 ```
+
+#### Opacidad
+
+- Selector de color RGB: `color: rgb(0,0,0)`
+- Selector de color RGB y opacidad: `color: rgba(0,0,0,0.3)`
+
+#### Sombras
+
+- [box-shadow](./html_css_parte4/style.css#L289)
+- [text-shadow](./html_css_parte4/style.css#L198)
+- Mozilla Box-shadow
+[generator](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Backgrounds_and_Borders/Box-shadow_generator)
 

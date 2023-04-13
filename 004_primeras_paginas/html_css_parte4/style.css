@@ -194,6 +194,8 @@ p.test {
     font-size: 2em;
     margin: 0 0 1em;
     clear:left;
+    /* color: rgba(0,0,0,0.3); RGB y opacidad */
+    text-shadow: 2px 2px 4px #cd4f39;
 }
 
 /* Alterando estilos con psudo-clases
@@ -252,6 +254,7 @@ p:first-line {
 .diferencias {
     padding: 3em 0;
     background: #888888;
+    /* box-shadow: inset 0 0 30px red; sombra interna*/
 }
 
 .contenido-diferenciales {
@@ -281,7 +284,14 @@ p:first-line {
 }
 
 .imagen-diferenciales {
-    width: 60%;
+    width: 50%;
+    margin-left: 3em;
+    box-shadow: 10px 10px 20px #046dfc; /* Es posible agregar + sombras separadas por ',' */
+}
+
+.imagen-diferenciales:hover {
+    opacity: 0.75;
+    transition: 330ms;
 }
 
 .video {
