@@ -14,5 +14,5 @@ para certificación ORACLE. Notas, apuntes, resumenes y actividades.
 - Introducción [Hello ONE](./001_desarrollo_personal/hello_one.md).
 - [Desarrollo](./001_desarrollo_personal/README.md) Personal.
 - [Principiante](./002-003_logica_de_programacion/README.md) y conceptos
-primoridiales en programación.
-- Crea tus primeras [páginas Web](./004_primeras_paginas/README.md).
+primoridiales en programación con Javascript.
+- Crea tus primeras [páginas Web](./004_primeras_paginas/README.md), HTML5 y CSS3.

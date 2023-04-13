@@ -104,4 +104,5 @@ cambiar color click derecho.
 [original](./logica_de_programacion_3/programa5_instructor.html).
 - Disparando en el [blanco](./logica_de_programacion_3/programa6.html).
 - Actividad dibujando con el [mouse](./logica_de_programacion_3/dibujando_mouse.html).
+- Extra, [aimbot](./logica_de_programacion_3/aimbot.html) (tiro al blanco c/puntos).
 

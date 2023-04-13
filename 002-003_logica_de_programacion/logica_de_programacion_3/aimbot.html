@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+    </head>
+    <body>
+        <canvas width="600" height="400"> </canvas>
+        <script>
+            // Cambia aquí la velocidad.
+            var velocidad = 800;
+            // Cambia aquí el puntaje máximo.
+            var max_puntos = 10;
+            var max_x = 600;
+            var max_y = 400;
+            var aleatorio_x;
+            var aleatorio_y;
+            var radio = 10;
+            var minimo = radio*3;
+            var puntos = 0;
+            var pantalla = document.querySelector("canvas");
+            var pincel = pantalla.getContext("2d");
+            pincel.fillStyle = "magenta";
+            pincel.fillRect(0,0,600,400);
+
+            function crear_circunferencia(pos_x, pos_y, radio, color="black"){
+                pincel.fillStyle = color;
+                pincel.beginPath();
+                pincel.arc(pos_x, pos_y, radio, 0, 2*Math.PI);
+                pincel.fill();
+            }
+            
+            function limpiar_pantalla(){
+                pincel.clearRect(0, 0, 600, 400);
+            }
+
+            function crear_diana(pos_x, pos_y){
+                crear_circunferencia(pos_x,pos_y, radio*3+1, "black");
+                crear_circunferencia(pos_x,pos_y, radio*3, "red");
+                crear_circunferencia(pos_x,pos_y, radio*2, "white");
+                crear_circunferencia(pos_x,pos_y, radio, "red");
+            }
+
+            function posic_aleatoria(maximo){
+                let aleatorio = minimo+(Math.floor(Math.random()*(maximo-minimo*2)));
+                return aleatorio;
+                //@deprecated Validador
+                //if (aleatorio < minimo || aleatorio > (maximo-minimo)){
+                //    alert("me salí del canvas:\nMax="+maximo+"\nAleatorio: "+aleatorio+"\nradio="+radio);
+                //    posic_aleatoria(maximo);
+                //} else {
+                //    return aleatorio;
+                //}
+            }
+            
+            function escribir_texto(pos_x, pos_y, texto, texto2="") {
+                pincel.font="30px Helvetica";
+                pincel.fillStyle="darkgreen";
+                pincel.fillText(texto, pos_x, pos_y);    
+                pincel.font="bolder 35px Helvetica";
+                pincel.fillStyle="black";
+                pincel.fillText(texto2, (pos_x+118), pos_y+2);    
+            }
+
+            function check_win(){
+                if (puntos >= max_puntos) {
+                    limpiar_pantalla();
+                    escribir_texto(30, 30, "Puntos : " +puntos)
+                    puntos = 0;
+                    alert('\n¡¡¡ Felicidades !!! \nAlcanzaste los '+max_puntos+' puntos..\nDirecto a global!!\n');
+                }
+            }
+
+            function actualizar_pantalla(){
+                limpiar_pantalla();
+                escribir_texto(30, 30, "Puntos : ", puntos)
+                aleatorio_x = posic_aleatoria(max_x);
+                aleatorio_y = posic_aleatoria(max_y);
+                crear_diana(aleatorio_x, aleatorio_y);
+            }
+
+            setInterval(actualizar_pantalla, velocidad);
+
+            function disparar(evento){
+                var pos_x = evento.pageX - pantalla.offsetLeft;
+                var pos_y = evento.pageY - pantalla.offsetTop;
+                if ((pos_x < (aleatorio_x + radio)) &&
+                    (pos_x > (aleatorio_x - radio)) &&
+                    (pos_y < (aleatorio_y + radio)) &&
+                    (pos_y > (aleatorio_y - radio))){
+                    // alert("Acertaste!!!");
+                    puntos += 10;
+                    check_win();
+                }
+            }
+
+            pantalla.onclick = disparar;
+        </script>
+    </body>
+</html>

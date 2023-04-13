@@ -94,7 +94,7 @@ Página [productos](./html_css_parte2/productos.html) y
 
 **CSS** - La propiedad [display](https://www.w3schools.com/css/css_inline-block.asp).
 
-<details><summary markdown="span">estilo</summary>
+<details><summary markdown="span">css</summary>
 
 ```css
     span.a {
@@ -125,7 +125,7 @@ Página [productos](./html_css_parte2/productos.html) y
     }
 ```
 
-</details></br>
+</details>
 
 <details><summary markdown="span">html</summary>
 
@@ -263,7 +263,7 @@ p.test { color: magenta; }
 
 [w3schools input types](https://www.w3schools.com/html/html_form_input_types.asp)
 
-<details><summary markdown="span">lista</summary>
+<details><summary markdown="span">tipos</summary>
 
 ```html
     <input type="button">
@@ -303,4 +303,28 @@ transform (scale, rotate).
 Final curso HTML5 y CSS parte 3
 
 ### Parte 4 - Avanzando en CSS
+
+- Reestructurando los estilos de [index.html](./html_css_parte4/index.html) para
+utilizar [style.css](./html_css_parte4/style.css).
+- Utilización de fuentes externas como [google fonts](https://https://fonts.google.com/).
+
+- <details><summary markdown="span">Algunas fuentes de google</summary>
+
+    - [Chakra Petch](https://fonts.google.com/specimen/Chakra+Petch)
+    - [Cinzel](https://fonts.google.com/specimen/Cinzel)
+    - [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P)
+    - [Luckiest Guy](https://fonts.google.com/specimen/Luckiest+Guy)
+    - [Ultra](https://fonts.google.com/specimen/Ultra)
+    - [Architects Daughter](https://fonts.google.com/specimen/Architects+Daughter)
+    - [Itim](https://fonts.google.com/specimen/Itim)
+    - [Phudu](https://fonts.google.com/specimen/Phudu)
+    - [Bungee Hairline](https://fonts.google.com/specimen/Bungee+Hairline)
+    - [Nosifer](https://fonts.google.com/specimen/Nosifer)
+    - [Monserrat](https://fonts.google.com/specimen/Montserrat)
+    - [Noto Sans Symbols 2](https://fonts.google.com/noto/specimen/Noto+Sans+Symbols+2)
+    - [Noto Music](https://fonts.google.com/noto/specimen/Noto+Music)
+</details>
+
+- [Mapa](./html_css_parte4/index.html#L51) incrustado (embedded) y [estilo](./html_css_parte4/style.css#L215).
+- [Video](./html_css_parte4/index.html#L70) incrustado y [estilo](./html_css_parte4/style.css#L228).
 
