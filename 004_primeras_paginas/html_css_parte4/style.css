@@ -98,11 +98,6 @@ footer {
     font-size: 14px;
 }
 
-main {
-    width: 80%;
-    margin: 0 auto;
-}
-
 form {
     margin: 50px 0%;
 }
@@ -181,10 +176,17 @@ p.test {
 
 /* la configuración de stilo inline sobrescribe todo */
 
-/* CSS para index.html */
+/* CSS para el home - index.html */
 
 .banner {
     width: 100%;
+}
+
+.principal {
+    padding: 3em;
+    background: #046dfc;
+    width: 940px;
+    margin: 0 auto;
 }
 
 .titulo-principal {
@@ -193,6 +195,23 @@ p.test {
     margin: 0 0 1em;
     clear:left;
 }
+
+/* Alterando estilos con psudo-clases
+.titulo-principal:first-letter {
+    font-weight: bold;
+}
+
+.titulo-principal:before {
+    content: "[";
+}
+
+.titulo-principal:after {
+    content: "]";
+}
+
+p:first-line {
+    font-style: italic;
+}*/
 
 .principal p{
     margin: 0 0 1em;
@@ -214,6 +233,7 @@ p.test {
 
 .mapa {
     padding: 3em 0;
+    background: linear-gradient(#046dfc, #cd4f39, #888888);
 }
 
 .mapa p {
@@ -221,7 +241,43 @@ p.test {
     text-align: center;
 }
 
-.imagen_diferencias {
+.mapa-contenido {
+    width: 940px;
+    margin: 0 auto;
+}
+
+.diferencias {
+    padding: 3em 0;
+    background: #888888;
+}
+
+.contenido-diferenciales {
+    width: 640px;
+    margin: 0 auto;
+}
+
+.lista-diferenciales {
+    width: 40%;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: auto;
+}
+
+.items {
+    line-height: 1.5;
+}
+
+.items:before {
+    content: "✦ ";
+}
+
+/* .items:nt-child(2) item 2*/
+/* .items:nt-child(2n) item pares */
+.items:first-child {
+    font-weight: bold;
+}
+
+.imagen-diferenciales {
     width: 60%;
 }
 

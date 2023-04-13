@@ -325,6 +325,6 @@ utilizar [style.css](./html_css_parte4/style.css).
     - [Noto Music](https://fonts.google.com/noto/specimen/Noto+Music)
 </details>
 
-- [Mapa](./html_css_parte4/index.html#L51) incrustado (embedded) y [estilo](./html_css_parte4/style.css#L215).
-- [Video](./html_css_parte4/index.html#L70) incrustado y [estilo](./html_css_parte4/style.css#L228).
+- [Mapa](./html_css_parte4/index.html#L52) incrustado (embedded) y [estilo](./html_css_parte4/style.css#L234).
+- [Video](./html_css_parte4/index.html#L73) incrustado y [estilo](./html_css_parte4/style.css#L284).
 
