@@ -383,3 +383,15 @@ de aquellos que tengan el id `mision`.
 - Mozilla Box-shadow
 [generator](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Backgrounds_and_Borders/Box-shadow_generator)
 
+#### Diseño responsive
+
+Marcar elemento para modificar según resolución de pantalla de hasta 480px
+`@media screen and (max-width:480px){ body: red; }`
+
+Diseño [responsive](./html_css_parte4/style.css#L302)
+
+Final curso HTML5 y CSS parte 4
+
+Extra:
+[Organizar estudio y portafolio con notion en alura](https://www.aluracursos.com/blog/organizar-estudio-y-portafolio-con-notion-en-alura).
+
