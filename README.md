@@ -17,3 +17,4 @@ para certificación ORACLE. Notas, apuntes, resumenes y actividades.
 primoridiales en programación con Javascript.
 - Crea tus primeras [páginas Web](./004_primeras_paginas/README.md), HTML5 y CSS3.
 - [Git](./005_Git_y_github/README.md) y Github.
+- Desafío [Encriptador](./006_challenge_encriptador/README.md).

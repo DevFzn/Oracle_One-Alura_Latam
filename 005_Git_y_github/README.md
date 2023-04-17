@@ -3,7 +3,7 @@
 ¿Que son **Git** y **Github**?
 [link](https://www.aluracursos.com/blog/git-y-github-que-son-y-primeros-pasos).
 
-Video para [inicirse](https://www.youtube.com/watch?v=-LmFK6skG7s) en git.
+Video para [iniacirse](https://www.youtube.com/watch?v=-LmFK6skG7s) en git.
 
 ## Controla y comparte tu código
 
