@@ -75,6 +75,8 @@ Lista de [ingredientes](./logica_de_programacion_1-2/recetas_armando.html) sin r
 - `let` = añade variable al scope local.
 - `const` = constante (ambito?)
 
+[JS - Tipado dinámico](https://www.aluracursos.com/blog/tipado-dinamico-con-javascript)
+
 ----
 
 ## Practicando con juegos y animaciones
@@ -105,4 +107,8 @@ cambiar color click derecho.
 - Disparando en el [blanco](./logica_de_programacion_3/programa6.html).
 - Actividad dibujando con el [mouse](./logica_de_programacion_3/dibujando_mouse.html).
 - Extra, [aimbot](./logica_de_programacion_3/aimbot.html) (tiro al blanco c/puntos).
+- JSON Web [token](https://www.aluracursos.com/blog/que-es-json-web-token).
+- Sistema [binario](https://www.aluracursos.com/blog/entienda-el-sistema-de-codigo-binario).
+- Metodologías [ágiles](https://www.aluracursos.com/blog/los-principales-modelos-de-metodologia-agil).
+- Analista [BI](https://www.aluracursos.com/blog/analista-de-bi-en-t).
 

@@ -65,8 +65,8 @@ devolver una palabra encriptada para su versión original.
 Por ejemplo:
 
 ```txt
-"gato" => "gaitober"
-gaitober" => "gato"
+gato     --> gaitober
+gaitober --> gato
 ```
 
 La página debe tener campos para inserción del texto que será encriptado o
@@ -102,6 +102,15 @@ fenterlimescimesdaidenters poberr enternfrenterntair enterstenter
 dentersaifimesober y haibenterrlober cobernclufatimesdober cobern enterximestober!
 ```
 
+<details><summary markdown="span">ver mensaje desencriptado</summary>
+
+```txt
+felicidades por enfrentar este
+desafio y haberlo concluido con exito!
+```
+
+</details>
+
 ## Proyecto
 
 - [Javascript](./html/encriptador.js)
@@ -124,9 +133,10 @@ Lista de tareas challenge encriptador
         - [x] Desarrollar la lógica de desencriptación
     - [x] Conectar función a su respectivo botón en el HTML
     - [x] Capturar el texto escrito en el campo del input del HTML
-- [x] Área para mostrar el texto encriptado/desencriptado:
-    Ocultar y mostrar diferentes elementos dependiendo del estado, comenzando
-    con una imagen que debe ser substituida por el texto encriptado/desencriptado.
+- [ ] Área para mostrar el texto encriptado/desencriptado dinámica:
+    - [x] Área para mostrar el texto encriptado/desencriptado
+    - [ ] Ocultar y mostrar diferentes elementos dependiendo del estado, comenzando
+    con una imagen que debe ser substituida por el texto encriptado/desencriptado
 - [ ] Trabajar estilos
 
 #### Recursos
@@ -138,8 +148,8 @@ Lista de tareas challenge encriptador
 - Imagen [input](./html/imagenes/input.png) trello.
 - HTML - DOM [Style display](https://www.w3schools.com/jsref/prop_style_display.asp)
 Property
-- Imagen [1](./html/imagenes/1.png) area de texto des/encriptado
-- Imagen [2](./html/imagenes/2.png) area de texto des/encriptado
+- Imagen [1](./html/imagenes/1.png) area de texto desencriptado
+- Imagen [2](./html/imagenes/2.png) area de texto desencriptado
 - Imagen boton [encriptar](./html/imagenes/boton-enc.png)
 - Imagen boton [desencriptar](./html/imagenes/)
 - Interact with the [clipboard](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard)

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!-- @author: Jair0305 - Discord -->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        
+        <canvas class="pizarra">
+
+        </canvas>
+
+        <script>
+            var pantalla = document.querySelector(".pizarra");
+            var pincel = pantalla.getContext("2d");
+
+            pantalla.width = 800;
+            pantalla.height = 800;
+
+            rojo = "#fe0000"
+            cafeOscuro = "#291105"
+            piel = "#feb27f"
+            azul = "#0000fe"
+            amarillo = "#fefe01"
+            cafeClaro = "#502d16"
+            negro = "#040000"
+
+            // pincel.fillStyle = "lightgrey"
+            // pincel.fillRect(0,0,600,400)
+
+            pincel.fillStyle = rojo
+            pincel.fillRect(200,0,250,50)
+            pincel.fillRect(150,50,450,50)
+            pincel.fillRect(250,350,50,50)
+            pincel.fillRect(250,400,50,50)
+            pincel.fillRect(250,450,50,50)
+            pincel.fillRect(400,400,50,50)
+            pincel.fillRect(400,450,50,50)
+            pincel.fillRect(250,500,200,50)
+            pincel.fillRect(200,550,50,50)
+            pincel.fillRect(450,550,50,50)
+            pincel.fillRect(300,550,100,50)
+            pincel.fillRect(150,600,400,50)
+            pincel.fillRect(150,650,150,50)
+            pincel.fillRect(400,650,150,50)
+
+            pincel.fillStyle = cafeOscuro
+            pincel.fillRect(150,100,150,50)
+            pincel.fillRect(100,150,50,50)
+            pincel.fillRect(200,150,50,50)
+            pincel.fillRect(100,200,50,50)
+            pincel.fillRect(200,200,100,50)
+            pincel.fillRect(450,200,50,50)
+            pincel.fillRect(100,250,100,50)
+            pincel.fillRect(400,250,200,50)
+
+
+            pincel.fillStyle = piel
+            pincel.fillRect(300,100,100,50)
+            pincel.fillRect(450,100,50,50)
+            pincel.fillRect(150,150,50,50)
+            pincel.fillRect(250,150,150,50)
+            pincel.fillRect(450,150,150,50)
+            pincel.fillRect(150,200,50,50)
+            pincel.fillRect(300,200,150,50)
+            pincel.fillRect(500,200,150,50)
+            pincel.fillRect(200,250,200,50)
+            pincel.fillRect(200,300,350,50)
+            pincel.fillRect(50,500,100,50)
+            pincel.fillRect(50,550,150,50)
+            pincel.fillRect(550,500,100,50)
+            pincel.fillRect(500,550,150,50)
+            pincel.fillRect(550,600,100,50)
+            pincel.fillRect(50,600,100,50)
+
+            pincel.fillStyle = negro
+            pincel.fillRect(400,100,50,50)
+            pincel.fillRect(400,150,50,50)
+
+            pincel.fillStyle = azul
+            pincel.fillRect(150,350,100,50)
+            pincel.fillRect(300,350,150,50)
+            pincel.fillRect(100,400,150,50)
+            pincel.fillRect(300,400,100,50)
+            pincel.fillRect(450,400,150,50)
+            pincel.fillRect(50,450,200,50)
+            pincel.fillRect(450,450,200,50)
+            pincel.fillRect(300,450,100,50)
+            pincel.fillRect(150,500,100,50)
+            pincel.fillRect(450,500,100,50)
+
+            pincel.fillStyle = amarillo
+            pincel.fillRect(250,550,50,50)
+            pincel.fillRect(400,550,50,50)
+            
+            pincel.fillStyle = cafeClaro
+            pincel.fillRect(100,700,150,50)
+            pincel.fillRect(450,700,150,50)
+            pincel.fillRect(50,750,200,50)
+            pincel.fillRect(450,750,200,50)
+        </script>
+    </body>
+</html>
