@@ -93,7 +93,7 @@ de desarrollo, utilizando el **Trello** de la siguiente forma:
 
 ### Modelo Figma
 
-![img](./html/imagenes/modelo_figma.png)
+![img](./imagenes/modelo_figma.png)
 
 #### Desencripta el mensaje secreto
 
@@ -113,11 +113,11 @@ desafio y haberlo concluido con exito!
 
 ## Proyecto
 
-- [Javascript](./html/encriptador.js)
-- [Home](./html/index.html)
-- [Estilo](./html/style.css)
+- [Javascript](./encriptador.js)
+- [Home](./index.html)
+- [Estilo](./style.css)
 - [Repositorio](https://github.com/DevFzn/Oracle_One-Alura_Latam/tree/master/006_challenge_encriptador/README.md)
-- [Sitio](https://github.com...)
+- [Sitio](https://devfzn.github.io/Desafio_Encriptador)
 
 ### Sitio web
 
@@ -145,13 +145,13 @@ Lista de tareas challenge encriptador
 [Figma](https://www.figma.com/file/trP3p5nEh7XUyB3n2bomjP/Alura-Challenge---Desaf%C3%ADo-1---L%C3%B3gica)
 - HTML - [input](https://developer.mozilla.org/es/docs/Web/HTML/Element/input)
 - HTML - [textarea](https://developer.mozilla.org/es/docs/Web/HTML/Element/textarea)
-- Imagen [input](./html/imagenes/input.png) trello.
+- Imagen [input](./imagenes/input.png) trello.
 - HTML - DOM [Style display](https://www.w3schools.com/jsref/prop_style_display.asp)
 Property
-- Imagen [1](./html/imagenes/1.png) area de texto desencriptado
-- Imagen [2](./html/imagenes/2.png) area de texto desencriptado
-- Imagen boton [encriptar](./html/imagenes/boton-enc.png)
-- Imagen boton [desencriptar](./html/imagenes/)
+- Imagen [1](./imagenes/1.png) area de texto desencriptado
+- Imagen [2](./imagenes/2.png) area de texto desencriptado
+- Imagen boton [encriptar](./imagenes/boton-enc.png)
+- Imagen boton [desencriptar](./imagenes/)
 - Interact with the [clipboard](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard)
 - [Clipboard](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) API
 - Configuración de [Git](https://git-scm.com/book/es/v2/Inicio---Sobre-el-Control-de-Versiones-Configurando-Git-por-primera-vez)
@@ -162,7 +162,7 @@ Property
 
 Checklist para entrega del proyecto
 
-- [ ] Publica en GitHub Pages
+- [x] Publica en GitHub Pages
 - [ ] Agregar el #challengeonecodificador5 en Github
 - [ ] Rellenar formulario de
 [envío](https://lp.alura.com.br/alura-latam-entrega-challenge-one-esp) con el

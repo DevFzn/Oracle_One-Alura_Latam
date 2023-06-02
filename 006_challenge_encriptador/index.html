@@ -13,9 +13,9 @@
     </head>
     <body>
         <main>
-            <section id="mensaje" style="border-radius: 25px; padding: 10px; background: magenta;">
+            <section id="mensaje">
                 <div>
-                    <img src="./imagenes/logo.png"/>
+                    <img id="logo" src="./imagenes/logo.png"/>
                 </div>
                 <div>
                     <label for="frase">Ingresa tu mensaje</label>
@@ -26,21 +26,22 @@
                 </div>
                 <div id="botones">
                     <img src="./imagenes/exclamacion.png"/>
-                    <p>Solo letras minúsculas y sin acentos</p>
+                    <p id="uso">Solo letras minúsculas y sin acentos</p>
                     <!--<small>Solo letras minúsculas y sin acentos</small>-->
-                    <button id="btn-encriptar">Encriptar</button>
-                    <button id="btn-desencriptar">Desencriptar</button>
+                    <button class="botones" id="btn-encriptar">Encriptar</button>
+                    <button class="botones" id="btn-desencriptar">Desencriptar</button>
                 </div>
             </section>
-            <section id="info" style="border-radius: 25px; padding: 10px; background: magenta;">
+            <section id="info">
                 <div>
                     <img src="./imagenes/mono.png">
                     <h2>Ningún mensaje fue encontrado</h2>
                     <p>Ingresa el texto que deseas encriptar o desencriptar.</p>
                 </div>
-                <div style="display: block;">
-                    <textarea cols="29" rows="15" readonly id="resultado"></textarea>
-                    <button id="btn-copiar">Copiar</button>
+                <div id="copiar">
+                    <textarea cols="29" rows="10" readonly id="resultado"></textarea>
+                    </br>
+                    <button class="botones" id="btn-copiar">Copiar</button>
                 </div>
             </section>
         </main>
