@@ -94,3 +94,105 @@
 
 Alura Blog - Que es la [metodología ágil](https://www.aluracursos.com/blog/que-es-la-metodologia-agil)
 
+## El ambiente ágil
+
+### [Gestíon ágil](https://app.aluracursos.com/course/gestion-agil-liderando-cambio)
+
+#### Gestíon Tradicional
+
+La gestión tradicional pudo haber funcionado durante mucho tiempo, pero hoy
+comienza a dar señales de que está perdiendo espacio, ya que está relacionada
+con un ambiente de baja autonomía, bajo nivel de engagement y poca motivación,
+que tienen un impacto directo en el nivel de éxito de los proyectos.
+
+#### VUCA
+
+- **Volátil**: algo que hoy se da por hecho puede ser diferente mañana.
+- **Incierto**: hay muchas dudas para lograr resolver los problemas.
+- **Complejo**: la solución no tiene necesariamente una estructura clara.
+- **Ambiguo**: lo que funciona en cierto contexto puede ser inútil en otro similar.
+
+Es necesario reducir el tiempo en el que se obtiene retroalimentación por parte
+del cliente para actuar lo más rápido posible.
+
+#### Motivación
+
+Como lo decía Ricardo Semler: "Los miedos e inseguridades crean las estructuras
+de nuestras empresas". Para atacar este problema, podemos basarnos en los 3 pilares
+de la confianza:
+
+- Dar autonomía: puedo hacer las cosas de la mejor manera que considero sea la mejor.
+- Tener propósito: todo lo que hago tiene un claro propósito con el que estoy de acuerdo.
+- Volverse experto: la empresa me da espacio para mejorar en lo que más gusta hacer.
+
+#### Liderazgo
+
+En un ambiente ágil, el liderazgo emerge naturalmente entre las personas, en
+paralelo a las habilidades mostradas para aquella posición y también dentro de
+ese momento del tiempo.
+
+Además, el liderazgo es situacional; es decir, funciona en un contexto específico
+y no es fijo, por lo que puede cambiar conforme sea necesario.
+
+[caso spotify](https://hbr.org/2017/02/how-spotify-balances-employee-autonomy-and-accountability)
+
+#### Empoderar y delegar
+
+***Delegation Poker***
+
+1. Ordenar
+2. Vender
+3. Consultar
+4. Consensuar
+5. Aconsejar
+6. Informar
+7. Delegación completa
+
+Generalmente, las personas en un alto nivel jerárquico poseen un mayor conocimiento
+e información de todo el contexto; sin embargo, estos datos son más abstractos.
+Mientras tanto, en un nivel jerárquico más bajo hay muchos más detalles, pero la
+visión está un poco más limitada.
+
+El secreto de un buen proceso de toma de decisión se basa justamente en encontrar
+el equilibrio respecto a ese conocimiento. Delegation Poker es una forma de mapear
+las decisiones y el nivel de empoderamiento dentro de las organizaciones.
+
+#### Retroalimentación y conocimiento
+
+La retroalimentación genera conocimiento y logra el crecimiento de la persona,
+haciendo que salga de una etapa de habilidad inconsciente y logrando que sea
+consciente de ella, con lo que será capaz de adquirirla.
+
+Por ello, la retroalimentación debe ser llevada a cabo con cuidado: considerar
+el contexto, dar hechos, tomar en cuenta los valores y hacer preguntas poderosas
+requieren ser usados siempre dentro del proceso. Esta herramienta genera
+conocimiento para la organización.
+
+#### Mejoras
+
+***Kaikaku***: Un gran cambio, una vez.  
+***Kaizen***: Pequeños cambios, de forma gradual.
+
+Metodologías ágiles:
+
+**Scrum**
+
+- Sprint y backlog
+- Roles
+- Ceremonias/Rituales
+- Jira
+
+**Kanban**
+
+- Visibilidad, todos son lideres
+- Etapas
+- Jira, Trello, notas
+
+Recibir retroalimentación es fundamental para acompañar el proceso de mejora
+continua. Kaizen es una de las herramientas útiles para ello.
+
+
+> [personal maps](https://management30.com/blog/personal-maps-connecting-teams-improving-team-collaboration/)
+
+### [La empresa ágil](https://app.aluracursos.com/course/empresa-agil-introduciendo-business-agility-organizaciones)
+
