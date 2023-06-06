@@ -289,3 +289,207 @@ manera sostenible y predecible.
 > Lectura: Trabajar en una [StartUp](https://www.aluracursos.com/blog/quiero-trabajar-en-una-startup-que-necesito-hacer)
 
 ### [Organización de equipos ágiles](https://app.aluracursos.com/course/organizacion-equipos-agiles-funciones-existentes-equipo)
+
+#### El equipo ágil
+
+En un equipo ágil, todo el conocimiento necesario para que el proyecto evolucione
+está dentro del mismo equipo. Esto significa tener un equipo multidisciplinario,
+que puede involucrar en el mismo equipo: vendedores, marketing, desarrolladores,
+infraestructura, RRHH, etc. Por supuesto, cada una de estas personas y áreas
+tendrá un rol diferente en el proyecto y en el futuro aprenderemos qué roles
+pueden existir.
+
+Pero el punto principal es: todo lo que el proyecto necesita en conocimiento
+para evolucionar, debe estar dentro del mismo equipo.
+
+##### Diferencia entre Modelo Waterfall o Cascada y Agile
+
+**Modelo en cascada:** favorece los problemas de comunicación (el famoso teléfono
+inalámbrico), con la necesidad de muchos documentos y protocolos, muchos traspasos
+entre equipos y, con ello, la validación de todo lo que se construyó durante el
+proceso de desarrollo de un proyecto solo ocurre al final. Por otro lado, existe
+un enfoque muy fuerte en la especialización de las personas.
+
+**Modelo ágil:** en un equipo ágil, todas las personas que participarán en el
+desarrollo del proyecto confluyen en todas las etapas de este proceso, siendo
+un solo equipo. Se centra en la inspección y adaptación de productos, la
+transparencia y la eficiencia.
+
+#### Auto-organización
+
+La auto-organización es justamente lo opuesto al mando y control.
+
+Las premisas básicas e imprescindibles para que un equipo se autoorganice es tener:
+| <!-- --> | <!-- --> |
+| - | - |
+| **Objetivo compartido** | Definir el objetivo en el que todos los miembros del equipo participarán en el desarrollo del proyecto de forma compartida |
+| **Timebox** | Tiempo necesario para que la autoorganización funcione |
+| **Restricciones** | Lo que no se debe hacer en el desarrollo del proyecto |
+
+Por ejemplo: se le asignó la tarea de organizar la fiesta de vacaciones de su
+empresa para 150 personas.
+
+¿Qué objetivos se necesitaban alcanzar, en cuánto tiempo (timebox) y qué restricciones implican?
+
+En este caso, tendríamos los 3 elementos:
+
+- **El objetivo:** organizar la fiesta de la empresa.
+- **Timebox:** debe suceder en Noviembre.
+- **Restricciones:**
+  - El presupuesto es de $30.00 por persona.
+  - Cada colaborador solo puede llevar a un invitado.
+  - La fiesta tiene que ser durante la tarde. Tiene que suceder en la ciudad de
+  la empresa, para facilitar los desplazamientos.
+
+Con esta información, el propio equipo se organizará para lograr el objetivo determinado.
+
+#### Tipos de equipos ágiles
+
+Existen tres tipos de equipos que están presentes en los ambientes ágiles:
+
+Equipos de **funcionalidad** que se enfoca en maximizar el valor en la entrega de
+un feature. **Componente**, Equipo que tiene como foco optimizar un solo elemento.
+Y **jornada del cliente**, grupos con comportamientos similares.
+
+- **Funcionalidades:** Ese equipo se organiza en torno de una funcionalidad y se
+preocupa en maximizar el valor en la entrega al usuario para una mejor experiencia
+posible. El equipo necesita ser multidisciplinario, ya que necesita trabajar en
+diversos puntos en el código.
+- **Componente:** este equipo funciona muy bien para hacer optimizaciones locales;
+sin embargo, puede ser crítico alterar un componente, ya que puede ser usado en
+diversas funcionalidades, además de garantizar la sincronización de los componentes
+que fueron alterados.
+- **Jornada del cliente:** este equipo se enfoca en grupos de clientes que poseen
+comportamiento o necesidades semejantes.
+
+#### Esquipo Scrum
+
+El equipo de Scrum es un grupo de personas que tienen como objetivo hacer productos
+excepcionales, y para que eso suceda, son necesarias 3 responsabilidades:
+
+- **Eficaz** *(Product Owner)*: responsable de asegurar que el producto a desarrollar
+tenga sentido para el mercado. De nada sirve producir el mejor producto si no tienes
+un cliente para él.
+
+- **Calidad** *(Dev. Team)*: responsable de asegurar que el producto elaborado sea
+el correcto para ese mercado específico y público objetivo.
+
+- **Eficiencia** *(Scrum Master)*: responsable de asegurar que el equipo opere de
+la mejor manera posible.
+
+Es decir, que un equipo ágil se organiza de manera que cuenta con personas que se
+encargan de asegurar que el producto a desarrollar esté alineado con lo que espera
+el mercado, que la calidad y tecnologías empleadas estén siendo adecuadas y además
+por personas responsables de asegurar que el equipo funcione de manera eficiente,
+sin cuellos de botella.
+
+#### El product owner
+
+*¿Qué es Product Owner?*
+
+Es el responsable del rol de Product Owner tiene el desafío de maximizar el valor
+que ese producto generará para el negocio.
+
+Para ello, el PO, además de tener un alto enfoque y sentido de pertenencia, deberá
+dialogar frecuentemente con el resto de áreas que forman parte de la empresa, para
+entender cuáles son los puntos clave frente a los dolores de los clientes y conocer
+a profundidad el producto y mercado en el que opera la empresa.
+
+*¿Cómo es la vida diaria de un PO?*
+
+En su vida diaria, el PO tendrá que describir lo que se debe hacer y para eso es
+necesario hablar con otras áreas para comprender las necesidades y también lo que
+se puede o no se puede hacer. Además de priorizar lo que se necesita construir,
+el PO a menudo tendrá que decir no a las características que agregan menos valor
+al negocio o proyecto en ese momento.
+
+> Ser Product Owner implica mantener interacciones de influencia continua con
+distintos actores clave dentro y fuera de la organización, situándolo en una
+posición panóptica del sistema y que por lo tanto facilita entender cómo las
+decisiones impactan en los resultados deseados.
+
+Extracto de [lectura](https://medium.com/@kleer.la/qu%C3%A9-es-el-product-owner-en-el-marco-de-scrum-y-cu%C3%A1les-son-sus-%C3%A1reas-de-atenci%C3%B3n-2bddbb232775)
+
+#### Development team
+
+Un equipo de desarrollo está compuesto por personas que pueden ser:
+
+- Especialista: alguien con profundos conocimientos sobre cualquier tema.
+- Generalista: una persona que sabe un poco de todo, pero no tiene un contenido
+profundo.
+- En forma de T: alguien con experiencia en algo, pero con conocimientos generales
+en otras cosas.
+
+Es común en el mercado de áreas no tecnológicas que utilizan métodos ágiles.
+Más aún, en estos momentos cuando las empresas están pasando por un proceso de
+transformación ágil, introduciendo agilidad empresarial en el entorno corporativo.
+
+Un equipo de desarrollo es responsable de construir, validar e integrar un
+incremento de producto. Además, este equipo está compuesto por personas que no
+tienen títulos, todos son "miembros" de ese equipo.
+
+Y una de las características más interesantes para que una persona sea parte de
+un Equipo de Desarrollo o incluso de un equipo ágil es que tiene forma de T,
+es decir, además de tener al menos una experiencia en la que es especialista,
+también logra ser generalistas, pudiendo actuar con soltura en diferentes roles
+y temas.
+
+#### Scrum master
+
+El rol de coach es una de las tareas del Scrum Master. Hacer preguntas al equipo
+que genere reflexión y asegurarse de que las personas puedan dar sus propias respuestas.
+
+La persona en el rol de Scrum Master es responsable de maximizar la eficiencia
+del Scrum Team, promover y apoyar Scrum y ayudar a mejorar las interacciones existentes.
+
+Esta persona tiene algunas características principales:
+
+- **Líder Servidor**: su principal objetivo es hacer que otras personas tengan
+éxito.
+- **Coach**: persona que puede hacer preguntas que generen reflexión.
+- **Facilitador**: puede organizar el trabajo.
+- **Maestro**: puede enseñar para el equipo.
+- **Elimina impedimentos**.
+- **Experto en Scrum**.
+- **Tiene Habilidades Sociales**: capacidad para hablar e interactuar con otras
+personas.
+- **Agente de cambio**: tiene como objetivo mejorar la organización, no solo el
+equipo scrum.
+
+#### Equipos Kanban
+
+Kanban es una evolución de cómo organizar el trabajo de un Scrum Team, sin tener
+algunos de los roles obligatorios de Scrum y con un fuerte enfoque en garantizar
+la capacidad de trabajo.
+
+El método Kanban consta de tareas y se divide en 5 etapas: documentación,
+creación de prototipos, codificación, pruebas y entrega.
+
+![img](./kanban_.png)
+
+Se usan *post-its* en cada uno de los pasos, que generalmente contienen una breve
+explicación de la tarea. Un determinado grupo de personas trabaja en cada etapa,
+que puede ser una, dos o incluso más.
+
+Tenemos los roles opcionales dentro de la herramienta Kanban que son:
+
+- **Service Delivery Manager**: es la persona que vela por que los artículos no se
+detengan, tiene el rol de facilitador en el flujo de cambios y mejoras.
+- **Service Request Manager**: su función principal es ordenar y colocar los artículos,
+qué artículo tendrá el mayor impacto y retorno de la inversión.
+
+Kanban es un tema extremadamente rico dentro de agile, y una forma poderosa de
+visualizar y limitar el trabajo que está siendo hecho por un equipo.
+
+> Lectura: Para conocer y profundizar más sobre [Kanban](https://marvin-soto.medium.com/la-metodolog%C3%ADa-kanban-6ab002502831).
+
+> Scrum además de tener roles definidos y características marcadas para los equipos,
+nos define también algunos artefactos para ayudarnos en nuestro dia a dia con scrum.
+> Lectura: Profunzando en [Scrum](https://medium.com/@andrewdjandrw/qu%C3%A9-es-scrum-674c6b791af4)
+
+----
+
+### Alura blog
+
+- Principales modelos de [metodología ágil](https://www.aluracursos.com/blog/los-principales-modelos-de-metodologia-agil)
+- Implementar [cultura de aprendizaje](https://www.aluracursos.com/blog/como-implementar-una-cultura-de-aprendizaje-en-tu-empresa)
