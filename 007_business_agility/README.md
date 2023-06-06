@@ -191,8 +191,101 @@ Metodologías ágiles:
 Recibir retroalimentación es fundamental para acompañar el proceso de mejora
 continua. Kaizen es una de las herramientas útiles para ello.
 
-
-> [personal maps](https://management30.com/blog/personal-maps-connecting-teams-improving-team-collaboration/)
+> Lectura: Personal [maps](https://management30.com/blog/personal-maps-connecting-teams-improving-team-collaboration/)
 
 ### [La empresa ágil](https://app.aluracursos.com/course/empresa-agil-introduciendo-business-agility-organizaciones)
 
+Al eliminar burocracias innecesarias en los procesos, es posible hacer que una
+organización sea más adaptable a los cambios, porque cuando un cambio es necesario,
+será menos traumático, ya que habrá menos barreras para el cambio.
+
+Cuando hablamos de agilidad, eso es exactamente lo que queremos, una mejor
+adaptabilidad a los cambios y no, como las malas interpretaciones que ocurren,
+hacen que un entorno sea más rápido.
+
+#### Identificando la complejidad
+
+Los problemas se dividen básicamente en dos grupos: **Intelectivo** o **Subjetivo**.
+
+Los problemas subjetivos son aquellos que tienen más de una forma de resolverse
+y solo sabemos si la forma utilizada fue la más correcta después de intentar resolverlo.
+Cuantos más problemas subjetivos tengamos, más complejo podemos decir que es el
+entorno que estamos mapeando.
+
+Por otro lado, un problema intelectual es aquel en el que identificamos una única
+forma posible de resolverlo y esa forma ya está probada y comprobada.
+Esto hace que un entorno que tiene más procesos y problemas intelectuales sea menos
+complejo.
+
+
+> Se comentan estructuras de organización
+
+#### Radiografía de una empresa
+
+Cuando buscamos un entorno más ágil para nuestra corporación, uno de los principales
+desafíos que encontramos es reducir los silos existentes entre las áreas.
+
+Los silos son aquellas áreas que operan de forma independiente entre sí y que
+muchas veces generan incluso desalineación en el negocio (una compitiendo y no
+colaborando con la otra).
+
+Aprendimos que para reducir estos silos, necesitamos hacer que estas áreas comiencen
+a integrar sus procesos co-creándolos y generando un compromiso entre ellos,
+reduciendo burocracias y mediante metas compartidas.
+
+Finalmente, incluso es posible romper estos silos creando estructuras
+multidisciplinares, que simplifican las burocracias, hacen que las áreas sean
+más conocedoras y, en consecuencia, más ágiles.
+
+#### Enfoque en la generación de valor
+
+Las empresas ágiles tienen un enfoque muy fuerte en generar valor para el negocio.
+
+Una forma de mapear dentro de la organización cuáles son las unidades que generan
+valor es identificar las unidades de valor más pequeñas, es decir, un grupo mínimo
+de funciones e iniciativas que trabajando en conjunto pueden hacer que un producto
+o iniciativa genere un resultado para el negocio.
+
+Este mapeo es importante para encontrar posibles silos existentes y mapear qué
+puntos de integración entre áreas pueden causar cuellos de botella que impiden
+que una empresa sea realmente ágil.
+
+#### Como aprende una empresa a ser ágil
+
+Learning 3.0, aprendizaje emergente.
+
+- Comprendiendo el contexto.
+- Problematizar, Encontrar los problemas.
+- Investigar posibles soluciones.
+- Conectar, soluciones con la realidad de la empresa.
+- Practicar soluciones.
+- Compartir soluciones y resultados.
+
+> Cuando hablamos de un proceso de transformación ágil, no hay recetas.
+No hay procesos mágicos que solucionen nuestro problema.
+Todo debe contextualizarse dentro de la realidad de la empresa y
+pensando en lo que es factible para este entorno.
+
+[Management 3.0](https://www.aluracursos.com/blog/que-es-management-3-0-y-por-que-aplicarlo-en-tu-empresa)
+
+1. **Energizar personas** Para que la estrategia sea exitosa, es importante involucrar
+a las personas y mantenerlas siempre creativas y motivadas para hacer lo mejor.
+2. **Capacitar personas** Los equipos deben estar autoorganizados y, por lo tanto,
+necesitan autorización y confianza de la gerencia.
+3. **Alinear restricciones** Si bien se alienta a los equipos a autogestionarse, es
+importante traer reglas y limitaciones para que una mayor libertad no se vuelva
+tóxica para la empresa.
+4. **Desarrollar habilidades** Un equipo, dado que se autoorganiza, también debe ser
+autosuficiente. Por esta razón, es necesario capacitar a los empleados y también
+se pueden crear equipos multidisciplinarios, en los que todos puedan hacer su parte
+para avanzar en un proyecto.
+5. **Aumentar las estructuras** Con un mayor enfoque en la comunicación y la
+colaboración entre equipos, se fomenta un crecimiento consciente del negocio con
+un enfoque en la calidad.
+6. **Mejorar todo Finalmente**, se buscan mejoras constantes y los errores deben verse
+como oportunidades de mejora. Con esto, es posible apalancar el negocio de una
+manera sostenible y predecible.
+
+> Lectura: Trabajar en una [StartUp](https://www.aluracursos.com/blog/quiero-trabajar-en-una-startup-que-necesito-hacer)
+
+### [Organización de equipos ágiles](https://app.aluracursos.com/course/organizacion-equipos-agiles-funciones-existentes-equipo)

@@ -163,9 +163,13 @@ Property
 Checklist para entrega del proyecto
 
 - [x] Publica en GitHub Pages
-- [ ] Agregar el #challengeonecodificador5 en Github
-- [ ] Rellenar formulario de
+- [x] Agregar el #challengeonecodificador5 en Github
+- [x] Rellenar formulario de
 [envío](https://lp.alura.com.br/alura-latam-entrega-challenge-one-esp) con el
 enlace a la GitHub Page del proyecto
-- [ ] Revisar e-mail y obtén tu Badge
+- [x] Revisar e-mail y obtén tu Badge
 - [ ] Publica un video y/o tu proyecto en Linkedin
+
+#### Badge
+
+![img](./imagenes/badge_encriptador.png)
