@@ -1,2 +1,6 @@
 *.pdf
 test/
+.idea/
+out/
+*.class
+*.iml
