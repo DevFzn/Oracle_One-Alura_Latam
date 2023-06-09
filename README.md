@@ -29,3 +29,5 @@ primoridiales en programación con Javascript.
 
 - [Business Agility](./007_business_agility/README.md)
 - [Java](./008_java_oo/README.md) Orientado a Objetos
+  - [Primeros pasos](./008_java_oo/primeros_pasos.md)
+  - [Orientación a objetos](./008_java_oo/orientacion_obj.md)
