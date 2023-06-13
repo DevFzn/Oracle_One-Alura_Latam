@@ -191,9 +191,9 @@ flowchart LR
 subgraph <b>JDK</b>
 subgraph <b>JRE</b>
   c(JVM)
-  style c fill:#f9f,stroke:#333,stroke-width:2px
+  style c fill:#f9f,stroke:#000,stroke-width:2px
   d(Librerías)
-  style d fill:#f9f,stroke:#333,stroke-width:2px
+  style d fill:#f9f,stroke:#000,stroke-width:2px
 end
   a(Tools)
 end
@@ -440,6 +440,8 @@ Funcionamiento del cast implícito y explícito en la sgte. tabla.
 | `double` | 8 bytes |
 
 ### Char y String
+
+String [format()](https://www.javatpoint.com/java-string-format)
 
 [EjemploCaracteres.java](./intellij_idea/java_primeros_pasos/src/EjemploCaracteres.java)
 
@@ -696,8 +698,8 @@ public class TablaMultiplicacion {
 ```java
 public class EjercicioMatriz {
     public static void main(String[] args) {
-        for (int col = 0; col <= 10; col++){
-            for (int fila = 0; fila < col; fila++){
+        for (int fila = 0; fila <= 10; fila++){
+            for (int columna = 0; columna < fila; columna++){
                 System.out.print("* ");
             }
             System.out.println();

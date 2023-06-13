@@ -1,7 +1,7 @@
 public class EjercicioMatriz {
     public static void main(String[] args) {
-        for (int col = 0; col <= 10; col++){
-            for (int fila = 0; fila < col; fila++){
+        for (int fila = 0; fila <= 10; fila++){
+            for (int columna = 0; columna < fila; columna++){
                 System.out.print("* ");
             }
             System.out.println();
