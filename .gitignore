@@ -4,3 +4,11 @@ test/
 out/
 *.class
 *.iml
+.metadata/
+bin/
+.settings/
+.classpath
+.project
+*.uml
+*.uxf
+*.umlcd

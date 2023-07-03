@@ -11,7 +11,6 @@ public class TestReferencia2 {
 
         // referencia
         System.out.println(cuentaDiego.getTitular());    // Cliente@2a84aee7
-        System.out.println(diego);                                     // Cliente@2a84aee7
+        System.out.println(diego);                       // Cliente@2a84aee7
     }
-
 }

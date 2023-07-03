@@ -1,5 +1,7 @@
 # Java Entendiendo la [Orientación a Objetos](https://app.aluracursos.com/course/java-parte2-introduccion-orientada-objetos)
 
+Intro [POO](https://www.youtube.com/watch?v=Oigen2sjagk)
+
 Diferencias con el paradigma **procedural**: se utilizó como práctica de
 programación antes de la introducción de lenguajes orientados a objetos.
 La necesidad de validar el numeroIdentidad en un formulario se utilizó como
@@ -87,7 +89,7 @@ ejemplifica un atributo de clase con valor predeterminado.
   }
   ```
 
-- Definicion de metodos con retorno y uso de *this* para atributos de clase
+- Definición de metodos con retorno y uso de *this* para atributos de clase
 
   ```java
   // Entidad Cuenta

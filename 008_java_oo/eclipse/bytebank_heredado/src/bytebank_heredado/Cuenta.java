@@ -1,25 +1,25 @@
-// Entidad Cuenta
-public class Cuenta {
-    private double saldo;
+package bytebank_heredado;
+
+public abstract class Cuenta {
+    protected double saldo;
     private int agencia;
     private int numero;
     private Cliente titular = new Cliente();
     private static int contador = 0;
 
-    public Cuenta(int agencia) {
+    public Cuenta(int agencia, int numero) {
         if (agencia <= 0) {
             System.out.println("No se permiten valores negativos");
             this.agencia = 1;
         } else {
             this.agencia = agencia;
         }
+        this.numero = numero;
         contador++;
         System.out.println("Cuentas creadas: "+contador);
     }
 
-    public void depositar(double valorDeposito){
-        this.saldo += valorDeposito;
-    }
+    public abstract void depositar(double valorDeposito);
 
     public boolean retirar(double valorRetiro) {
         if (this.saldo >= valorRetiro) {
@@ -31,8 +31,7 @@ public class Cuenta {
     }
 
     public boolean transferir(double montoTransferencia, Cuenta cuenta){
-        if (montoTransferencia <= this.saldo) {
-            this.saldo -= montoTransferencia;
+        if (this.retirar(montoTransferencia)) {
             cuenta.depositar(montoTransferencia);
             return true;
         } else {
