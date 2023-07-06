@@ -12,6 +12,7 @@ de jetbrains (2022).
 <style>div.mermaid{text-align: center;}</style>
 
 ```mermaid
+%%{init: {'theme':'dark'}}%%
 graph TD
     A(Código Java)-->B(Ejecutable JAR)
     B-->C(Máquina Virtual JVM)
@@ -187,13 +188,14 @@ public class HolaMundo {
 ## Primeros Pasos
 
 ```mermaid
+%%{init: {'theme':'dark'}}%%
 flowchart LR
 subgraph <b>JDK</b>
 subgraph <b>JRE</b>
   c(JVM)
-  style c fill:#f9f,stroke:#000,stroke-width:2px
+  style c fill:#3f3f3f,stroke:#000,stroke-width:2px
   d(Librerías)
-  style d fill:#f9f,stroke:#000,stroke-width:2px
+  style d fill:#3f3f3f,stroke:#000,stroke-width:2px
 end
   a(Tools)
 end
