@@ -31,3 +31,6 @@ primoridiales en programación con Javascript.
 - [Java](./008_java_oo/README.md) Orientado a Objetos
   - [Primeros pasos](./008_java_oo/primeros_pasos.md)
   - [Orientación a objetos](./008_java_oo/orientacion_obj.md)
+  - [Herencia e Interfaces](./008_java_oo/herencia_interfaces.md)
+  - Un poco sobre [Enums y Annotations](./008_java_oo/enums_anotaciones_java.md)
+  - [Excepciones](./008_java_oo/excepciones.md)

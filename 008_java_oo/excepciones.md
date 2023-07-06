@@ -253,3 +253,203 @@ comprueba obligatoriamente y las que no.
   - Los segundos están **unchecked** y se crean como descendientes de
   **RuntimeException**.
 
+## Ejemplo de manejo de checked exception
+
+
+Clase
+[SaldoInsuficienteExcepction.java](./eclipse/bytebank_excep/src/bytebank_excep/SaldoInsuficienteExcepction.java)
+, proyecto [bytebank](./eclipse/bytebank_excep/src/bytebank_excep/)
+
+```java
+public class SaldoInsuficienteExcepction extends Exception {
+    public SaldoInsuficienteExcepction(String mensaje) {
+        super(mensaje);
+    }
+}
+```
+
+Clase [Cuenta.java](./eclipse/bytebank_excep/src/bytebank_excep/Cuenta.java)
+
+```java
+    public void retirar(double valorRetiro) throws SaldoInsuficienteExcepction {
+        if (this.saldo < valorRetiro) {
+            throw new SaldoInsuficienteExcepction("Saldo insuficiente");
+        }
+        this.saldo -= valorRetiro;
+    }
+
+    public boolean transferir(double montoTransferencia, Cuenta cuenta) throws SaldoInsuficienteExcepction{
+        if (this.saldo >= montoTransferencia) {
+            try {
+                this.retirar(montoTransferencia);
+            } catch (SaldoInsuficienteExcepction e) {
+                e.printStackTrace();
+            }
+            cuenta.depositar(montoTransferencia);
+            return true;
+        } else {
+            throw new SaldoInsuficienteExcepction("Saldo insuficiente\nSaldo : $ "+
+                                                  this.saldo+"\nRetiro: $ "+montoTransferencia);
+        }
+    }
+}
+```
+
+Clase [CuentaCorriente.java](./eclipse/bytebank_excep/src/bytebank_excep/CuentaCorriente.java)
+
+```java
+    @Override
+    public void retirar(double valorRetiro) throws SaldoInsuficienteExcepction {
+        double comision = 0.2;
+        System.out.println("Ejecutando retiro sobreescrito");
+        super.retirar( valorRetiro + comision );
+    }
+
+    @Override
+    public void depositar(double valorDeposito) {
+        this.saldo += valorDeposito;
+    }
+}
+```
+
+Test
+[TestCuentaExceptionSaldo.java](./eclipse/bytebank_excep/src/bytebank_excep/TestCuentaExceptionSaldo.java)
+
+```java
+public class TestCuentaExceptionSaldo {
+    public static void main(String[] args) {
+        Cuenta ca = new CuentaAhorro(11, 22);
+        System.out.println("Deposito 1000");
+        ca.depositar(1000);
+        try {
+            System.out.println("Retirando 1000");
+            ca.retirar(1000);
+            System.out.println("Retiro OK");
+            
+            //System.out.println("Retirando 1");
+            //ca.retirar(1);
+            //System.out.println("Retiro OK");
+            
+            Cuenta cc = new CuentaCorriente(11, 33);
+            cc.depositar(1000);
+            cc.transferir(500, ca);
+            cc.transferir(5000, ca);
+            System.out.println(ca.getSaldo());
+            System.out.println(cc.getSaldo());
+        } catch (SaldoInsuficienteExcepction e) {
+            e.printStackTrace();
+        }
+        System.out.println("Fin Programa");
+    }
+}
+```
+
+Salida del programa con mensaje personalizado del error  `Saldo: $499.8` y
+`Retiro: $5000.0`, incluyendo valores de variables
+
+```java
+Deposito 1000
+Retirando 1000
+Retiro OK
+Cuentas creadas: 2
+Ejecutando retiro sobreescrito
+bytebank_excep.SaldoInsuficienteExcepction: Saldo insuficiente
+Saldo : $ 499.8
+Retiro: $ 5000.0
+    at bytebank_excep/bytebank_excep.Cuenta.transferir(Cuenta.java:41)
+    at bytebank_excep/bytebank_excep.TestCuentaExceptionSaldo.main(TestCuentaExceptionSaldo.java:20)
+Fin Programa
+```
+
+### finally
+
+[Conexion.java](./eclipse/pila_ejecucion/src/pila_ejecucion/Conexion.java)
+
+```java
+public class Conexion {
+
+    public Conexion() {
+        System.out.println("Abriendo conexion");
+        //throw new IllegalStateException();
+    }
+
+    public void leerDatos() {
+        System.out.println("Recibiendo datos");
+        throw new IllegalStateException();
+    }
+
+    public void cerrar() {
+        System.out.println("Cerrando conexion");
+    }
+}
+```
+
+[TestConexion.java](./eclipse/pila_ejecucion/src/pila_ejecucion/TestConexion.java)
+
+```java
+public class TestConexion {
+    public static void main(String[] args) {
+        Conexion con = null;
+        try {
+            con = new Conexion();
+            con.leerDatos();
+        } catch (IllegalStateException e) {
+            System.out.println("Ejecutando catch");
+            e.printStackTrace();
+        } finally {
+            System.out.println("Ejecutando finally");
+            if (con != null) {
+                con.cerrar();
+            }
+        }
+    }
+}
+```
+
+## try with resources
+
+Similar a los ***context managers*** de Python. Se usan con **recursos**, donde
+la clase instanciada implementa la interfáz `AutoCloseable`, que requiere
+implementar un método `close()`.
+
+[Conexion.java](./eclipse/pila_ejecucion/src/pila_ejecucion/Conexion.java)
+
+```java
+public class Conexion implements AutoCloseable {
+
+    public Conexion() {
+        System.out.println("Abriendo conexion");
+        //throw new IllegalStateException();
+    }
+
+    public void leerDatos() {
+        System.out.println("Recibiendo datos");
+        throw new IllegalStateException();
+    }
+
+    public void cerrar() {
+        System.out.println("Cerrando conexion");
+    }
+
+    @Override
+    public void close() throws Exception {
+        cerrar();
+    }
+}
+```
+
+[TestConexion.java](./eclipse/pila_ejecucion/src/pila_ejecucion/TestConexion.java)
+
+```java
+public class TestConexion {
+    public static void main(String[] args) throws Exception {
+        try (Conexion con = new Conexion()){
+            con.leerDatos();
+        } catch (IllegalStateException e) {
+            System.out.println("Ejecutando catch");
+            e.printStackTrace();
+        }
+    }
+}
+```
+
