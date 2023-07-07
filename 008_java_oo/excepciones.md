@@ -130,7 +130,7 @@ Fin Método1
 Fin Main
 ```
 
-### Ejemplo clase exception propia heredando de RuntimeException
+### Lanzando exception heredando de RuntimeException
 
 ```java
     ...
@@ -163,7 +163,7 @@ Fin Método1
 Fin Main
 ```
 
-### Ejemplo clase exception propia heredando de RuntimeException
+### Lanzando exception heredando de Exception
 
 ```java
     ...

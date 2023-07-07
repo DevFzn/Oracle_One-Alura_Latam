@@ -34,3 +34,4 @@ primoridiales en programación con Javascript.
   - [Herencia e Interfaces](./008_java_oo/herencia_interfaces.md)
   - Un poco sobre [Enums y Annotations](./008_java_oo/enums_anotaciones_java.md)
   - [Excepciones](./008_java_oo/excepciones.md)
+  - [Bibliotecas Principales](./008_java_oo/bibliotecas_principales.md)

@@ -11,3 +11,5 @@ Entendiendo [Herencia e Interfaces](./herencia_interfaces.md)
 - Extra [Enums y anotaciones](./enums_anotaciones_java.md) java
 - [Curso](https://app.aluracursos.com/course/java-excepciones) Lanzar y controlar
 [Excepciones](./excepciones.md)
+- [Curso](https://app.aluracursos.com/course/java-lang-clase-object-string)
+[Bibliotecas Principales](./bibliotecas_principales.md) de Java
