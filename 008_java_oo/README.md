@@ -13,3 +13,5 @@ Entendiendo [Herencia e Interfaces](./herencia_interfaces.md)
 [Excepciones](./excepciones.md)
 - [Curso](https://app.aluracursos.com/course/java-lang-clase-object-string)
 [Bibliotecas Principales](./bibliotecas_principales.md) de Java
+- [Curso](https://app.aluracursos.com/course/java-util-coleciones-wrappers-lambda-expressions)
+[java.util](./java_util.md)

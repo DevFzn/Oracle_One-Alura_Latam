@@ -188,7 +188,7 @@ public class HolaMundo {
 ## Primeros Pasos
 
 ```mermaid
-%%{init: {'theme':'dark'}}%%
+%%{init: {'theme': 'dark','themeVariables': {'clusterBkg': '#2b2f38'}}}%%
 flowchart LR
 subgraph <b>JDK</b>
 subgraph <b>JRE</b>
