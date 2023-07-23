@@ -256,7 +256,7 @@ public interface Autenticable {
 ```
 
 Utilización de clase **utilitaria**
-[Autenticable](./eclipse/bytebank_heredado/src/bytebank_heredado/AutenticacionUtil.java)
+[AutenticacionUtil](./eclipse/bytebank_heredado/src/bytebank_heredado/AutenticacionUtil.java)
 
 ```java
 public class AutenticacionUtil {

@@ -866,6 +866,64 @@ Sumario
 con colecciones, principalmente listas
 
 
-## Clase anonima y lambda
+## Clase anónima y lambda
 
+### Clase anónima
 
+Implementación de clase anónima al ordenar lista,
+[TestOrdenLista.java](./bibliotecas/bytebank/src/com/bytebank/test/TestOrdenLista.java)
+
+```java
+        lista.sort(new Comparator<Cuenta>() {
+            @Override
+            public int compare(Cuenta o1, Cuenta o2) {
+                return (Integer.compare(o1.getNumero(), o2.getNumero()));
+            }
+        });
+```
+
+```java
+        Collections.sort(lista, new Comparator<Cuenta>() {
+            @Override
+            public int compare(Cuenta o1, Cuenta o2) {
+                return o1.getTitular().getNombre().compareTo(o2.getTitular().getNombre());
+            }
+        });
+```
+
+Estas clases son creadas por Java, se pueden ver los archivos compilados como 
+`TestOrdenLista$1.class` y `TestOrdenLista$2.class`
+
+### Lambda
+
+Las funciones lambdas provienen de la programación funcional y corresponden
+con funciones de Java que normalmente son anónimas y "se escriben en una línea"
+donde se usan. Como cualquier función puede recibir argumentos y devuelven
+uno o ningún valor de retorno.
+
+```java
+public class TestLambda {
+        ...
+        // Lambda
+        lista.sort((Cuenta o1, Cuenta o2) ->
+                Integer.compare(o1.getNumero(), o2.getNumero())
+            );
+        
+        System.out.println("Despues de ordenar por nro. de cta.");
+        for (Cuenta cuenta : lista) {
+            System.out.println(cuenta);
+        }
+
+        Collections.sort(lista, (c1, c2) -> 
+                c1.getTitular().getNombre().compareTo(c2.getTitular().getNombre())
+                );
+
+        System.out.println("Despues de ordenar por nombre:");
+
+        lista.forEach(cuenta -> System.out.println(cuenta));
+        }
+    }
+}
+```
+
+- [Lectura - interface funcional](https://www.arquitecturajava.com/java-8-functional-interfaces-y-sus-tipos/)

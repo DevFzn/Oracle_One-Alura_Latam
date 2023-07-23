@@ -1,1 +1,1 @@
-memberSearchIndex = [{"p":"com.bytebank.test","c":"TestSortArrays","l":"main(String[])","u":"main(java.lang.String[])"},{"p":"com.bytebank.test","c":"TestSortArrays","l":"TestSortArrays()","u":"%3Cinit%3E()"}];updateSearchResults();
+memberSearchIndex = [{"p":"com.bytebank.test","c":"TestLambda","l":"main(String[])","u":"main(java.lang.String[])"},{"p":"com.bytebank.test","c":"TestLambda","l":"TestLambda()","u":"%3Cinit%3E()"}];updateSearchResults();
