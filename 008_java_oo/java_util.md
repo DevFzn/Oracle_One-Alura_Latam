@@ -146,7 +146,7 @@ Forma literal
 int[] refs = {1,2,3,4,5};
 ```
 
-###Sumario
+### Sumario
 
 - Un array es una estructura de datos y se usa para almacenar elementos (valores
 primitivos o referencias)

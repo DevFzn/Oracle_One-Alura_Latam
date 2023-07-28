@@ -5,7 +5,7 @@
 
 main {
     display: flex;
-    background: magenta;
+    background:  #0079db;
     /*align-content: center;*/
     justify-content: center;
     flex-wrap: wrap;
@@ -15,25 +15,41 @@ main {
 
 #logo {
     padding: 2%;
+    margin-bottom: 50px;
 }
+
+label {
+    align-content: center;
+    padding: 5px;
+}
+
+button{
+    margin: 10px;
+}
+
 
 #mensaje {
     margin-left: 4%;
     margin-right: 2%;
     margin-top: 3%;
     margin-bottom: 3%;
-    background: #006ef9;
-    border-radius: 25px;
     padding: 1%;
     width: 100%;
     max-width: fit-content;
 }
 
+#frase {
+    margin: 10px;
+}
+
 #uso {
-    font-weight: lighter;
+    margin: 10px;
+    font-family: monospace;
+    font-size: small;
 }
 
 #info {
+    text-align: center;
     margin-left: 2%;
     margin-right: 4%;
     margin-top: 3%;
@@ -41,8 +57,18 @@ main {
     background: #006ef9;
     border-radius: 25px;
     padding: 1%;
-    width: 100%;
-    max-width: fit-content;
+    width: 40%;
+}
+
+#mono {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#info h2{
+    padding: 10px
 }
 
 #copiar{
@@ -55,6 +81,6 @@ main {
 }
 
 footer {
-    background-color: #0079db;
+    background-color: #d63533;
     padding: 1%;
 }
