@@ -5,7 +5,10 @@
 Algunas [estadisticas](https://www.jetbrains.com/es-es/lp/devecosystem-2022/java/)
 de jetbrains (2022).
 
-![img](./devstats.png)
+<p align="center">
+    <img style="align: center;" width="100%" src="./devstats.png"/>
+    <br/><br/>
+</p>
 
 ### Máquina Virtual Java - JVM
 

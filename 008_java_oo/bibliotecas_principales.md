@@ -194,7 +194,7 @@ El ejecutable
 [TestLibreria.java](#creación-de-package-test-y-clase-testlibreria)
 
 > **Note** Revisar la opciones de exportación para incluir o no código fuente
-del paquete y/o del JKD.
+del paquete y/o del JDK.
 
 ```java
 package com.bytebank.test;
