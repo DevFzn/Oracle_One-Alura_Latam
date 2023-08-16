@@ -434,9 +434,9 @@ anteceden y preceden
 ```mermaid
 %%{init: {'theme': 'dark','themeVariables': {'clusterBkg': '#2b2f38'}}}%%
 graph LR
-    c1(cc1)-->c2(cc2)-->c1
-    c2-->c3(cc3)-->c2
-    c3-->c4(cc4)-->c3
+    c1((cc1))-->c2((cc2))-->c1
+    c2-->c3((cc3))-->c2
+    c3-->c4((cc4))-->c3
 ```
 
 ```java
@@ -605,17 +605,19 @@ public class TestRepasoArray {
 
 ```mermaid
 %%{init: {'theme': 'dark','themeVariables': {'clusterBkg': '#2b2f38'}, 'flowchart': {'curve': 'monotoneX'}}}%%
-flowchart RL
-        jln(java.lang.number)-->jld(java.lang.Double)--bytes-->8
-        jln-->jlf(java.lang.Float)--bytes-->4
-        jln-->jll(java.lang.Long)--bytes-->8
-        jln-->jli(java.lang.Integer)--bytes-->4
-        jln-->jls(java.lang.Short)--bytes-->2
-        jln-->jlb(java.lang.Byte)--bytes-->1
-        jln-->jlc(java.lang.Character)--bytes-->2
-        jln-->jlbol(java.lang.Boolean)--bytes-->docs(JVM docs)
+flowchart LR
+        jln(java.lang.number)-->jld(java.lang.Double)-->b8
+        jln-->jlf(java.lang.Float)-->b4((4 bytes))
+        jln-->jll(java.lang.Long)-->b8((8 bytes))
+        jln-->jli(java.lang.Integer)-->b4
+        jln-->jls(java.lang.Short)-->b2((2 bytes))
+        jln-->jlb(java.lang.Byte)-->b1((1 byte))
+        jln-->jlc(java.lang.Character)-->b2
+        jln-->jlbol(java.lang.Boolean)-->docs{{JVM docs}}
     click docs "https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-2.html#jvms-2.3.4" "Documentación Java" _blank
 ```
+
+<br/>
 
 ```java
     public static void main(String[] args) {

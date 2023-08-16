@@ -13,3 +13,4 @@ bin/
 *.uml
 *.uxf
 *.umlcd
+target/

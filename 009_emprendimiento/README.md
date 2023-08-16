@@ -5,7 +5,7 @@
 - [Curso](https://app.aluracursos.com/course/lean-startup-metodo-eficaz-idea-negocio-empresa),
 Resumen [Lean Startup](./lean_startup.md)
 - [Curso](https://app.aluracursos.com/course/emprendimiento-idea-plan-negocios),
-Resumen [Emprendimiento]()
+Resumen [Emprendimiento](./emprendimiento.md)
 - [Curso](https://app.aluracursos.com/course/pitch-entrevistas-presentaciones-impactantes),
 Resumen [Pitch para entrevistas]()
   - Artículo

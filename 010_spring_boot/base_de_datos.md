@@ -292,7 +292,7 @@ realizado su primera compra.
 
 ```sql
 -- show databases;
-use jugos;
+USE jugos;
 CREATE TABLE cliente(
                 dni VARCHAR(20),
                 nombre VARCHAR(150),
@@ -317,7 +317,7 @@ CREATE TABLE cliente(
 #### Creación de tabla **`vendedor`**
 
 ```sql
-use jugos;
+USE jugos;
 CREATE TABLE vendedor(
                 matricula VARCHAR(4),
                 nombre VARCHAR(100),
@@ -328,7 +328,7 @@ CREATE TABLE vendedor(
 #### Elimnar tabla
 
 ```sql
-use jugos;
+USE jugos;
 -- CREATE TABLE vendedor2(
 --                 matricula VARCHAR(4),
 --                 nombre VARCHAR(100),
