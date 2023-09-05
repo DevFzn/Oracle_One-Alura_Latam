@@ -15,10 +15,10 @@ public class PruebaConexion {
 	private final static String dbpass = "alura";
 	
 	public static void main(String[] args) throws SQLException {
-		System.out.println("hola");
+		System.out.println("Intentando conexión con DB");
 		Connection con = DriverManager.getConnection(dburl, dbuser, dbpass);
 		con.close();
-		System.out.println("chao");
+		System.out.println("Prueba OK, conexión cerrada");
 	}
 
 }

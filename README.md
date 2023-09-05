@@ -47,3 +47,5 @@ primoridiales en programación con Javascript
 - [Emprendimiento](./009_emprendimiento/)
 - [Spring Boot](./010_spring_boot/README.md)
   - [Base de datos](./010_spring_boot/base_de_datos.md)
+  - [JDBC](./010_spring_boot/jdbc.md)
+  - [Persistencia con JPA - Hibernate](./010_spring_boot/jpa_persistencia_hibernate.md)

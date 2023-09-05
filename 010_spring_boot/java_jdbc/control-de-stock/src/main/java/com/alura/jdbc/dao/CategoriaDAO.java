@@ -18,7 +18,7 @@ public class CategoriaDAO {
     }
     
     public void guardar(Categoria categoria) {
-    	try {
+        try {
             final PreparedStatement statement = con.prepareStatement(
                     "INSERT INTO categoria(nombre) VALUES(?)",
                     Statement.RETURN_GENERATED_KEYS);
@@ -33,22 +33,22 @@ public class CategoriaDAO {
     private void ejecutaRegistro(Categoria categoria, PreparedStatement statement)
             throws SQLException {
         statement.setString(1, categoria.getNombre());
-    	statement.execute();
-    	final ResultSet resultSet = statement.getGeneratedKeys();
-    	try (resultSet) {
+        statement.execute();
+        final ResultSet resultSet = statement.getGeneratedKeys();
+        try (resultSet) {
             while (resultSet.next()) {
                 categoria.setId(resultSet.getInt(1));
                 System.out.println(String.format("Categoria agregada %s: ", categoria));
             }
-    	}
+        }
     }
 
     public List<Categoria> listar() {
         List<Categoria> resultado = new ArrayList<>();
         final String query = "SELECT ID, NOMBRE FROM categoria;";
         System.out.println(query);
-		try {
-		    
+        try {
+            
             final PreparedStatement statement = con.prepareStatement(query);
             try (statement) {
                 statement.execute();
@@ -62,14 +62,14 @@ public class CategoriaDAO {
                 }
                 return resultado;
             }
-		} catch (SQLException e) {
-		    throw new RuntimeException(e);
-		}
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     
     public int modificar(Categoria categoria) {
-		try {
-		    final String query = "UPDATE categoria SET NOMBRE=? WHERE ID=?;";
+        try {
+            final String query = "UPDATE categoria SET NOMBRE=? WHERE ID=?;";
             final PreparedStatement statement = con.prepareStatement(query);                    
             try (statement) {
                 statement.setString(1, categoria.getNombre());
@@ -78,13 +78,13 @@ public class CategoriaDAO {
                 int resultado = statement.getUpdateCount();
                 return resultado;
             }
-		} catch (SQLException e) {
-		    throw new RuntimeException(e);
-		}
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public int eliminar(Integer id) {
-		try {
+        try {
             final PreparedStatement statement = con.prepareStatement("DELETE FROM categoria WHERE ID=?;");
             try (statement) {
                 statement.setInt(1, id);
@@ -92,9 +92,9 @@ public class CategoriaDAO {
                 int resultado = statement.getUpdateCount();
                 return resultado;
             }
-		} catch (SQLException e) {
-		    throw new RuntimeException(e);
-		}
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<Categoria> listarConProductos() {
@@ -102,7 +102,7 @@ public class CategoriaDAO {
         final String query = "SELECT C.ID, C.NOMBRE, P.ID, P.NOMBRE, P.CANTIDAD FROM categoria C "
                 + "INNER JOIN producto P ON C.ID = P.CATEGORIA_ID ";
         System.out.println(query);
-		try {
+        try {
             final PreparedStatement statement = con.prepareStatement(query);
             try (statement) {
                 statement.execute();
@@ -126,9 +126,9 @@ public class CategoriaDAO {
                     }
                 };
             }
-		} catch (SQLException e) {
-		    throw new RuntimeException(e);
-		}
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return resultado;
     }
 

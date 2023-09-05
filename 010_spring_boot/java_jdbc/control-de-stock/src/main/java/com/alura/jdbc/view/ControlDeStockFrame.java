@@ -223,7 +223,7 @@ public class ControlDeStockFrame extends JFrame {
                     Integer id = Integer.valueOf(modelo.getValueAt(tabla.getSelectedRow(), 0).toString());
 
                     int cantidadEliminada;
-					cantidadEliminada = this.productoController.eliminar(id);
+                    cantidadEliminada = this.productoController.eliminar(id);
                     modelo.removeRow(tabla.getSelectedRow());
 
                     JOptionPane.showMessageDialog(this, cantidadEliminada+" Item eliminado con éxito!");
@@ -231,17 +231,17 @@ public class ControlDeStockFrame extends JFrame {
     }
 
     private void cargarTabla() {
-    	var productos = this.productoController.listar();
-		productos.forEach(producto -> modelo.addRow(
-		        new Object[] {
+        var productos = this.productoController.listar();
+        productos.forEach(producto -> modelo.addRow(
+                new Object[] {
                             producto.getId(),
                             producto.getNombre(),
                             producto.getDescripcion(),
                             producto.getCantidad(), 
                             producto.getCategoriaId()
-					    }
-		            )
-		        );
+                        }
+                    )
+                );
     }
 
     private void guardar() {
@@ -270,7 +270,7 @@ public class ControlDeStockFrame extends JFrame {
 
         var categoria = (Categoria) comboCategoria.getSelectedItem();
 
-		this.productoController.guardar(producto, categoria.getId());
+        this.productoController.guardar(producto, categoria.getId());
         JOptionPane.showMessageDialog(this, "Registrado con éxito!");
         this.limpiarFormulario();
     }
