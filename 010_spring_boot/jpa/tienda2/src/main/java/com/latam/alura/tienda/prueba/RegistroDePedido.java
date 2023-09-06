@@ -1,6 +1,7 @@
 package com.latam.alura.tienda.prueba;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 //import javax.persistence.EntityManagerFactory;
@@ -16,6 +17,7 @@ import com.latam.alura.tienda.modelo.ItemsPedido;
 import com.latam.alura.tienda.modelo.Pedido;
 import com.latam.alura.tienda.modelo.Producto;
 import com.latam.alura.tienda.utils.JPAUtils;
+import com.latam.alura.tienda.vo.ReporteDeVenta;
 
 public class RegistroDePedido {
 
@@ -39,6 +41,19 @@ public class RegistroDePedido {
         
         pedidoDao.guardar(pedido);
         em.getTransaction().commit();
+        BigDecimal valorTotal = pedidoDao.valorTotalVendido();
+        System.out.println("Valor total del pedido: "+valorTotal);
+        Double valorPromedio = pedidoDao.valorPromedioVendido();
+        System.out.println("Valor promedio del pedido: "+valorPromedio);
+        List<Object[]> reporte = pedidoDao.ReporteVentas();
+        for (Object[] objects : reporte) {
+            System.out.print(objects[0] +", ");
+            System.out.print(objects[1] +", ");
+            System.out.println(objects[2]);
+        }
+        
+        List<ReporteDeVenta> reporteVo = pedidoDao.ReporteVentasVO();
+        reporteVo.forEach(System.out::println);
     }
 
     public static void RegistrarPedido() {

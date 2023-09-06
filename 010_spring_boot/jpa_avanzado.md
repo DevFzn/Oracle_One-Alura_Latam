@@ -2,7 +2,8 @@
 
 <style>div.mermaid{text-align: center;}</style>
 
-Retomando el proyecto [anterior](./jpa/tienda/src/main/java/com/latam/alura/tienda/)
+Trabajando sobre el [proyecto](./jpa/tienda/src/main/java/com/latam/alura/tienda/)
+anterior
 
 ```mermaid
 erDiagram
@@ -18,7 +19,7 @@ erDiagram
         id biging PK
         nombre string
     }
-    Clientes ||--o{ Pedidos : tiene
+    Clientes ||--|{ Pedidos : tiene
     Clientes {
         id bigint PK
         nombre string
@@ -81,7 +82,39 @@ creada anteriormente
 
 - Mapeo de nuevas entidades en la aplicación según el modelado de la base de
 datos
-- Mapeo de una relación con cardinalidad de muchos a muchos
-- Mapeo de una relación bidireccional
-- Persitencia entidades que tienen relaciones bidireccionales
+- Mapeo de relación con cardinalidad de muchos a muchos
+- Mapeo de relación bidireccional
+- Persistencia entidades que tienen relaciones bidireccionales
+
+
+### Funciones de agregación SQL
+
+| Función | Descripción |
+| - | - |
+| **AVG** | Calcula el promedio de los valores de un campo |
+| **COUNT** | Devuelve en número de registros de la selección |
+| **SUM** | Devuelve la suma de todos los valores de  un campo |
+| **MAX** | Devuelve el valor más alto de un campo |
+| **MIN** | Devuelve el valor más bajo de un campo |
+
+#### Reporte de ventas
+
+| PRODUCTO | CANT. VENDIDA | ULTIMA VENTA |
+| - | :-: | - |
+| Celular Motorola X9 | 240 | 01/02/23 |
+| Xbox Series S | 198 | 10/02/23 |
+| Framework Laptop | 71 | 20/02/2023 |
+
+<br>
+
+**NamedQuerys**: Estas se declaran en la clase de entidad.
+
+#### Sumario Aula 2
+
+- Realización de consultas utilizando funciones de agregación (**min, max, avg
+y sum**)
+- Consultas de reporte/informes usando JPQL
+- Uso del nuevo recurso seleccionado en consultas JPQL
+- Consultas mediante **NamedQuerys**
+
 

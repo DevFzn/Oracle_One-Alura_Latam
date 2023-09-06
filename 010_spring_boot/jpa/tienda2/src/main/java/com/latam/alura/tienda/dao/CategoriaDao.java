@@ -35,4 +35,5 @@ public class CategoriaDao {
         String jpql = "SELECT P FROM Categoria AS P";
         return em.createQuery(jpql, Categoria.class).getResultList(); 
     }
+    
 }
