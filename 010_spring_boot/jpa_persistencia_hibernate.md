@@ -82,7 +82,7 @@ OJP-->JP
 end
 ```
 
-JPA es una capa (una abstarcción) se debe usar una biblioteca que la implemente
+JPA es una capa (una abstracción) se debe usar una biblioteca que la implemente
 Existen detalles específicos de Hibernate que dificultan cambiar de implementacion
 de JPA. Es recomendable mantenerse dentro del patrón de JPA.
 
@@ -169,10 +169,10 @@ erDiagram
     Productos }|--|| Categorias : tiene
     Productos {
         id bigint PK
-        Nombre varchar
-        Descripcion varchar
-        Precio decimal
-        categoria_id int FK
+        nombre varchar
+        descripcion varchar
+        precio decimal
+        categoria_id bigint FK
     }
     Categorias {
         id biging PK

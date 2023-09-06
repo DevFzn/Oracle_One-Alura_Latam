@@ -9,3 +9,6 @@ Java y [bases de datos](./base_de_datos.md)
 Java y [JDBC](./jdbc.md)
 - [Curso](https://app.aluracursos.com/course/persistencia-jpa-hibernate)
 Persistencia con [JPA - Hibernate](./jpa_persistencia_hibernate.md)
+- [Curso](https://app.aluracursos.com/course/java-jpa-consultas-avanzadas-rendimiento-modelos-complejos)
+[JPA](./jpa_2.avanzado.md)
+consultas avanzadas, rendimiento y modelos complejos

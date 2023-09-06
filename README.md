@@ -49,3 +49,4 @@ primoridiales en programación con Javascript
   - [Base de datos](./010_spring_boot/base_de_datos.md)
   - [JDBC](./010_spring_boot/jdbc.md)
   - [Persistencia con JPA - Hibernate](./010_spring_boot/jpa_persistencia_hibernate.md)
+  - [JPA consultas avanzadas, rendimiento y modelos complejos](./010_spring_boot/jpa_avanzado.md)
