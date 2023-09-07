@@ -31,6 +31,11 @@ public class CategoriaDao {
         return em.find(Categoria.class, id);
     }
     
+    public Categoria consultaPorNombre(String nombre){
+        String jpql =" SELECT C FROM Categoria AS C WHERE C.nombre=:nombre ";
+        return em.createQuery(jpql,Categoria.class).setParameter("nombre", nombre).getSingleResult();
+    }
+    
     public List<Categoria> consultarTodos() {
         String jpql = "SELECT P FROM Categoria AS P";
         return em.createQuery(jpql, Categoria.class).getResultList(); 

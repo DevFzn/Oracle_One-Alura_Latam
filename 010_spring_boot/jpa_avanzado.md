@@ -2,12 +2,17 @@
 
 <style>div.mermaid{text-align: center;}</style>
 
+- doc
+[persitence](https://jakarta.ee/specifications/persistence/2.2/apidocs/javax/persistence/package-summary.html)
+- Hibernate
+[user guide](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html)
+
 Trabajando sobre el [proyecto](./jpa/tienda/src/main/java/com/latam/alura/tienda/)
 anterior
 
 ```mermaid
 erDiagram
-    Categorias ||--o{ Productos : tiene
+    Categorias ||--|{ Productos : tiene
     Productos {
         id bigint PK
         nombre varchar
@@ -118,3 +123,192 @@ y sum**)
 - Consultas mediante **NamedQuerys**
 
 
+Nota:
+[Relaciones](https://www.adictosaltrabajo.com/2020/04/02/hibernate-onetoone-onetomany-manytoone-y-manytomany/)
+en Hibernate
+
+### Performance en consultas
+
+- **LAZY** Fetch: ***Carga ondemand*** (menor utlización de recursos), todas
+las anotaciones ***many*** (**ManyToOne-OneToMany**) son por defecto del tipo
+**LAZY**. Al cerrar el `EntityManager` y solicitar algún dato que requiere hacer
+un *select* a alguna entidad de la consulta anterior se produce una expeción.
+Esto se resuelve con una **Consulta Planificada** (ej. `PedidoDao` ->
+`ConsultarPedidoConCliente()`)
+
+- **EAGER** Fetch: ***Carga Anticipada*** (mayor utlización de recursos), todas
+las anotaciones del tipo ***one*** (**OneToOne-ManyToOne**) son por defecto del
+tipo **EAGER**
+
+
+Al construir aplicaciones utilizando recursos que realizan operaciones que no
+explicitas se debe estudiar la documentación para entender cual es la ciencia
+detrás del framework o recurso.
+
+Cuando se realizan consultas con la anotación **@ManyToOne** o **@OneToOne**
+por debajo, JPA aplica una estrategia de carga de información llamada **Eager**
+o Anticipada o Proactiva realizando JOINS entre tablas.
+Pero esto no es todo, ya que si la entidad que tiene el JOIN, tiene otras entidades
+dentro de sus atributos marcados con la anotación finalizando **ToOne**, también
+serán cargadas dentro de la consulta. Esto puede saturar la memoria y afectar
+seriamente la velocidad de carga. Para corregir se debe utilizar el parámetro
+de carga ***FerchType.LAZY*** en todas las anotaciones **ToOne**, lo que indica
+a JPA cargar la entidad solo si es solicitada.
+
+Al realizar esta corrección se presenta un posible inconveniente donde se encontre
+con la necesidad de utilizar ese atributo de entidad.
+Pero para ese momento el **EntityManager** se puede encontrar cerrado, por lo que
+se tienen que planear las consultas previniendo el uso de esa entidad cuando se
+encuentre cerrado el **EntityManager**.
+
+
+#### Sumario Aula 3
+
+- Estrategias **EAGER** y **LAZY**, en consultas de entidades relacionadas
+- JPA podría lanzar `LazyInitializationException` en ciertas situaciones
+- Buenas prácticas en la carga de entidades relacionadas
+- Realizar **consultas programadas** con la función de búsqueda de combinación
+
+### Consultas con parámetros dinámicos
+
+### Sin API Criteria
+
+ej.
+[productoDAO.java](./jpa/tienda2/src/main/java/com/latam/alura/tienda/dao/ProductoDao.java)
+
+```java
+    public List<Producto> consultaPorParametro(String nombre, BigDecimal precio, LocalDate fecha){
+        StringBuilder jpql = new StringBuilder("SELECT P FROM Producto P WHERE 1=1");
+        if (nombre != null && !nombre.trim().isEmpty()) {
+            jpql.append(" AND P.nombre=:nombre");
+        }
+        if (precio != null && !precio.equals(new BigDecimal(0))) {
+            jpql.append(" AND P.precio=:precio");
+        }
+        if (fecha != null) {
+            jpql.append(" AND P.fechaDeRegistro=:fecha");
+        }
+        TypedQuery<Producto> query = em.createQuery(jpql.toString(), Producto.class);
+        if (nombre != null && !nombre.trim().isEmpty()) {
+            query.setParameter("nombre", nombre);
+        }
+        if (precio != null && !precio.equals(new BigDecimal(0))) {
+            query.setParameter("precio", precio);
+        }
+        if (fecha != null) {
+            query.setParameter("fechaDeRegistro", fecha);
+        }
+        return query.getResultList();
+    }
+```
+
+### Con API Criteria
+
+```java
+    public List<Producto> consultaPorParametrosConAPICriteria(String nombre, BigDecimal precio, LocalDate fecha){
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Producto> query = builder.createQuery(Producto.class);
+        Root<Producto> from = query.from(Producto.class);
+        Predicate filtro = builder.and();
+        if (nombre != null && !nombre.trim().isEmpty()) {
+            filtro = builder.and(filtro, builder.equal(from.get("nombre"), nombre));
+        }
+        if (precio != null && !precio.equals(new BigDecimal(0))) {
+            filtro = builder.and(filtro, builder.equal(from.get("precio"), precio));
+        }
+        if (fecha != null) {
+            filtro = builder.and(filtro, builder.equal(from.get("fechaDeRegistro"), fecha));
+        }
+        query = query.where(filtro);
+        return em.createQuery(query).getResultList();
+    }
+}
+```
+
+#### Sumario Aula 4
+
+- Consultas JPQL con parámetros opcionales
+- API de criterios JPA y consulta con parámetros opcionales
+
+## Embeddable
+
+Simplificación de entidades con anotaciones `@Embeddable` y `@Embedded`, ejm.
+[Cliente.java](./jpa/tienda2/src/main/java/com/latam/alura/tienda/modelo/Cliente.java)
+y
+[DatosPersonales.java](./jpa/tienda2/src/main/java/com/latam/alura/tienda/modelo/DatosPersonales.java)
+
+## Mapeo de herencias
+
+### Join table
+
+
+
+#### Estrategia Single Table
+
+Una única tabla, ejm.
+[Producto.java](./jpa/tienda2/src/main/java/com/latam/alura/tienda/modelo/Producto.java)
+
+```java
+...
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class Producto {
+    ...
+```
+
+```mermaid
+erDiagram
+    Productos
+    Productos {
+        id bigint PK
+        nombre varchar
+        descripcion varchar
+        precio decimal
+        categoria_id bigint FK
+        fecha_registro date
+        autor varchar
+        paginas int
+        marca varchar
+        modelo varchar
+    }
+```
+
+#### Estrategia Joined Table
+
+ejm.
+[Producto.java](./jpa/tienda2/src/main/java/com/latam/alura/tienda/modelo/Producto.java)
+
+```java
+...
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Producto {
+    ...
+```
+
+```mermaid
+erDiagram
+    Electronicos
+    Productos
+    Electronicos {
+        id bigint PK
+        marca varchar
+        modelo varchar
+    }
+    Productos {
+        id bigint PK
+        nombre varchar
+        descripcion varchar
+        precio decimal
+        fecha_registro date
+    }
+    Libros {
+        id biging PK
+        autor varchar
+        paginas int
+    }
+```
+
+## Mapeo de llaves compuestas
+
+ejm.
+[Categoria.java](./jpa/tienda2/src/main/java/com/latam/alura/tienda/modelo/Categoria.java)
+[CategoriaId.java](./jpa/tienda2/src/main/java/com/latam/alura/tienda/modelo/CategoriaId.java)
