@@ -156,9 +156,9 @@ Representación en formato **JSON**
 
 ```json
 {
-    “nombre” : “Mochila”,
-    “precio” : 89.90,
-    “descripcion” : “Mochila para notebooks de hasta 17 pulgadas”
+    "nombre" : "Mochila",
+    "precio" : 89.90,
+    "descripcion" : "Mochila para notebooks de hasta 17 pulgadas"
 }
 ```
 
@@ -315,10 +315,10 @@ public final class Telefono {
 }
 ```
 
-Con **Record** todo ese código se puede resumir en una sola línea:
+Con **Record** el código anterior se resume en una sola línea:
 
 ```java
-public record Telefono(String ddd, String numero){}
+public record Telefono(String ddd, String numero) {}
 ```
 
 Internamente, Java transforma este registro en una clase inmutable, muy similar
@@ -326,4 +326,193 @@ al código que se muestra arriba.
 
 Documentación Java
 [record](https://docs.oracle.com/en/java/javase/17/language/records.html)
+
+
+## Agregando dependencias
+
+Copiar `xml` de Spring [initializr](https://start.spring.io/), y pegar en `pom.xml`
+
+Modificar `resources/application.properties`
+
+```ini
+spring.datasource.url=jdbc:mysql://<URL>/vollmed-api
+spring.datasource.username=<USER>
+spring.datasource.password=<PASS>
+```
+
+Recomendaciones [12 Factor App](https://12factor.net/es/), que define las 12
+mejores prácticas para crear aplicaciones modernas, escalables y de mantenimiento
+sencillo.
+
+En algunos proyectos Java, dependiendo de la tecnología elegida, es común
+encontrar clases que siguen el patrón DAO, usado para aislar el acceso a los
+datos. Sin embargo, en este curso usaremos otro patrón, conocido como
+***Repositorio***.
+
+***¿cuál es la diferencia entre los dos enfoques y por qué esta elección?***
+
+#### Patrón DAO
+
+El patrón de diseño DAO, también conocido como **Data Access Object**, se
+utiliza para la persistencia de datos, donde su objetivo principal es separar
+las reglas de negocio de las reglas de acceso a la base de datos. En las clases
+que siguen este patrón, aislamos todos los códigos que se ocupan de conexiones,
+comandos SQL y funciones directas a la base de datos, para que dichos códigos
+no se esparzan a otras partes de la aplicación, algo que puede dificultar el
+mantenimiento del código y también el intercambio de tecnologías y del mecanismo
+de persistencia.
+
+Implementación  
+Supongamos que tenemos una tabla de productos en nuestra base de datos. La
+implementación del ***patrón DAO*** sería la sgte:
+
+Primero, será necesario crear una clase básica de dominio Producto:
+
+```java
+public class Producto {
+    private Long id;
+    private String nombre;
+    private BigDecimal precio;
+    private String descripcion;
+
+    // constructores, getters y setters
+}
+```
+
+A continuación, necesitaríamos crear la clase ProductoDao, que proporciona
+operaciones de persistencia para la clase de dominio Producto:
+
+```java
+public class ProductoDao {
+
+    private final EntityManager entityManager;
+
+    public ProductoDao(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    public void create(Producto producto) {
+        entityManager.persist(producto);
+    }
+
+    public Producto read(Long id) {
+        return entityManager.find(Producto.class, id);
+    }
+
+    public void update(Producto producto) {
+        entityManger.merge(producto);
+    }
+
+    public void remove(Producto producto) {
+        entityManger.remove(producto);
+   }
+
+}
+```
+
+En el ejemplo anterior, se utilizó JPA como tecnología de persistencia de datos
+de la aplicación.
+
+**Patrón Repository**. Según el famoso libro Domain-Driven Design de Eric Evans:
+
+El repositorio es un mecanismo para encapsular el almacenamiento, recuperación y
+comportamiento de búsqueda, que emula una colección de objetos.
+
+En pocas palabras, un repositorio también maneja datos y oculta consultas
+similares a DAO. Sin embargo, se encuentra en un nivel más alto, más cerca de
+la lógica de negocio de una aplicación. Un repositorio está vinculado a la
+regla de negocio de la aplicación y está asociado con el agregado de sus objetos
+de negocio, devolviéndolos cuando es necesario.
+
+Pero debemos estar atentos, porque al igual que en el patrón DAO, las reglas de
+negocio que están involucradas con el procesamiento de información no deben estar
+presentes en los repositorios. Los repositorios no deben tener la responsabilidad
+de tomar decisiones, aplicar algoritmos de transformación de datos o brindar
+servicios directamente a otras capas o módulos de la aplicación. Mapear entidades
+de dominio y proporcionar funcionalidades de aplicación son responsabilidades muy
+diferentes.
+
+Un repositorio se encuentra entre las reglas de negocio y la capa de persistencia:
+
+1. Proporciona una interfaz para las reglas comerciales donde se accede a los
+objetos como una colección.
+2. Utiliza la capa de persistencia para escribir y recuperar datos necesarios
+para persistir y recuperar objetos de negocio.
+
+Por lo tanto, incluso es posible utilizar uno o más DAOs en un repositorio.
+
+***¿Por qué el patrón repositorio en lugar de DAO usando Spring?***
+
+El patrón de repositorio fomenta un diseño orientado al dominio, lo que
+proporciona una comprensión más sencilla del dominio y la estructura de datos.
+Además, al usar el repositorio de Spring, no tenemos que preocuparnos por usar
+la API de JPA directamente, simplemente creando los métodos, que Spring crea la
+implementación en tiempo de ejecución, lo que hace que el código sea mucho más
+simple, pequeño y legible.
+
+### Validaciones
+
+Bean Validation se compone de varias ***anotaciones*** que se deben agregar a los
+atributos en los que queremos realizar las validaciones. Se implementaron algunas
+de estas anotaciones, como **`@NotBlank`**, que indica que un atributo String no
+puede ser nulo o vacío. (
+[DatosRegistroMedico.java](./api_rest/api/src/main/java/med/voll/api/medico/DatosRegistroMedico.java)
+)
+
+Sin embargo, existen decenas de otras anotaciones que se pueden utilizar, para
+los más diversos tipos de atributos.
+
+Se puede consultar una lista de las principales anotaciones de **Bean Validation**
+en la
+[documentación oficial](https://jakarta.ee/specifications/bean-validation/3.0/jakarta-bean-validation-spec-3.0.html#builtinconstraints).
+
+### Migraciones
+
+Estas se crean en el directorio
+[/src/db/migration/](./api_rest/api/src/main/resources/db/migration/). Es
+importante detener siempre el proyecto al crear los archivos de migración, para
+evitar que **Flyway** los ejecute antes de tiempo, con el código aún incompleto,
+lo que podría causar problemas.
+
+En caso de:
+
+```sql
+# Soft
+DELETE FROM flyway_schema_history WHERE success = 0;
+
+# Hard
+DROP TABLE flyway_schema_history;
+```
+
+### Lombok
+
+Es una biblioteca de Java especialmente enfocada en la reducción de código y
+en la productividad en el desarrollo de proyectos.
+
+Utiliza la idea de ***anotaciones***  para generar códigos en el tiempo de
+compilación. Pero el código generado no es visible, y tampoco es posible cambiar
+lo que se ha generado.
+
+Puede ser una buena herramienta aliada a la hora de escribir clases complejas,
+siempre que el desarrollador tenga conocimiento sobre ella. Para más información
+ver la documentación de [Lombok](https://projectlombok.org/)
+
+### Anotacion Autowired
+
+En el contexto del framework Spring, que utiliza como una de sus bases el patrón
+de diseño *"Inyección de Dependencias"*, la idea sirve para definir una
+inyección automática en un determinado componente del proyecto Spring, ese
+componente puede ser atributos, métodos e incluso constructores.
+
+Esta anotación se permite por el uso de la anotación `@SpringBootApplication`,
+en el archivo de configuración de Spring, disponible cada vez que se crea un
+proyecto Spring.
+
+Al marcar un componente con la anotación `@Autowired` le estamos diciendo a
+Spring que el componente es un punto donde se debe inyectar una dependencia,
+en otras palabras, el componente se inyecta en la clase que lo posee,
+estableciendo una colaboración entre componentes.
+
+Para más información sobre la anotación, ver la
+[documentación oficial](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html)
 
