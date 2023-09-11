@@ -605,8 +605,8 @@ Sin embargo, puede haber algún otro endpoint de la API en el que necesitemos
 enviar el salario de los empleados en el JSON, en cuyo caso se tendrían problemas,
 ya que con la anotación `@JsonIgnore` tal atributo nunca se enviará en el JSON,
 y al eliminar la anotación se enviará el atributo siempre. Por lo tanto,
-se pierde la flexibilidad de controlar cuándo se deben enviar ciertos atributos
-en el JSON y cuándo no.
+se pierde la flexibilidad de controlar cuando se deben enviar ciertos atributos
+en el JSON y cuando no.
 
 #### DTO
 
@@ -721,3 +721,157 @@ spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 ```
 
+### Put
+
+Información permitida para actualización
+
+- Nombre
+- Documento
+- Direccion
+
+### Mass Assignment Attack
+
+Ataque de asignación masiva, ocurre cuando un usuario logra inicializar o
+reemplazar parámetros que no deben ser modificados en la aplicación.
+Al incluir parámetros adicionales en una solicitud, si dichos parámetros son
+válidos, un usuario malintencionado puede generar un efecto secundario no deseado
+en la aplicación.
+
+El concepto de este ataque se refiere a cuando se inyecta un conjunto de valores
+directamente en un objeto, de ahí la asignación masiva de nombres, que, sin la
+debida validación puede causar serios problemas.
+
+Ejemplo práctico. Se tiene el siguiente método, en una clase Controller,
+utilizado para registrar un usuario en la aplicación:
+
+```java
+@PostMapping
+@Transactional
+public void registrar(@RequestBody @Valid Usuario usuario) {
+    repository.save(usuario);
+}
+```
+
+Y la entidad JPA que representa al usuario:
+
+```java
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
+@Entity(name = "Usuario")
+@Table(name = "usuarios")
+public class Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String nombre;
+    private String email;
+    private Boolean admin = false;
+
+    ...
+}
+```
+
+Notar que el atributo admin de la clase `Usuario` se inicializa como falso, lo
+que indica que un usuario siempre debe estar registrado como administrador. Sin
+embargo, si se envía el siguiente JSON en la solicitud:
+
+```json
+{
+    "nombre" : "Rodrigo",
+    "email" : "rodrigo@email.com",
+    "admin" : true
+}
+```
+
+El usuario se registrará con el atributo `admin` con valor `true`. Esto sucede
+porque el atributo `admin` enviado en el JSON existe en la clase que se está
+recibiendo en el Controller, considerándose un atributo válido y que se llenará
+en el objeto `Usuario` que será instanciado por Spring.
+
+**¿Cómo prevenir este problema?**
+
+El uso del patrón **DTO** ayuda a evitar este problema, ya que al crear un DTO
+se definen solo los campos que se pueden recibir en la API, y en el ejemplo
+anterior el DTO no tendría el atributo admin.
+
+Esta es una ventaja más de usar el patrón DTO para representar los datos que
+entran y salen de la API.
+
+### PATCH
+
+Elegir entre el método HTTP **PUT** o **PATCH** es una pregunta común que surge
+al desarrollar APIs y se necesita crear un endpoint para la actualización de
+recursos.
+
+#### Diferencias entre las dos opciones y cuando usar cada una
+
+- **PUT**  
+Reemplaza todos los datos actuales de un recurso con los datos enviados en la
+solicitud, es decir, una actualización completa de un recurso en una sola
+solicitud.
+
+- **PATCH**  
+Aplica modificaciones parciales a un recurso. Por lo tanto, es posible modificar
+solo una parte de un recurso, lo que flexibiliza las opciones de actualización.
+
+**¿Cuál elegir?**
+
+En la práctica, es difícil saber qué método usar, porque no siempre se sabrá
+si un recurso se actualizará parcial o completamente en una solicitud, a menos
+que lo verifiquemos, algo que no se recomienda.
+
+Entonces, lo más común en las aplicaciones es usar el método PUT para las
+solicitudes de actualización de recursos en una API, que es la elección para
+el proyecto ***voll med api***.
+
+### Delete
+
+Exclusión de Médicos
+
+- El registro no debe ser borrado de la base de datos
+- El listada debe retornar solo Médicos activos
+
+
+Mapeo de solicitude PUT con la anotación `@PutMapping`
+
+```java
+    @PutMapping
+    @Transactional
+    public void actualizarMedico(@RequestBody @Valid DatosActualizarMedico datosActualizarMedico) {
+        Medico medico = medicoRepository.getReferenceById(datosActualizarMedico.id());
+        medico.actualizarDatos(datosActualizarMedico);
+    }
+```
+
+Mapeo de solicitud **DELETE** con la anotación `@DeleteMapping`.
+Y mapeo de parámetros dinámicos en la URL con la anotación `@PathVariable`.
+
+```java
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void eliminarMedico(@PathVariable Long id) {
+        Medico medico = medicoRepository.getReferenceById(id);
+        medico.desactivarMedico();
+    }
+```
+
+```java
+package med.voll.api.medico;
+
+import jakarta.validation.constraints.NotNull;
+import med.voll.api.direccion.DatosDireccion;
+
+public record DatosActualizarMedico(
+            @NotNull Long id,
+            String nombre,
+            String documento,
+            DatosDireccion direccion
+) {}
+```
+
+----
+
+Continua en [Buenas prácticas y protección de una API Rest](./spring_boot_2.md)
