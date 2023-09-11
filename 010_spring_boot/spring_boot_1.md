@@ -330,7 +330,8 @@ Documentación Java
 
 ## Agregando dependencias
 
-Copiar `xml` de Spring [initializr](https://start.spring.io/), y pegar en `pom.xml`
+Copiar sección del `xml` de Spring [initializr](https://start.spring.io/), y
+pegar en `pom.xml`
 
 Modificar `resources/application.properties`
 
@@ -413,10 +414,11 @@ public class ProductoDao {
 En el ejemplo anterior, se utilizó JPA como tecnología de persistencia de datos
 de la aplicación.
 
-**Patrón Repository**. Según el famoso libro Domain-Driven Design de Eric Evans:
+**Patrón Repository** según el famoso libro *Domain-Driven Design* de *Eric
+Evans*:
 
-El repositorio es un mecanismo para encapsular el almacenamiento, recuperación y
-comportamiento de búsqueda, que emula una colección de objetos.
+> *El repositorio es un mecanismo para encapsular el almacenamiento, recuperación y
+comportamiento de búsqueda, que emula una colección de objetos.*
 
 En pocas palabras, un repositorio también maneja datos y oculta consultas
 similares a DAO. Sin embargo, se encuentra en un nivel más alto, más cerca de
@@ -515,4 +517,207 @@ estableciendo una colaboración entre componentes.
 
 Para más información sobre la anotación, ver la
 [documentación oficial](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html)
+
+## Get
+
+### Consideraciones
+
+Información requerida del médico
+
+- Nombre
+- Especialidad
+- Documento
+- Email
+
+Reglas del negocio
+
+- Orden ascendente
+- Paginado, máximo 10 registros por página
+
+<br>
+
+En
+[MedicoController](./api_rest/api/src/main/java/med/voll/api/controller/MedicoController.java)
+se utilizo DTO para representar los datos recibi4os y devueltos a través de la
+API, *¿Por qué, en lugar de crear un DTO, no devolvemos directamente la entidad
+JPA en el Controller?*. Para esto, basta con cambiar método `listadoMedicos()`
+en el Controller a:
+
+```java
+@GetMapping
+public List<Medico> listarMedicos() {
+    return repository.findAll();
+}
+```
+
+De esa forma, el código sería más ligero y no necesitaríamos crear el DTO
+en el proyecto. Pero, **¿es esto realmente una buena idea?**
+
+#### Problemas de recepción/devolución de la entidad JPA
+
+De hecho, es mucho más simple y cómodo no usar DTO, sino tratar directamente
+con entidades JPA en los Controllers. Sin embargo, este enfoque tiene algunas
+desventajas, incluida la vulnerabilidad de la aplicación a los ataques de
+*Mass Assignment*.
+
+Uno de los problemas, es que al devolver una entidad JPA en un método del
+Controller, Spring generará el JSON que contiene todos sus atributos, y este no
+siempre es el comportamiento deseado.
+
+Eventualmente pueden tener atributos que no se requiere que sean devueltos en el
+JSON, ya sea por razones de seguridad, en el caso de datos sensibles, o incluso
+porque no son utilizados por clientes API.
+
+#### Uso de la anotación `@JsonIgnore`
+
+En esta situación, se puede usar la anotación `@JsonIgnore`, que nos ayuda a
+ignorar ciertas propiedades de una clase Java cuando se serializa en un objeto
+JSON.
+
+Su uso consiste en agregar la anotación a los atributos que se quieren ignorar
+cuando se genera el JSON. Por ejemplo, supongamos que tenemos una entidad JPA
+`Empleado`, en la que se quiere ignorar el atributo `salario`:
+
+```java
+@Getter
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
+@Entity(name = "Empleado")
+@Table(name = "empleados")
+public class Empleado {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String nombre;
+    private String email;
+
+    @JsonIgnore
+    private BigDecimal salario;
+    ...
+}
+```
+
+En el ejemplo anterior, el atributo `salario` de la clase `Empleado` no será
+mostrado en las respuestas JSON y el problema estaría resuelto.
+
+Sin embargo, puede haber algún otro endpoint de la API en el que necesitemos
+enviar el salario de los empleados en el JSON, en cuyo caso se tendrían problemas,
+ya que con la anotación `@JsonIgnore` tal atributo nunca se enviará en el JSON,
+y al eliminar la anotación se enviará el atributo siempre. Por lo tanto,
+se pierde la flexibilidad de controlar cuándo se deben enviar ciertos atributos
+en el JSON y cuándo no.
+
+#### DTO
+
+El patrón **DTO** (***Data Transfer Object***) es un patrón arquitectónico que
+se usó ampliamente en aplicaciones Java distribuidas (arquitectura
+cliente/servidor) para representar los datos que eran enviados y recibidos entre
+aplicaciones cliente y servidor.
+
+El patrón **DTO** puede (y debe) usarse cuando no queremos exponer todos los
+atributos de alguna entidad en nuestro proyecto, una situación similar a los
+salarios de los empleados que discutimos anteriormente. Además, con la
+flexibilidad y la opción de filtrar qué datos se transmiten, podemos ahorrar
+tiempo de procesamiento.
+
+#### Bucle infinito que causa StackOverflowError
+
+Otro problema muy recurrente cuando se trabaja directamente con entidades JPA
+ocurre cuando una entidad tiene alguna *auto-relación* o *relación
+bidireccional*. Por ejemplo, considere las siguientes entidades JPA:
+
+```java
+@Getter
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
+@Entity(name = "Producto")
+@Table(name = "productos")
+public class Producto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String nombre;
+    private String descripcion;
+    private BigDecimal precio;
+
+    @ManyToOne
+    @JoinColumn(name = “id_categoria”)
+    private Categoria categoria;
+
+    ...
+}
+```
+
+```java
+@Getter
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
+@Entity(name = "Categoria")
+@Table(name = "categorias")
+public class Categoria {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String nombre;
+
+    @OneToMany(mappedBy = “categoria”)
+    private List<Producto> productos = new ArrayList<>();
+
+    ...
+}
+```
+
+Al devolver un objeto de tipo `Producto` en el Controller, Spring tendría
+problemas para generar el JSON de este objeto, lo que provocaría una excepción
+de tipo `StackOverflowError`. Este problema ocurre porque el objeto producto
+tiene un atributo de tipo `Categoria`, que a su vez tiene un atributo de tipo
+`Lista<Producto>` lo que provoca un bucle infinito en el proceso de serialización
+a JSON.
+
+Este problema se puede resolver usando la anotación `@JsonIgnore` o usando las
+anotaciones `@JsonBackReference` y `@JsonManagedReference`, pero también se puede
+evitar usando un DTO que represente solo los datos que se deben devolver en el
+JSON.
+
+### Paginación y Orden
+
+Para la paginación se utiliza la interfase `Pageable`
+
+```java
+    ...
+    @GetMapping
+    public Page<DatosListadoMedicos> listadoMedicos(
+                    @PageableDefault(size = 5) Pageable paginacion
+                    ) {
+        return medicoRepository.findAll(paginacion).map(DatosListadoMedicos::new);
+    }
+}
+```
+
+Estos pueden pre-establecerse con la anotación `@PageableDefault`, o en el archivo
+[application.properties](./api_rest/api/src/main/resources/application.properties)
+
+```ini
+spring.data.web.pageable.page-parameter=0
+spring.data.web.pageable.size-parameter=5
+spring.data.web.sort.sort-parameter=nombre
+```
+
+Estos además pueden ser sobrescritos al hacer el request:
+
+```http
+http://127.0.0.1:8080/medicos?size=3&page=2&sort=documento,desc
+```
+
+#### Ver y formatear querys en el IDE
+
+En archivo [application.properties](./api_rest/api/src/main/resources/application.properties)
+
+```ini
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+```
 
