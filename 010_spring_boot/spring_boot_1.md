@@ -874,4 +874,174 @@ public record DatosActualizarMedico(
 
 ----
 
+<br>
+
+## Requests a la API
+
+Prueba inicial método **GET** a URL `http://127.0.0.1:8080/hello` según mapeo en
+[HelloController](./api_rest/api/src/main/java/med/voll/api/controller/HelloController.java)
+
+### POST
+
+<details>
+
+<summary markdown="span">Registrar médicos con método <b>POST</b> a URL
+<code>http://127.0.0.1:8080/medicos</code></summary>
+
+```json
+{
+    "nombre": "Primer Medico",
+    "email": "medico1@voll.med",
+    "telefono": "1111111",
+    "documento": "111111",
+    "especialidad": "PEDIATRIA",
+    "direccion": {
+        "calle": "calle 1",
+        "distrito": "distrito 1",
+        "complemento": "uno",
+        "ciudad": "Santiago",
+        "numero": "1"
+    }
+}
+```
+
+```json
+{
+    "nombre": "Segundo Medico",
+    "email": "medico2@voll.med",
+    "telefono": "222222",
+    "documento": "222222",
+    "especialidad": "ORTOPEDIA",
+    "direccion": {
+        "calle": "calle 2",
+        "distrito": "distrito 2",
+        "complemento": "dos",
+        "ciudad": "Santiago",
+        "numero": "2"
+    }
+}
+```
+
+```json
+{
+    "nombre": "Tercer Medico",
+    "email": "dr_3@voll.med",
+    "telefono": "33333",
+    "documento": "333333",
+    "especialidad": "GINECOLOGIA",
+    "direccion": {
+        "calle": "calle 3",
+        "distrito": "distrito 3",
+        "ciudad": "Santiago",
+        "numero": "3"
+    }
+}
+```
+
+</details>
+
+<br>
+
+<details>
+
+<summary markdown="span">Registrar pacientes con método <b>POST</b> a URL
+<code>http://127.0.0.1:8080/pacientes</code></summary>
+
+```json
+{
+    "nombre": "Primer Paciente",
+    "email": "paciente1@private.cl",
+    "telefono": "1111111",
+    "documento": "111111",
+    "direccion": {
+        "calle": "calle 1",
+        "distrito": "distrito 1",
+        "complemento": "uno",
+        "ciudad": "Santiago",
+        "numero": "1"
+    }
+}
+```
+
+```json
+{
+    "nombre": "Segundo Paciente",
+    "email": "paciente2@private.cl",
+    "telefono": "222222",
+    "documento": "222222",
+    "direccion": {
+        "calle": "calle 2",
+        "distrito": "distrito 2",
+        "complemento": "dos",
+        "ciudad": "Santiago",
+        "numero": "2"
+    }
+}
+```
+
+```json
+{
+    "nombre": "Tercer Paciente",
+    "email": "paciente3@private.cl",
+    "telefono": "33333",
+    "documento": "333333",
+    "direccion": {
+        "calle": "calle 3",
+        "distrito": "distrito 3",
+        "ciudad": "Santiago",
+        "numero": "3"
+    }
+}
+```
+
+</details>
+
+### GET
+
+Listar medicos con método **GET** a URL
+`http://127.0.0.1:8080/medicos?size=20&sort=id`
+
+Listar pacientres con método **GET** a URL
+`http://127.0.0.1:8080/pacientes?sort=id,desc`
+
+### PUT
+
+<details>
+
+<summary markdown="span">Modificar médico con método <b>PUT</b> a URL
+<code>http://127.0.0.1:8080/medicos</code></summary>
+
+```json
+{
+    "id": 3,
+    "nombre": "3er Medico"
+}
+```
+
+</details>
+
+<br>
+
+<details>
+
+<summary markdown="span">Modificar paciente con método <b>PUT</b> a URL
+<code>http://127.0.0.1:8080/paciente</code></summary>
+
+```json
+{
+    "id": 3,
+    "nombre": "3er Paciente"
+}
+```
+
+</details>
+
+### DELETE
+
+Borrar médico con método **DELETE** a URL `http://127.0.0.1:8080/medicos/3`
+
+Borrar paciente con método **DELETE** a URL `http://127.0.0.1:8080/pacientes/3`
+
+---
+
 Continua en [Buenas prácticas y protección de una API Rest](./spring_boot_2.md)

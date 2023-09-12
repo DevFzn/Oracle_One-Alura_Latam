@@ -1,5 +1,4 @@
-USE vollmed_api;
-INSERT INTO vollmed_api.medicos(nombre, email, telefono, documento, especialidad, calle, distrito, complemento, ciudad, numero)
+INSERT INTO medicos(nombre, email, telefono, documento, especialidad, calle, distrito, complemento, ciudad, numero)
  VALUES
     ('Cuarto Medico',        'dr_4@voll.med',  '44444', '444444', 'CARDIOLOGIA', 'calle 4',  'distrito 4',  'prueba', 'Santiago', '4'),
     ('Quinto Medico',        'dr_5@voll.med',  '55555', '555555', 'PEDIATRIA',   'calle 5',  'distrito 5',  'prueba', 'Santiago', '5'),

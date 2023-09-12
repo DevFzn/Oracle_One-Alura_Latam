@@ -115,7 +115,7 @@ los comentarios. A partir de ahí reconstruimos el negocio.
 
 *Producto Mínimo Viable*
 
-![img](./mvp_concepto.png)
+![img](./imgs/mvp_concepto.png)
 
 #### Enfoque
 

@@ -44,7 +44,7 @@ primoridiales en programación con Javascript
   - [java.util](./008_java_oo/java_util.md)
 - Desafío Conversor [Gitea](https://gitea.kickto.net/devfzn/desafio_conversor) -
 [Github](https://github.com/DevFzn/Desafio_Conversor)
-- [Emprendimiento](./009_emprendimiento/)
+- [Emprendimiento](./009_emprendimiento/README.md)
 - [Spring Boot](./010_spring_boot/README.md)
   - [Base de datos](./010_spring_boot/base_de_datos.md)
   - [JDBC](./010_spring_boot/jdbc.md)

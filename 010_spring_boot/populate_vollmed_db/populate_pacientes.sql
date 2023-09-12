@@ -1,5 +1,4 @@
-USE vollmed_api;
-INSERT INTO vollmed_api.pacientes(nombre, email, telefono, documento, calle, distrito, complemento, ciudad, numero)
+INSERT INTO pacientes(nombre, email, telefono, documento, calle, distrito, complemento, ciudad, numero)
  VALUES
     ('Cuarto Paciente',        'paciente_4@private.cl',  '44444', '444444', 'calle 4',  'distrito 4',  'prueba', 'Santiago', '4'),
     ('Quinto Paciente',        'paciente_5@private.cl',  '55555', '555555', 'calle 5',  'distrito 5',  'prueba', 'Santiago', '5'),

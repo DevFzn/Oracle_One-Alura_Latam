@@ -209,8 +209,8 @@ En una startup todos son emprendedores
 
 ### Escalabilidad e implementación
 
-[<img src="./viab_graph.png" width="400"/>](./viab_graph.png)
-[<img src="./esca_graph.png" width="400"/>](./esca_graph.png)
+[<img src="./imgs/viab_graph.png" width="400"/>](./imgs/viab_graph.png)
+[<img src="./imgs/esca_graph.png" width="400"/>](./imgs/esca_graph.png)
 
 ### Recurrencia
 
@@ -285,7 +285,7 @@ Humanos"]
 end
 ```
 
-Propiedad intelectual - ¿Hay algo que sea patentable?
+Propiedad intelectual ***¿Hay algo que sea patentable?***
 
 ```mermaid
 %%{init: {'theme': 'dark','themeVariables': {'clusterBkg': '#2b2f38'}, 'flowchart': {'curve': 'monotoneY'}}}%%
@@ -336,7 +336,7 @@ Recurrencia, subscripción
 
 ### Margen
 
-[<img src="./punto_muerto.png" width="400"/>](./punto_muerto.png)
+[<img src="./imgs/punto_muerto.png" width="400"/>](./imgs/punto_muerto.png)
 
 - Margen de ganancia
 - Costos fijos
@@ -352,15 +352,15 @@ Recurrencia, subscripción
 
 ## Business Model Canvas
 
-[<img src="./bmc_template.jpg" width="100%"/>](./bmc_template.jpg)
+[<img src="./imgs/bmc_template.jpg" width="100%"/>](./imgs/bmc_template.jpg)
 
 ### Ejms. BMC
 
-[<img src="./tesla_lcm.webp" width="100%"/>](./tesla_lcm.webp)
-[<img src="./google_lcm.webp" width="100%"/>](./google_lcm.webp)
-[<img src="./apple_lcm.webp" width="100%"/>](./apple_lcm.webp)
-[<img src="./skype_lcm.webp" width="100%"/>](./skype_lcm.webp)
-[<img src="./facebook_lcm.webp" width="100%"/>](./facebook_lcm.webp)
+[<img src="./imgs/tesla_lcm.webp" width="100%"/>](./imgs/tesla_lcm.webp)
+[<img src="./imgs/google_lcm.webp" width="100%"/>](./imgs/google_lcm.webp)
+[<img src="./imgs/apple_lcm.webp" width="100%"/>](./imgs/apple_lcm.webp)
+[<img src="./imgs/skype_lcm.webp" width="100%"/>](./imgs/skype_lcm.webp)
+[<img src="./imgs/facebook_lcm.webp" width="100%"/>](./imgs/facebook_lcm.webp)
 
 ## Plan de negocio
 
