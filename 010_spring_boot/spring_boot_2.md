@@ -165,3 +165,142 @@ ejm consulta por código `405 Method Not Allowed`
 https://http.cat/405
 ```
 
+## Manejando errores
+
+- Spring boot common
+[properties](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html)
+
+- Spring boot server
+[properties](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties.server)
+
+#### Ocultando el stacktrace
+
+[application.properties](./api_rest/api2/src/main/resources/application.properties)
+
+```conf
+server.error.include-stacktrace=never
+```
+
+Nuevo package [infra](./api_rest/api2/src/main/java/med/voll/api/infra) con nueva
+clase
+[ManejadorDeErrores](./api_rest/api2/src/main/java/med/voll/api/infra/ManejadorDeErrores.java)
+
+```java
+...
+
+@RestControllerAdvice
+public class ManejadorDeErrores {
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity manejarError404(){
+        return  ResponseEntity.notFound().build();
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity manejarError400(MethodArgumentNotValidException e){
+        var errores = e.getFieldErrors().stream().map(DatosErrorValidacion::new).toList();
+        return  ResponseEntity.badRequest().body(errores);
+    }
+
+    private record DatosErrorValidacion(String campo, String error) {
+        public DatosErrorValidacion(FieldError error) {
+            this(error.getField(), error.getDefaultMessage());
+        }
+    }
+}
+```
+
+Por defecto, **Bean Validation** devuelve mensajes de error en inglés, sin
+embargo, hay una traducción de estos mensajes al español ya implementada en
+esta especificación.
+
+En el protocolo HTTP hay un encabezado llamado `Accept-Language`, que sirve para
+indicar al servidor el idioma preferido del cliente que activa la solicitud.
+Podemos utilizar esta cabecera para indicarle a Spring el idioma deseado, para
+que en la integración con Bean Validation pueda buscar mensajes según el idioma
+indicado.
+
+En Insomnia, y también en otras herramientas similares, existe una opción
+llamada Header en la que podemos incluir cabeceras a enviar en la petición.
+Si agregamos el encabezado `Accept-Language` con el valor `es`, los mensajes de
+error de **Bean Validation** se devolverán automáticamente en español.
+
+> Nota: Bean Validation solo traduce los mensajes de error a unos pocos idiomas.
+
+### Personalización de mensajes de error
+
+**Bean Validation** tiene un mensaje de error para cada una de sus anotaciones.
+P.e. cuando la validación falla en algún atributo anotado con `@NotBlank`, el
+mensaje de error será: `must not be blank`.
+
+Estos mensajes de error no se definieron en la aplicación, ya que son mensajes
+de error estándar de Bean Validation. Sin embargo, si lo desea, puede
+personalizar dichos mensajes.
+
+Una de las formas de personalizar los mensajes de error es agregar el atributo
+del mensaje a las anotaciones de validación:
+
+```java
+public record DatosCadastroMedico(
+    @NotBlank(message = "Nombre es obligatorio")
+    String nombre,
+
+    @NotBlank(message = "Email es obligatorio")
+    @Email(message = "Formato de email es inválido")
+    String email,
+
+    @NotBlank(message = "Teléfono es obligatorio")
+    String telefono,
+
+    @NotBlank(message = "CRM es obligatorio")
+    @Pattern(regexp = "\\d{4,6}", message = "Formato do CRM es inválido")
+    String crm,
+
+    @NotNull(message = "Especialidad es obligatorio")
+    Especialidad especialidad,
+
+    @NotNull(message = "Datos de dirección son obligatorios")
+    @Valid DatosDireccion direccion) {}
+```
+
+Otra forma es aislar los mensajes en un archivo de propiedades, que debe tener
+el nombre `ValidationMessages.properties` y estar creado en el directorio
+`src/main/resources`:
+
+```config
+nombre.obligatorio=El nombre es obligatorio
+email.obligatorio=Correo electrónico requerido
+email.invalido=El formato del correo electrónico no es válido
+phone.obligatorio=Teléfono requerido
+crm.obligatorio=CRM es obligatorio
+crm.invalido=El formato CRM no es válido
+especialidad.obligatorio=La especialidad es obligatoria
+address.obligatorio=Los datos de dirección son obligatorios
+```
+
+Y, en las anotaciones, indicar la clave de las propiedades por el propio atributo
+message, delimitando con los caracteres `{` y `}`:
+
+```java
+public record DatosRegistroMedico(
+    @NotBlank(message = "{nombre.obligatorio}")
+    String nombre,
+
+    @NotBlank(message = "{email.obligatorio}")
+    @Email(message = "{email.invalido}")
+    String email,
+
+    @NotBlank(message = "{telefono.obligatorio}")
+    String telefono,
+
+    @NotBlank(message = "{crm.obligatorio}")
+    @Pattern(regexp = "\\d{4,6}", message = "{crm.invalido}")
+    String crm,
+
+    @NotNull(message = "{especialidad.obligatorio}")
+    Especialidad especialidad,
+
+    @NotNull(message = "{direccion.obligatorio}")
+    @Valid DatosDireccion direccion) {}
+```
+

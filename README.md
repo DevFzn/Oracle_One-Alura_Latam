@@ -51,3 +51,4 @@ primoridiales en programación con Javascript
   - [Persistencia con JPA - Hibernate](./010_spring_boot/jpa_persistencia_hibernate.md)
   - [JPA consultas avanzadas, rendimiento y modelos complejos](./010_spring_boot/jpa_avanzado.md)
   - [Desarrollo API Rest](./010_spring_boot/spring_boot_1.md)
+  - [Buenas prácticas y protección de API Rest](./010_spring_boot/spring_boot_2.md)
