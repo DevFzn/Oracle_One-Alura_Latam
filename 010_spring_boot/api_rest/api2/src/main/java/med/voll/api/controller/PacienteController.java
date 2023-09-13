@@ -29,35 +29,30 @@ public class PacienteController {
             UriComponentsBuilder uriComponentsBuilder) {
             Paciente paciente = pacienteRepository.save(new Paciente(datosRegistroPaciente));
             DatosRespuestaPaciente  datosRespuestaPaciente = new DatosRespuestaPaciente(
-                    paciente.getId(), paciente.getNombre(), paciente.getEmail(), paciente.getTelefono(), paciente.getDocumento(),
-                    new DatosDireccion(
-                            paciente.getDireccion().getCalle(), paciente.getDireccion().getDistrito(), paciente.getDireccion().getCiudad(),
-                            paciente.getDireccion().getNumero(), paciente.getDireccion().getComplemento()
-                    )
+                    paciente, new DatosDireccion(paciente.getDireccion())
             );
             URI url = uriComponentsBuilder.path("/pacientes/{id}") .buildAndExpand(paciente.getId()).toUri();
             return  ResponseEntity.created(url).body(datosRespuestaPaciente);
     }
 
     @GetMapping
-    public ResponseEntity<Page<DatosListadoPacientes>> listadoPacientes(@PageableDefault(size = 5) Pageable paginacion) {
-        //return pacienteRepository.findAll(paginacion).map(DatosListadoPacientes::new);
-        return ResponseEntity.ok(pacienteRepository.findByActivoTrue(paginacion).map(DatosListadoPacientes::new));
+    public ResponseEntity<Page<DatosListadoPacientes>> listadoPacientes(
+            @PageableDefault(size = 5) Pageable paginacion) {
+        return ResponseEntity.ok(
+                pacienteRepository.findByActivoTrue(paginacion).map(DatosListadoPacientes::new)
+        );
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity<DatosRespuestaPaciente> actualizarPaciente(@RequestBody @Valid DatosActualizarPaciente datosActualizarPaciente) {
+    public ResponseEntity<DatosRespuestaPaciente> actualizarPaciente(
+            @RequestBody @Valid DatosActualizarPaciente datosActualizarPaciente) {
         Paciente paciente = pacienteRepository.getReferenceById(datosActualizarPaciente.id());
         paciente.actualizarDatos(datosActualizarPaciente);
-        return ResponseEntity.ok(new DatosRespuestaPaciente(
-                paciente.getId(), paciente.getNombre(), paciente.getEmail(), paciente.getTelefono(), paciente.getDocumento(),
-                new DatosDireccion(
-                        paciente.getDireccion().getCalle(), paciente.getDireccion().getDistrito(),
-                        paciente.getDireccion().getCiudad(),paciente.getDireccion().getNumero(),
-                        paciente.getDireccion().getComplemento()
-                )
-        ));
+        DatosRespuestaPaciente  datosRespuestaPaciente = new DatosRespuestaPaciente(
+                paciente, new DatosDireccion(paciente.getDireccion())
+        );
+        return ResponseEntity.ok(datosRespuestaPaciente);
     }
 
     // Desactivar Paciente
@@ -72,14 +67,10 @@ public class PacienteController {
     @GetMapping("/{id}")
     public ResponseEntity<DatosRespuestaPaciente> retornaDatosPaciente(@PathVariable Long id) {
         Paciente paciente = pacienteRepository.getReferenceById(id);
-        var datosPaciente = new DatosRespuestaPaciente(
-                paciente.getId(), paciente.getNombre(), paciente.getEmail(), paciente.getTelefono(), paciente.getDocumento(),
-                new DatosDireccion(
-                        paciente.getDireccion().getCalle(), paciente.getDireccion().getDistrito(), paciente.getDireccion().getCiudad(),
-                        paciente.getDireccion().getNumero(), paciente.getDireccion().getComplemento()
-                )
+        DatosRespuestaPaciente  datosRespuestaPaciente = new DatosRespuestaPaciente(
+                paciente, new DatosDireccion(paciente.getDireccion())
         );
-        return ResponseEntity.ok(datosPaciente);
+        return ResponseEntity.ok(datosRespuestaPaciente);
     }
 
 }

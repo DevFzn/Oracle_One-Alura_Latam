@@ -304,3 +304,263 @@ public record DatosRegistroMedico(
     @Valid DatosDireccion direccion) {}
 ```
 
+### Seguridad
+
+- Autenticación
+- Autorización
+- Protección contra ataques (CSRF, clickjacking)
+
+```mermaid
+%%{init: {'theme': 'dark','themeVariables': {'clusterBkg': '#2b2f38'}, 'flowchart': {'curve': 'cardinal'}}}%%
+flowchart
+direction TB
+DB[(BBDD)]
+subgraph "Autenticación"
+subgraph APP["App o Web"]
+direction LR
+WEB("User
+Pass")
+end
+subgraph REQ["HTTP Request"]
+direction TB
+DT{"user
+pass"}
+JWT{JWT}
+end
+subgraph API[API REST]
+direction LR
+Aplicación
+end
+APP --"user & pass"--> DT
+JWT --"token"--> APP
+REQ <--> API
+API <--SQL--> DB
+end
+```
+
+### Hash de contraseña
+
+Al implementar una funcionalidad de autenticación en una aplicación,
+independientemente del lenguaje de programación utilizado, deberá tratar con
+los datos de inicio de sesión y contraseña de los usuarios, y deberán
+almacenarse en algún lugar, como, por ejemplo, una base de datos.
+
+Las contraseñas son información confidencial y no deben almacenarse en texto
+sin formato, ya que si una persona malintencionada logra acceder a la base de
+datos, podrá acceder a las contraseñas de todos los usuarios. Para evitar este
+problema, siempre debe usar algún algoritmo hash en las contraseñas antes de
+almacenarlas en la base de datos.
+
+**Hashing** no es más que una función matemática que convierte un texto en otro
+texto totalmente diferente y difícil de deducir. Por ejemplo, el texto *"Mi
+nombre es Rodrigo"* se puede convertir en el texto
+`8132f7cb860e9ce4c1d9062d2a5d1848`, utilizando el algoritmo ***hash MD5***.
+
+Un detalle importante es que los algoritmos de hash deben ser unidireccionales,
+es decir, no debe ser posible obtener el texto original a partir de un hash.
+Así, para saber si un usuario ingresó la contraseña correcta al intentar
+autenticarse en una aplicación, debemos tomar la contraseña que ingresó y
+generar su hash, para luego compararla con el hash que está almacenado en la
+base de datos.
+
+Hay varios algoritmos hashing que se pueden usar para transformar las contraseñas
+de los usuarios, algunos de los cuales son más antiguos y ya **no se consideran
+seguros** en la actualidad, como **MD5** y **SHA1**. Los principales algoritmos
+actualmente recomendados son:
+
+- Bcrypt
+- Scrypt
+- Argon2
+- PBKDF2
+
+Se utilizará el algoritmo **BCrypt**, que es bastante popular hoy en día. Esta
+opción también tiene en cuenta que ***Spring Security*** ya nos proporciona una
+clase que lo implementa.
+
+**Spring Data** usa su propio patrón de nomenclatura de métodos a seguir para
+que pueda generar consultas SQL correctamente.
+
+Hay algunas palabras reservadas que debemos usar en los nombres de los métodos,
+como `findBy` y `existBy`, para indicarle a **Spring Data** cómo debe ensamblar
+la consulta que queremos. Esta característica es bastante flexible y puede ser
+un poco compleja debido a las diversas posibilidades existentes.
+
+Para conocer más detalles y comprender mejor cómo ensamblar consultas dinámicas
+con Spring Data, acceda a su
+[documentación oficial](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/).
+
+Bcrypt [online](https://www.browserling.com/tools/bcrypt)
+
+#### Autenticación API
+
+Se agregan las dependencias
+
+[pom.xml](./api_rest/api2/pom.xml)
+
+```xml
+    ...
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    ...
+```
+
+Creación de clases `Usuario`, `UsuarioRepository` y `DatosAutenticacionUsuario`
+en *package*
+[domain.usuario](./api_rest/api2/src/main/java/med/voll/api/domain/usuario/)
+
+[Usuario](./api_rest/api2/src/main/java/med/voll/api/domain/usuario/Usuario.java)
+
+```java
+@Table(name = "usuarios")
+@Entity(name = "Usuario")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
+public class Usuario implements UserDetails {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String login;
+    private String clave;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getPassword() { return clave; }
+
+    @Override
+    public String getUsername() { return login; }
+
+    @Override
+    public boolean isAccountNonExpired() { return true; }
+
+    @Override
+    public boolean isAccountNonLocked() { return true; }
+
+    @Override
+    public boolean isCredentialsNonExpired() { return true; }
+
+    @Override
+    public boolean isEnabled() { return true; }
+}
+```
+
+
+[UsuarioRepository](./api_rest/api2/src/main/java/med/voll/api/domain/usuario/UsuarioRepository.java)
+
+```java
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+    UserDetails findByLogin(String login);
+}
+```
+
+[DatosAutenticacionUsuario](./api_rest/api2/src/main/java/med/voll/api/domain/usuario/DatosAutenticacionUsuario.java)
+
+```java
+public record DatosAutenticacionUsuario(String login, String clave) {}
+```
+
+Creación de clase
+[AutenticacionController](./api_rest/api2/src/main/java/med/voll/api/controller/AutenticacionController.java)
+en *package* [controller](./api_rest/api2/src/main/java/med/voll/api/controller/)
+
+> En este punto no retorna *token*
+
+```java
+package med.voll.api.controller;
+@RestController
+@RequestMapping("/login")
+public class AutenticacionController {
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @PostMapping
+    public ResponseEntity autenticarUsuario(
+      @RequestBody @Valid DatosAutenticacionUsuario datosAutenticacionUsuario) {
+        Authentication token = new UsernamePasswordAuthenticationToken(
+                datosAutenticacionUsuario.login(),
+                datosAutenticacionUsuario.clave());
+        authenticationManager.authenticate(token);
+        return ResponseEntity.ok().build();
+
+    }
+}
+```
+
+Creación de clases `AutenticationService` y `SecurityConfigurations` en *package*
+[infra.security](./api_rest/api2/src/main/java/med/voll/api/infra/)
+
+[AutenticationService](./api_rest/api2/src/main/java/med/voll/api/infra/security/AutenticacionService.java)
+
+```java
+package med.voll.api.infra.security;
+@Service
+public class AutenticacionService implements UserDetailsService {
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String login)
+      throws UsernameNotFoundException {
+        return usuarioRepository.findByLogin(login);
+    }
+}
+```
+
+[SecurityConfigurations](./api_rest/api2/src/main/java/med/voll/api/infra/security/SecurityConfigurations.java)
+
+```java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfigurations {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity)
+      throws Exception {
+        return httpSecurity.csrf().disable().sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .and().build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(
+      AuthenticationConfiguration authenticationConfiguration)
+      throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder () {
+        return new BCryptPasswordEncoder();
+    }
+
+}
+```
+
+Creación de nueva
+[migración](./api_rest/api2/src/main/resources/db/migration/V5__create-table-usuarios.sql)
+para crear tabla `usuarios`
+
+```sql
+create table usuarios(
+    id bigint not null auto_increment,
+    login varchar(100) not null unique,
+    clave varchar(300) not null,
+    primary key(id)
+);
+```
+

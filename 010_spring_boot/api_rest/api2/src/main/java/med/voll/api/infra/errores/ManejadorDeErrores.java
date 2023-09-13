@@ -1,6 +1,7 @@
-package med.voll.api.infra;
+package med.voll.api.infra.errores;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,6 +19,12 @@ public class ManejadorDeErrores {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity manejarError400(MethodArgumentNotValidException e){
         var errores = e.getFieldErrors().stream().map(DatosErrorValidacion::new).toList();
+        return  ResponseEntity.badRequest().body(errores);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity manejarError500(DataIntegrityViolationException e) {
+        var errores = e.getMostSpecificCause().getLocalizedMessage();
         return  ResponseEntity.badRequest().body(errores);
     }
 
