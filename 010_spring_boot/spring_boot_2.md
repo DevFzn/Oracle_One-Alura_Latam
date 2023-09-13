@@ -564,3 +564,107 @@ create table usuarios(
 );
 ```
 
+## JSON Web Token
+
+[JWT](https://jwt.io) - [Repo](https://github.com/auth0/java-jwt)
+
+Agregar dependencia a [pom.xml](./api_rest/api2/pom.xml)
+
+```xml
+<dependency>
+  <groupId>com.auth0</groupId>
+  <artifactId>java-jwt</artifactId>
+  <version>4.4.0</version>
+</dependency>
+```
+
+Creación de clase
+[TokenService](./api_rest/api2/src/main/java/med/voll/api/infra/security/TokenService.java)
+en *package* [infra.security](./api_rest/api2/src/main/java/med/voll/api/infra/security/)
+
+```java
+@Service
+public class TokenService {
+
+    @Value("${api.security.secret}")
+    private String apiSecret;
+
+    public String generarToken(Usuario usuario) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(apiSecret) ;
+            return JWT.create()
+                    .withIssuer("voll med")
+                    .withSubject(usuario.getLogin())
+                    .withClaim("id", usuario.getId())
+                    .withExpiresAt(generarFechaExpiracion())
+                    .sign(algorithm);
+        } catch (JWTCreationException exception){
+            throw new RuntimeException();
+        }
+
+    }
+
+    private Instant generarFechaExpiracion() {
+        return LocalDateTime.now()
+                    .plusHours(2)
+                    .toInstant(ZoneOffset.of("-03:00"));
+    }
+}
+```
+
+Creación de propiedades manejadas por variables de entorno/ambiente
+
+[application.properties](./api_rest/api2/src/main/resources/application.properties)
+
+```config
+spring.datasource.url=jdbc:mysql://${DB_URL}/vollmed_api2
+spring.datasource.username=${DB_USER}
+spring.datasource.password=${DB_PASS}
+
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+
+server.error.include-stacktrace=never
+
+api.security.secret=${JWT_SECRET}
+```
+
+Creación del DTO
+[DatosTokenJWT](./api_rest/api2/src/main/java/med/voll/api/infra/security/DatosJWTtoken.java)
+en *package*
+[infra.security](./api_rest/api2/src/main/java/med/voll/api/infra/security/)
+
+```java
+public record DatosJWTtoken(String jwTtoken) {}
+```
+
+Modificación en clase
+[AutenticacionController](./api_rest/api2/src/main/java/med/voll/api/controller/AutenticacionController.java)
+en *package* [controller](./api_rest/api2/src/main/java/med/voll/api/controller/)
+
+```java
+@RestController
+@RequestMapping("/login")
+public class AutenticacionController {
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private TokenService tokenService;
+
+    @PostMapping
+    public ResponseEntity autenticarUsuario(
+      @RequestBody @Valid DatosAutenticacionUsuario datosAutenticacionUsuario) {
+        Authentication authtoken = new UsernamePasswordAuthenticationToken(
+                datosAutenticacionUsuario.login(),
+                datosAutenticacionUsuario.clave());
+        var usuarioAutenticado = authenticationManager.authenticate(authtoken);
+        var JWTtoken = tokenService.generarToken(
+                (Usuario) usuarioAutenticado.getPrincipal()
+        );
+        return ResponseEntity.ok(new DatosJWTtoken(JWTtoken));
+    }
+}
+```
+
