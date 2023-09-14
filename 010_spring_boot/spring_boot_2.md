@@ -154,12 +154,10 @@ temporalmente. Las causas comunes son un servidor que está fuera de servicio
 por mantenimiento o sobrecargado. Los ataques maliciosos como ***DDoS***
 causan mucho este problema.
 
-
-Para consultar sobre algún código HTTP, se puede usar la sgte. página:
-
+Para consultar sobre algún código HTTP, se puede usar
 [http cat](https://http.cat)
 
-ejm consulta por código `405 Method Not Allowed`
+ejm. consulta por código `405 Method Not Allowed`
 
 ```http
 https://http.cat/405
@@ -186,8 +184,6 @@ clase
 [ManejadorDeErrores](./api_rest/api2/src/main/java/med/voll/api/infra/ManejadorDeErrores.java)
 
 ```java
-...
-
 @RestControllerAdvice
 public class ManejadorDeErrores {
 
@@ -667,4 +663,291 @@ public class AutenticacionController {
     }
 }
 ```
+
+## Control de acceso
+
+### Filters
+
+**Filter** es una de las características que componen la especificación 
+Servlets, que estandariza el manejo de solicitudes y respuestas en aplicaciones
+web en Java. Es decir, dicha función no es específica de Spring y, por lo tanto,
+puede usarse en cualquier aplicación Java.
+
+Es una característica muy útil para aislar códigos de infraestructura de la
+aplicación, como por ejemplo, seguridad, logs y auditoría, para que dichos
+códigos no se dupliquen y se mezclen con códigos relacionados con las reglas
+comerciales de la aplicación.
+
+Para crear un **Filter**, simplemente cree una clase e implemente la interfaz
+Filter en ella (paquete `jakarta.servlet`). Por ejemplo:
+
+```java
+@WebFilter(urlPatterns = "/api/**")
+public class LogFilter implements Filter {
+
+    @Override
+    public void doFilter(ServletRequest servletRequest,
+                         ServletResponse servletResponse,
+                         FilterChain filterChain
+                         ) throws IOException, ServletException {
+        System.out.println("Solicitud recibida el: " + LocalDateTime.now());
+        filterChain.doFilter(servletRequest, servletResponse);
+    }
+
+}
+```
+
+El método `doFilter` es llamado por el servidor automáticamente, cada vez que
+este filter tiene que ser ejecutado, y la llamada al método `filterChain.doFilter`
+indica que los siguientes filters, si hay otros, pueden ser ejecutados. La
+anotación `@WebFilter`, agregada a la clase, indica al servidor en qué
+solicitudes se debe llamar a este filter, según la URL de la solicitud.
+
+En este proyecto se utiliza otra forma de implementar un filter, utilizando los
+recursos de Spring que facilitan su implementación.
+
+
+#### Importante!
+
+En la versión final `3.0.0` de Spring Boot se realizó un cambio en Spring Security,
+en cuanto a códigos que restringen el control de acceso. A lo largo de las clases,
+el método `securityFilterChain(HttpSecurity http)`, declarado en la clase
+`SecurityConfigurations`, tenía la siguiente estructura:
+
+```java
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http) 
+  throws Exception {
+    return http.csrf().disable()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and().authorizeRequests()
+            .antMatchers(HttpMethod.POST, "/login").permitAll()
+            .anyRequest().authenticated()
+            .and().build();
+}
+```
+Sin embargo, desde la versión final `3.0.0` de Spring Boot, el método
+`authorizeRequests()` ha quedado obsoleto y debe ser reemplazado por el nuevo
+método `authorizeHttpRequests()`. Asimismo, el método `antMatchers(`) debería
+ser reemplazado por el nuevo método `requestMatchers()`:
+
+```java
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    return http.csrf().disable()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and().authorizeHttpRequests()
+            .requestMatchers(HttpMethod.POST, "/login").permitAll()
+            .anyRequest().authenticated()
+            .and().build();
+}
+```
+
+## Control de acceso
+
+Creación de clase
+[SecurityFilter](./api_rest/api2/src/main/java/med/voll/api/infra/security/SecurityFilter.java)
+, responsable de interceptar solicitures y realizar
+el proceso de autenticación y autorización
+
+```java
+@Component
+public class SecurityFilter extends OncePerRequestFilter {
+
+    @Autowired
+    private TokenService tokenService;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Override
+    protected void doFilterInternal(
+                        HttpServletRequest request,
+                        HttpServletResponse response,
+                        FilterChain filterChain)
+                        throws ServletException, IOException {
+        var authHeader = request.getHeader("Authorization");
+        if (authHeader != null) {
+            var token = authHeader.replace("Bearer ", "");
+            var subject = tokenService.getSubject(token);
+            if (subject != null) {
+                // token válido
+                var usuario = usuarioRepository.findByLogin(subject);
+                var authentication = new UsernamePasswordAuthenticationToken(
+                        usuario,
+                        null,
+                        usuario.getAuthorities() // forzar inicio de sesión
+                );
+                SecurityContextHolder
+                .getContext().setAuthentication(authentication);
+            }
+        }
+        filterChain.doFilter(request, response);
+   }
+
+}
+```
+
+Actualización en clase
+[SecurityConfigurations](./api_rest/api2/src/main/java/med/voll/api/infra/security/SecurityConfigurations.java)
+
+```java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfigurations {
+
+    @Autowired
+    private SecurityFilter securityFilter;
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity)
+      throws Exception {
+        return httpSecurity.csrf().disable().sessionManagement()
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().authorizeHttpRequests()
+                .requestMatchers(HttpMethod.POST, "/login")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authenticationConfiguration)
+      throws  Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder () {
+        return new BCryptPasswordEncoder();
+    }
+
+}
+```
+
+Actualización de la clase
+[TokenService](./api_rest/api2/src/main/java/med/voll/api/infra/security/TokenService.java)
+
+```java
+@Service
+public class TokenService {
+
+    @Value("${api.security.secret}")
+    private String apiSecret;
+
+    public String generarToken(Usuario usuario) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(apiSecret) ;
+            return JWT.create()
+                    .withIssuer("voll med")
+                    .withSubject(usuario.getLogin())
+                    .withClaim("id", usuario.getId())
+                    .withExpiresAt(generarFechaExpiracion())
+                    .sign(algorithm);
+        } catch (JWTCreationException exception){
+            throw new RuntimeException();
+        }
+    }
+
+    public String getSubject(String token) {
+        if (token == null) {
+            throw new RuntimeException("token nulo");
+        }
+        DecodedJWT verifier = null;
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(apiSecret);
+            verifier = JWT.require(algorithm)
+                    // specify an specific claim validations
+                    .withIssuer("voll med")
+                    // reusable verifier instance
+                    .build()
+                    .verify(token);
+            verifier.getSubject();
+        } catch (JWTVerificationException exception) {
+            // Invalid signature/claims
+            System.out.println(exception.toString());
+        }
+        if (verifier.getSubject() == null) {
+            throw new RuntimeException("Verifier inválido");
+        }
+        return verifier.getSubject();
+    }
+
+    private Instant generarFechaExpiracion() {
+        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+    }
+}
+```
+
+En este proyecto no se tienen diferentes perfiles de acceso para los usuarios.
+Sin embargo, esta característica se usa en algunas aplicaciones y se puede
+configurar **Spring Security** que solo los usuarios que tienen un perfil
+específico pueden acceder a ciertas URL.
+
+P.e., suponiendo que en la aplicación tiene un perfil de acceso llamado
+**ADMIN**, y solo los usuarios con ese perfil pueden eliminar médicos y
+pacientes. Podemos indicar dicha configuración a **Spring Security**
+cambiando el método `securityFilterChain`, en la clase
+`SecurityConfigurations`, de la siguiente manera:
+
+```java
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http)
+  throws Exception {
+    return http.csrf().disable()
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and().authorizeRequests()
+        .antMatchers(HttpMethod.POST, "/login").permitAll()
+        .antMatchers(HttpMethod.DELETE, "/medicos").hasRole("ADMIN")
+        .antMatchers(HttpMethod.DELETE, "/pacientes").hasRole("ADMIN")
+        .anyRequest().authenticated()
+        .and().addFilterBefore(
+            securityFilter,
+            UsernamePasswordAuthenticationFilter.class
+            )
+        .build();
+}
+```
+
+Tener en cuenta que se agregaron dos líneas al código anterior, indicando a
+**Spring Security** que las solicitudes de tipo **DELETE** de las URL `/médicos`
+y `/pacientes` solo pueden ser ejecutadas por usuarios autenticados y cuyo perfil
+de acceso es **ADMIN**.
+
+### Control de acceso a anotaciones
+
+Otra forma de restringir el acceso a ciertas funciones, según el perfil del
+usuario, es usar una función de Spring Security conocida como Method Security,
+que funciona con el uso de anotaciones en los métodos:
+
+```java
+@GetMapping("/{id}")
+@Secured("ROLE_ADMIN")
+public ResponseEntity detallar(@PathVariable Long id) {
+    var medico = repository.getReferenceById(id);
+    return ResponseEntity.ok(new DatosDetalladoMedico(medico));
+}
+```
+
+En el ejemplo de código anterior, el método se anotó con
+`@Secured("ROLE_ADMIN")`, de modo que sólo los usuarios con el rol **ADMIN**
+pueden activar solicitudes para detallar a un médico. La anotación `@Secured`
+se puede agregar en métodos individuales o incluso en la clase, lo que sería
+el equivalente a agregarla en todos los métodos.
+
+***¡Atención!*** Por defecto esta característica está deshabilitada en
+**Spring Security**, y para usarla debemos agregar la siguiente anotación en la
+clase `Securityconfigurations` del proyecto:
+
+```java
+@EnableMethodSecurity(securedEnabled = true)
+```
+
+Más detalles sobre la función de seguridad del método en la
+documentación de
+[Spring Security](https://docs.spring.io/spring-security/reference/servlet/authorization/method-security.html)
 
