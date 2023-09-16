@@ -52,3 +52,4 @@ primoridiales en programación con Javascript
   - [JPA consultas avanzadas, rendimiento y modelos complejos](./010_spring_boot/jpa_avanzado.md)
   - [Desarrollo API Rest](./010_spring_boot/spring_boot_1.md)
   - [Buenas prácticas y protección de API Rest](./010_spring_boot/spring_boot_2.md)
+  - [Docs, Tests y preparación para implementacion](./010_spring_boot/spring_boot_3.md)

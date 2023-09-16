@@ -951,3 +951,7 @@ Más detalles sobre la función de seguridad del método en la
 documentación de
 [Spring Security](https://docs.spring.io/spring-security/reference/servlet/authorization/method-security.html)
 
+---
+
+Continua en
+[Documentar, probar y preparar una API para su implementación](./spring_boot_3.md)
