@@ -506,6 +506,7 @@ consulta utilizando la sintaxis del ***Java Persistence Query Language (JPQL)***
 ```
 
 ### En resumen
+
 Creación de nuevo *package*
 [`domain.consulta`](./api_rest/api3/src/main/java/med/voll/api/domain/consulta/)
 donde se crean entidad **Consulta**, clases `ConsultaRepository`,
@@ -514,8 +515,8 @@ donde se crean entidad **Consulta**, clases `ConsultaRepository`,
 - [Consulta](./api_rest/api3/src/main/java/med/voll/api/domain/consulta/Consulta.java)
 - [ConsultaRepository](./api_rest/api3/src/main/java/med/voll/api/domain/consulta/ConsultaRepository.java)
 - [DatosAgendarConsulta](./api_rest/api3/src/main/java/med/voll/api/domain/consulta/DatosAgendarConsulta.java)
-- [DatosDetalleConsulta](./api_rest/api3/src/main/java/med/voll/api/domain/consulta/DatosDetalleConsulta.java)
-- [AgendaDeConsultasService](./api_rest/api3/src/main/java/med/voll/api/domain/consulta/AgendaDeConsultaService.java)
+  - [DatosDetalleConsulta](./api_rest/api3/src/main/java/med/voll/api/domain/consulta/DatosDetalleConsulta.java)
+  - [AgendaDeConsultasService](./api_rest/api3/src/main/java/med/voll/api/domain/consulta/AgendaDeConsultaService.java)
 - [migración](./api_rest/api3/src/main/resources/db/migration/V6__create-table-consultas.sql)
 
 ---
@@ -527,9 +528,9 @@ con los atributos de las clases DTO, se pueden utilizar alias
 
 ```java
 public record DatosCompra(
-            @JsonAlias("producto_id") Long idProducto,
-            @JsonAlias("fecha_compra") LocalDate fechaCompra
-    ){}
+        @JsonAlias("producto_id") Long idProducto,
+        @JsonAlias("fecha_compra") LocalDate fechaCompra
+        ){}
 ```
 
 La anotación `@JsonAlias` sirve para mapear *alias* alternativos para los campos
@@ -537,9 +538,9 @@ que se recibirán del JSON, y es posible asignar múltiples alias:
 
 ```java
 public record DatosCompra(
-            @JsonAlias({"producto_id", "id_producto"}) Long idProducto,
-            @JsonAlias({"fecha_compra", "fecha"}) LocalDate fechaCompra
-    ){}
+        @JsonAlias({"producto_id", "id_producto"}) Long idProducto,
+        @JsonAlias({"fecha_compra", "fecha"}) LocalDate fechaCompra
+        ){}
 ```
 
 ### Formato fechas
@@ -605,10 +606,273 @@ Entonces, se podrían crear los siguientes **Services**:
 
 Pero es importante estar atentos, ya que muchas veces no es necesario crear un
 **Service** y, por lo tanto, agregar otra capa y complejidad innecesarias a
-una aplicación. Una regla que podemos utilizar es la siguiente: si no hay reglas
-de negocio, simplemente se puede realizar la comunicación directa entre los
-controllers y los repositories de la aplicación.
+una aplicación. Una regla que se puede utilizar es la siguiente:
+
+***si no hay reglas de negocio, simplemente se puede realizar la comunicación
+directa entre los controllers y los repositories de la aplicación.***
 
 ---
+
+## Principios SOLID
+
+**SOLID** es un acrónimo que representa cinco principios de programación
+
+- Principio de **Responsabilidad Única** (*Single Responsibility Principle*)
+- Principio **Abierto-Cerrado** (*Open-Closed Principle*)
+- Principio de **Sustitución de Liskov** (*Liskov Substitution Principle*)
+- Principio de **Segregación de Interfaces** (*Interface Segregation Principle*)
+- Principio de **Inversión de Dependencia** (*Dependency Inversion Principle*)
+
+Cada principio representa una buena práctica de programación que, cuando se
+aplica en una aplicación, facilita mucho su mantenimiento y extensión. Estos
+principios fueron creados por *Robert Martin*, conocido como *Uncle Bob*, en su
+artículo ***Design Principles and Design Patterns***.
+
+
+---
+
+## Reglas de negocio
+
+Para cada validación de las reglas de negocio, se crea una clase específica.
+La primera regla trata sobre el horario de la clínica: ***"El horario de
+funcionamiento de la clínica es de lunes a sábado, de 07:00 a 19:00"***.
+Si llega una solicitud a nuestra API con una fecha programada para una consulta,
+¿qué sucede si el cliente intenta programar una consulta para un domingo?
+¿O para un lunes a las 4 de la mañana? Por esto es necesario validar el horario
+de la consulta.
+
+Creción de subpaquete `consulta.validaciones`.
+
+Dentro de `validaciones`, se crean las clases. Primero, una nueva clase llamada
+`HorarioDeFuncionamientoClinica`. La idea es crear un método dentro de esta
+clase para realizar la validación del horario de funcionamiento de la clínica.
+Crearemos el método `validar()` y recibiremos el DTO `DatosAgendarConsulta` como
+parámetro.
+
+```java
+    public class HorarioDeFuncionamientoClinica{
+        public void validar(DatosAgendarConsulta datos) {
+            var domingo = DayOfWeek.SUNDAY.equals(datos.fecha().getDayOfWeek());
+            var antesdDeApertura=datos.fecha().getHour()<7;
+            var despuesDeCierre=datos.fecha().getHour()>19;
+            if(domingo || antesdDeApertura || despuesDeCierre){
+                throw  new ValidationException(
+                        "El horario de atención de la clínica es de lunes a
+                       +"sábado, de 07:00 a 19:00 horas");
+            }
+        }
+    }
+```
+
+Esto concluye la primera validación. El único objetivo de esta clase es
+ejecutar esa única validación. El código queda pequeño, simple y fácil de dar
+mantenimiento y de probar de manera automatizada.
+
+La siguiente validación de la lista es ***"Las consultas tienen una duración
+fija de 1 hora"***. Esta validación será implícita, la aplicación estará
+disponible de una en una hora para agendar la consulta.
+
+Siguiente validación: ***"Las consultas deben ser agendadas con un mínimo de 30
+minutos de antelación"***.
+
+Dentro del paquete de validaciones, se crea una nueva clase llamada
+`HorarioDeAnticipacion`.Con un método similar al creado anteriormente.
+
+```java
+public void validar(DatosAgendarConsulta datos) {
+    var ahora = LocalDateTime.now();
+    var horaDeConsulta= datos.fecha();
+    var diferenciaDe30Min= Duration.between(ahora,horaDeConsulta).toMinutes()<30;
+    if(diferenciaDe30Min){
+        throw new ValidationException(
+                "Las consultas deben programarse con al "
+                +"menos 30 minutos de anticipación");
+    }
+}
+```
+
+En la clase `MedicoActivo`, la única diferencia es el uso del Repositorio.
+Se está buscando solo el atributo activo del médico, filtrando por el Ii.
+Y si el médico no tiene ID, lanza una excepción.
+
+Se creó el método `findAtivoByID`. En este caso, no se quiere cargar el objeto
+completo del médico solo para verificar si el atributo activo es `true`.
+Entonces, se puede hacer una consulta personalizada trayendo solo un único
+atributo, `SELECT m.activo`.
+
+Luego en la clase `MedicoConConsulta` también es necesario consultar la base de
+datos para verificar si hay una consulta con este médico en la misma fecha.
+
+Se realiza la consulta usando el patrón de nomenclatura de SpringData:
+`existsByMedicoIdAndFecha(idMedico, fecha)`.
+
+`PacienteActivo` se parece a `ValidadorMedicoActivo`.
+Con la validación para que el paciente no tenga consulta en la misma fecha,
+`PacienteSinConsulta`. También consulta la base de datos para ver si hay una
+consulta para este paciente, colocando la fecha de inicio y la fecha de
+finalización de ese día, tomando la primera y la última hora del día.
+
+Se crea una interfáz `ValidadorDeConsultas` y dentro de esta se declara el
+método que las clases tienen en común, `validar(DatosAgendarConsulta datos)`.
+No es necesario usar la palabra clave `public` ya que ***es implícito que todos
+los métodos de una interfaz son públicos***.
+
+```java
+    public interface ValidadorDeConsultas {
+        public void validar(DatosAgendarConsulta datos);
+    }
+```
+
+De esta manera, se estandariza el proyecto. Cada validador debe implementa esta
+interfaz y obligatoriamente, deben implementar el método
+`validar(DatosAgendarConsulta)`. Solo el cuerpo del método de cada clase será
+diferente.
+
+Otra cosa importante: para poder inyectar estas clases en algún lugar, Spring
+necesita conocerlas. Entonces, encima de ellas debe haber alguna anotación de
+Spring.
+
+Se podría usar la anotación `@Service` para indicar que es un servicio, una
+validación. Pero se usa la anotación `@Component` que es para componentes
+genéricos. Porque en ocasiones se tiene una clase que no es ni una clase de
+configuración, ni un controlador ni un servicio. Entonces el `@Component`
+indica a Spring que esta clase es un componente genérico y lo cargará en la
+inicialización del proyecto. Podría ser `@Service` también. No olvidar las
+respectivas anotaciones `@Autowired`
+
+En la interfaz no es necesario colocar ninguna anotación porque el Spring la
+carga automáticamente.
+
+Para inyectar estos validadores en la clase service, la clase
+`AgendaDeConsultaService`, se usa un esquema de Spring que facilita la vida.
+
+Se puede pensar que se necesita inyectar cada uno de los validadores de la misma
+manera que se están inyectando los repositorios. Pero ese es el problema que
+se quiere evitar, no se desea declararlos uno por uno. Así que se hace un "truco"
+que Spring permite hacer.
+
+En el código de AgendaDeConsultaService, se declara un atributo, con la anotación
+`@Autowired`, pero este atributo es declarado como una **lista** `java.util.List`
+y, dentro de la lista, se declara la **interfaz** `ValidadorDeConsultas` y es
+llamada `validadores`.
+
+```java
+@Autowired
+List<ValidadorDeConsultas> validadores;
+```
+
+Spring identifica automáticamente que se esta inyectando una lista y buscará
+todas las clases que implementan la interfaz `ValidadorDeConsultas`. Así, no
+importa la cantidad de validadores, Spring inyectará uno por uno. Es mucho más
+práctico hacerlo de esta manera.
+
+En el método agendar(), antes de crear las variables del paciente y del médico,
+se obtener esta lista de validadores y se recorre con
+`forEach(v -> v.validar(datos))`.
+
+```java
+validadores.forEach(v-> v.validar(datos));
+```
+
+De esta forma se logran inyectar todos los validadores y el código queda bastante
+flexible.
+
+Si se quiere excluir un validador, basta con eliminar la clase de ese validador.
+No es necesario modificar la clase `AgendaDeConsultaService`, la lista simplemente
+quedará con una clase menos.
+
+Si cambia una validación o si deja de existir, no es necesario modificar la clase
+de servicio.
+
+Probar agendar una cita, **POST** `http://localhost:8080/consultas`
+
+```json
+{
+    "idPaciente": 1,
+        "idMedico": 1,
+        "fecha": "2023-09-18T10:00,
+}
+```
+
+```java
+public DatosDetalleConsulta agendar(DatosAgendarConsulta datos){
+   if(!pacienteRepository.findById(datos.idPaciente()).isPresent()){
+       throw new ValidacionDeIntegridad("este id para el paciente no fue encontrado");
+   }
+   if(datos.idMedico()!=null && !medicoRepository.existsById(datos.idMedico())){
+       throw new ValidacionDeIntegridad("este id para el medico no fue encontrado");
+   }
+   validadores.forEach(v-> v.validar(datos));
+   var paciente = pacienteRepository.findById(datos.idPaciente()).get();
+   var medico = seleccionarMedico(datos);
+   if(medico==null){
+       throw new ValidacionDeIntegridad("No hay especialistas disponibles "
+                                       +" para este horario");
+   }
+   var consulta = new Consulta(medico,paciente,datos.fecha());
+   consultaRepository.save(consulta);
+   return new DatosDetalleConsulta(consulta);
+}
+```
+
+El constructor que recibe el objeto consulta en
+[DatosDetalleConsulta](./api_rest/api3/src/main/java/med/voll/api/domain/consulta/DatosDetalleConsulta.java)
+
+```java
+public record DatosDetalleConsulta(Long id,
+                                   Long idPaciente,
+                                   Long idMedico,
+                                   LocalDateTime fecha) {
+   public DatosDetalleConsulta(Consulta consulta) {
+       this(consulta.getId(),
+            consulta.getPaciente().getId(),
+            consulta.getMedico().getId(),
+            consulta.getFecha());
+   }
+}
+```
+
+Se tiene un DTO con los datos siendo devueltos correctamente.
+
+En `ConsultaController`, el método `agendar()` devuelve el DTO. Se guarda el DTO
+en una variable y en `ResponseEntity.ok` se pasa el DTO que fue devuelto por el
+service.
+
+```java
+@PostMapping
+@Transactional
+public ResponseEntity agendar(@RequestBody @Valid DatosAgendarConsulta datos) {
+   var dto= service.agendar(datos);
+   return ResponseEntity.ok(dto);
+}
+```
+
+El envio de un paciente que no existe en la base de datos:
+
+**POST** `http://localhost:8080/consultas`
+
+```json
+{
+    "idPaciente": 88888,
+    "idMedico": 1,
+    "fecha": "2023-10-10T10:00"
+}
+```
+
+En el paquete [errores](./api_rest/api3/src/main/java/med/voll/api/infra/errores),
+en clase
+[ManejadorDeErrores](./api_rest/api3/src/main/java/med/voll/api/infra/errores/ManejadorDeErrores.java)
+se crea un nuevo método para `ValidationException`:
+
+```java
+@ExceptionHandler(ValidationException.class)
+public ResponseEntity errorHandlerValidacionesDeNegocio(Exception e){
+   return ResponseEntity.badRequest().body(e.getMessage());
+}
+```
+
+---
+
+## Documentación
 
 
