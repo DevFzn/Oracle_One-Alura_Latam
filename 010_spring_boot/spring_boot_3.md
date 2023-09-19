@@ -875,4 +875,97 @@ public ResponseEntity errorHandlerValidacionesDeNegocio(Exception e){
 
 ## Documentación
 
+[SpringDoc](https://springdoc.org/)
+
+La documentación es algo muy importante en un proyecto, especialmente si se trata
+de una API Rest, ya que en este caso podemos tener varios clientes que necesiten
+comunicarse con ella y necesiten documentación que les enseñe cómo realizar esta
+comunicación de manera correcta.
+
+Durante mucho tiempo no existió un formato estándar para documentar una API Rest,
+hasta que en 2010 surgió un proyecto conocido como ***Swagger***, cuyo objetivo
+era ser una especificación **open source** para el diseño de APIs Rest. Después
+de un tiempo, se desarrollaron algunas herramientas para ayudar a los
+desarrolladores a implementar, visualizar y probar sus APIs, como ***Swagger UI,
+Swagger Editor y Swagger Codegen***, lo que lo convirtió en un proyecto muy
+popular y utilizado en todo el mundo.
+
+En 2015, Swagger fue comprado por la empresa ***SmartBear Software***, que donó
+la parte de la especificación a la ***Fundación Linux***. A su vez, la
+fundación renombró el proyecto a **OpenAPI**. Después de esto, se creó la
+***OpenAPI Initiative***, una organización centrada en el desarrollo y la
+evolución de la especificación OpenAPI de manera abierta y transparente.
+
+OpenAPI es actualmente la especificación más utilizada y también la principal
+para documentar una API Rest. La documentación sigue un patrón que puede ser
+descrito en formato **YAML** o **JSON**, lo que facilita la creación de
+herramientas que puedan leer dichos archivos y automatizar la creación de
+documentación, así como la generación de código para el consumo de una API.
+
+Más detalles en el sitio web oficial de la
+[OpenAPI Initiative](https://www.openapis.org/).
+
+Dependencia en [pom.xml](./api_rest/api3/pom.xml)
+
+```xml
+   <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <version>2.2.0</version>
+   </dependency>
+```
+
+Permitir acceso a urls de **SpringDoc** sin token
+
+[SecurityConfigurations](./api_rest/api3/src/main/java/med/voll/api/infra/security/SecurityConfigurations.java)
+
+```java
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity)
+        throws Exception {
+                ...
+                .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                .requestMatchers(HttpMethod.GET,
+                                    "/swagger_ui.html",
+                                    "/swagger_ui/**",
+                                    "/v3/api-docs/**").permitAll()
+                ...
+```
+
+URLS:
+
+- `http://localhost:8080/v3/api-docs`
+- `localhost:8080/swagger-ui.html`
+
+Nuevo *package*
+[`api.infra.springdoc`](./api_rest/api3/src/main/java/med/voll/api/infra/springdoc/)
+y clase
+[SpringDocConfigurations](./api_rest/api3/src/main/java/med/voll/api/infra/springdoc/SpringDocConfigurations.java)
+
+```java
+@Configuration
+public class SpringDocConfigurations {
+
+    @Bean
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI().components(new Components()
+                .addSecuritySchemes(
+                        "bearer-key",
+                        new SecurityScheme().type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT")));
+    }
+
+    @Bean
+    public void message() {
+        System.out.println("bearer is working");
+    }
+}
+```
+
+Se agrega la anotacion `@SecurityRequirement(name = "bearer-key")` en las clases
+*controller* para que el **Swagger** habilite la funcionalidad de autentificar
+por token.
+
+---
 
