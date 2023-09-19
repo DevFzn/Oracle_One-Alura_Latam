@@ -1,5 +1,6 @@
 package med.voll.api.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import med.voll.api.domain.consulta.AgendaDeConsultaService;
@@ -26,6 +27,7 @@ public class ConsultaController {
 
     @PostMapping
     @Transactional // ojo de donde se importa esta anotación
+    @Operation(summary = "Registra una consulta en la base de datos")
     public ResponseEntity agendar(@RequestBody @Valid DatosAgendarConsulta datos) {
         System.out.println(datos);
         var response = service.agendar(datos);
@@ -34,6 +36,7 @@ public class ConsultaController {
     }
 
     @GetMapping
+    @Operation(summary = "Retorna listado de consultas")
     public ResponseEntity<Page<DatosDetalleConsulta>> listar(
                 @PageableDefault(size = 10, sort = {"fecha"}) Pageable paginacion) {
         var response = service.consultar(paginacion);
@@ -42,6 +45,7 @@ public class ConsultaController {
 
     @DeleteMapping
     @Transactional
+    @Operation(summary = "Cancela una consulta")
     public ResponseEntity cancelar(@RequestBody @Valid DatosCancelarConsulta dados) {
         service.cancelar(dados);
         return ResponseEntity.noContent().build();

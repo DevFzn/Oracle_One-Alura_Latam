@@ -969,3 +969,253 @@ por token.
 
 ---
 
+## Pruebas Automatizadas
+
+***¿Que se prueba?***
+
+- Cotroller -> API
+- Services -> Reglas de Negocio
+- Repository -> Queries
+
+#### Tipos de Tests
+
+- Test de caja negra
+- Test de caja blanca
+
+### Propiedades de los Tests
+
+[application-test.yml](./api_rest/api3/src/main/resources/application-test.yml)
+
+```yml
+spring:
+  datasource:
+    url: jdbc:mysql://${TEST_DB_URL}?createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: ${DB_USER}
+    password: ${DB_PASS}
+```
+
+### Creación de Tests
+
+#### Test MedicoRepository
+
+Se crea el *Package*
+[`test.java.med.voll.api.domain.medico`](./api_rest/api3/src/test/java/med/voll/api/domain/medico/)
+y la clase
+[MedicoRepositoryTest](./api_rest/api3/src/test/java/med/voll/api/domain/medico/MedicoRepositoryTest.java)
+
+```java
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ActiveProfiles("test")
+class MedicoRepositoryTest {
+
+    @Autowired
+    private MedicoRepository medicoRepository;
+    @Autowired
+    private TestEntityManager em;
+
+    @Test
+    @DisplayName("Debe retornar null cuando el médico tenga una consulta en ese horario")
+    void seleccionarMedicoConEspecialidadEnFechaEscenario1() {
+
+        var proximoLunes10H = LocalDate.now()
+                .with(TemporalAdjusters.next(DayOfWeek.MONDAY))
+                .atTime(10, 0);
+
+        var medico = registrarMedico("Jose",
+                                     "jose@mail.com",
+                                     "123456",
+                                     Especialidad.CARDIOLOGIA);
+        var paciente = registrarPaciente("antonio","antonio@mail.com","654321");
+        registrarConsulta(medico, paciente, proximoLunes10H);
+
+        var medicoLibre = medicoRepository.seleccionarMedicoConEspecialidadEnFecha(
+                                     Especialidad.CARDIOLOGIA,
+                                     proximoLunes10H);
+        assertNull(medicoLibre);
+    }
+
+    @Test
+    @DisplayName("Debe retornar el médico ingresado como disponible en ese horario")
+    void seleccionarMedicoConEspecialidadEnFechaEscenario2() {
+
+        var proximoLunes10H = LocalDate.now()
+                .with(TemporalAdjusters.next(DayOfWeek.MONDAY))
+                .atTime(10, 0);
+
+        var medico = registrarMedico("Jose",
+                                     "jose@mail.com",
+                                     "123456",
+                                     Especialidad.CARDIOLOGIA);
+        var medicoLibre = medicoRepository.seleccionarMedicoConEspecialidadEnFecha(
+                                     Especialidad.CARDIOLOGIA,
+                                     proximoLunes10H) ;
+
+        assertEquals(medicoLibre, medico);
+    }
+
+    private void registrarConsulta(Medico medico,
+                                   Paciente paciente,
+                                   LocalDateTime fecha) {
+        em.persist(new Consulta(null, medico, paciente, fecha, null));
+    }
+
+    private Medico registrarMedico(String nombre,
+                                   String email,
+                                   String documento,
+                                   Especialidad especialidad) {
+        var medico = new Medico(datosMedico(nombre, email, documento, especialidad));
+        em.persist(medico);
+        return medico;
+    }
+
+    private Paciente registrarPaciente(String nombre,
+                                       String email,
+                                       String documento) {
+        var paciente = new Paciente(datosPaciente(nombre, email, documento));
+        em.persist(paciente);
+        return paciente;
+    }
+
+    private DatosRegistroMedico datosMedico(String nombre,
+                                            String email,
+                                            String documento,
+                                            Especialidad especialidad) {
+        return new DatosRegistroMedico(
+                nombre,
+                email,
+                "61999999999",
+                documento,
+                especialidad,
+                datosDireccion()
+        );
+    }
+
+    private DatosRegistroPaciente datosPaciente(String nombre,
+                                                String email,
+                                                String documento) {
+        return new DatosRegistroPaciente(
+                nombre,
+                email,
+                "61999999999",
+                documento,
+                datosDireccion()
+        );
+    }
+
+    private DatosDireccion datosDireccion() {
+        return new DatosDireccion(
+                "Loca",
+                "Azul",
+                "Acapulco",
+                "321",
+                "12"
+        );
+    }
+
+}
+```
+
+### Test ConsultaController
+
+Clase
+[ConsultaControllerTest](./api_rest/api3/src/test/java/med/voll/api/controller/ConsultaControllerTest.java)
+en *package*
+[`test.java.med.voll.api.controler`](./api_rest/api3/src/test/java/med/voll/api/controller/)
+
+```java
+package med.voll.api.controller;
+
+import med.voll.api.domain.consulta.AgendaDeConsultaService;
+import med.voll.api.domain.consulta.DatosAgendarConsulta;
+import med.voll.api.domain.consulta.DatosDetalleConsulta;
+import med.voll.api.domain.medico.Especialidad;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.json.JacksonTester;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+
+import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+@AutoConfigureJsonTesters
+@ActiveProfiles("test")
+class ConsultaControllerTest {
+
+    @Autowired
+    private MockMvc mvc;
+
+    @Autowired
+    private JacksonTester<DatosAgendarConsulta> agendarConsultaJacksonTester;
+
+    @Autowired
+    private JacksonTester<DatosDetalleConsulta> detalleConsultaJacksonTester;
+
+    @MockBean
+    private AgendaDeConsultaService agendaDeConsultaService;
+
+    @Test
+    @DisplayName("Debe retornar estado http 400 cuando datos ingresados no sean válidos")
+    @WithMockUser
+    void agendarEscenario1() throws Exception {
+        // given - when
+        var response  = mvc.perform(post("/consultas")).andReturn().getResponse();
+        // then
+        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+    }
+
+    @Test
+    @DisplayName("Debe retornar estado http 200 cuando datos ingresados sean válidos")
+    @WithMockUser
+    void agendarEscenario2() throws Exception {
+
+        //given
+        var fecha = LocalDateTime.now().plusHours(1);
+        var especialidad = Especialidad.CARDIOLOGIA;
+        var datos = new DatosDetalleConsulta(null,2l,5l,fecha);
+
+        // when
+        when(agendaDeConsultaService.agendar(any())).thenReturn(datos);
+
+        var response = mvc.perform(post("/consultas")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(agendarConsultaJacksonTester.write(
+                            new DatosAgendarConsulta(
+                                2l,
+                                5l,
+                                fecha,
+                                especialidad))
+                            .getJson()))
+                        .andReturn().getResponse();
+
+        //then
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+
+        var jsonEsperado = detalleConsultaJacksonTester.write(datos).getJson();
+
+        assertEquals(response.getContentAsString(), jsonEsperado);
+    }
+
+}
+```
+
+---
+
+## Build del proyecto
+
+

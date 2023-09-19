@@ -1,5 +1,6 @@
 package med.voll.api.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -26,6 +27,7 @@ public class PacienteController {
     private PacienteRepository pacienteRepository;
 
     @PostMapping
+    @Operation(summary = "Registra un nuevo paciente")
     public ResponseEntity<DatosRespuestaPaciente> registrarPaciente(
             @RequestBody @Valid DatosRegistroPaciente datosRegistroPaciente,
             UriComponentsBuilder uriComponentsBuilder) {
@@ -38,6 +40,7 @@ public class PacienteController {
     }
 
     @GetMapping
+    @Operation(summary = "Retorna listado de pacientes")
     public ResponseEntity<Page<DatosListadoPacientes>> listadoPacientes(
             @PageableDefault(size = 5) Pageable paginacion) {
         return ResponseEntity.ok(
@@ -47,6 +50,7 @@ public class PacienteController {
 
     @PutMapping
     @Transactional
+    @Operation(summary = "Actualiza información del paciente")
     public ResponseEntity<DatosRespuestaPaciente> actualizarPaciente(
             @RequestBody @Valid DatosActualizarPaciente datosActualizarPaciente) {
         Paciente paciente = pacienteRepository.getReferenceById(datosActualizarPaciente.id());
@@ -60,6 +64,7 @@ public class PacienteController {
     // Desactivar Paciente
     @DeleteMapping("/{id}")
     @Transactional
+    @Operation(summary = "Cambia el estado de un paciente a inactivo")
     public ResponseEntity eliminarPaciente(@PathVariable Long id) {
         Paciente paciente = pacienteRepository.getReferenceById(id);
         paciente.desactivarPaciente();
@@ -67,6 +72,7 @@ public class PacienteController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Retorna los detalles del paciente según ID")
     public ResponseEntity<DatosRespuestaPaciente> retornaDatosPaciente(@PathVariable Long id) {
         Paciente paciente = pacienteRepository.getReferenceById(id);
         DatosRespuestaPaciente  datosRespuestaPaciente = new DatosRespuestaPaciente(

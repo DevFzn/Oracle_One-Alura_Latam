@@ -1,5 +1,6 @@
 package med.voll.api.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import med.voll.api.domain.usuario.DatosAutenticacionUsuario;
 import med.voll.api.domain.usuario.Usuario;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/login")
+@Tag(name = "Autenticacion", description = "Provee token para usuario, que da acceso a otros endpoints")
 public class AutenticacionController {
 
     @Autowired

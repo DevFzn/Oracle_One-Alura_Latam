@@ -1,5 +1,6 @@
 package med.voll.api.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -24,6 +25,7 @@ public class MedicoController {
     private MedicoRepository medicoRepository;
 
     @PostMapping
+    @Operation(summary = "Registra un nuevo medico en la base de datos")
     public ResponseEntity<DatosRespuestaMedico> registrarMedico(
                                                            @RequestBody @Valid DatosRegistroMedico datosRegistroMedico,
                                                            UriComponentsBuilder uriComponentsBuilder) {
@@ -36,6 +38,7 @@ public class MedicoController {
     }
 
     @GetMapping
+    @Operation(summary = "Retorna listado de medicos")
     public ResponseEntity<Page<DatosListadoMedicos>> listadoMedicos(
             @PageableDefault(size = 5) Pageable paginacion) {
         return ResponseEntity.ok(medicoRepository.findByActivoTrue(paginacion).map(DatosListadoMedicos::new));
@@ -43,6 +46,7 @@ public class MedicoController {
 
     @PutMapping
     @Transactional
+    @Operation(summary = "Actualiza los datos de un medico existente")
     public ResponseEntity<DatosRespuestaMedico> actualizarMedico(
             @RequestBody @Valid DatosActualizarMedico datosActualizarMedico) {
         Medico medico = medicoRepository.getReferenceById(datosActualizarMedico.id());
@@ -55,6 +59,7 @@ public class MedicoController {
 
     @DeleteMapping("/{id}")
     @Transactional
+    @Operation(summary = "Cambia el estado de un medico a inactivo")
     public ResponseEntity eliminarMedico(@PathVariable Long id) {
         Medico medico = medicoRepository.getReferenceById(id);
         medico.desactivarMedico();
@@ -62,6 +67,7 @@ public class MedicoController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Retorna los registros del medico según Id")
     public ResponseEntity<DatosRespuestaMedico> retornaDatosMedico(@PathVariable Long id) {
         Medico medico = medicoRepository.getReferenceById(id);
         DatosRespuestaMedico  datosRespuestaMedico = new DatosRespuestaMedico(
