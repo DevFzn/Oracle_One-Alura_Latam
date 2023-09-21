@@ -7,8 +7,9 @@
 - Hibernate
 [user guide](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html)
 
-Trabajando sobre el [proyecto](./jpa/tienda/src/main/java/com/latam/alura/tienda/)
-anterior
+Trabajando sobre el proyecto anterior
+[tienda](./jpa/tienda/src/main/java/com/latam/alura/tienda/),
+como [tienda2](./jpa/tienda2/src/main/java/com/latam/alura/tienda/)
 
 ```mermaid
 erDiagram
@@ -69,8 +70,8 @@ Web Console server running at http://127.0.1.1:8082 (only local connections)
 ```
 
 
-En [pom.xml](./jpa/tienda2/pom.xml) cambiar la `url` para usar base de datos
-creada anteriormente
+En [persistence.xml](./jpa/tienda2/src/main/resources/META-INF/persistence.xml)
+cambiar la `url` para usar base de datos creada anteriormente
 
 ```xml
 ...

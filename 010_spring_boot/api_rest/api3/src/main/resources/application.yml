@@ -1,0 +1,22 @@
+spring:
+  profile.active: dev, test, prod
+  datasource:
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  main:
+    banner-mode: CONSOLE
+  output:
+    ansi:
+      enabled: ALWAYS
+server:
+  error:
+    include-stacktrace: never
+api:
+  security:
+    secret: ${JWT_SECRET}
