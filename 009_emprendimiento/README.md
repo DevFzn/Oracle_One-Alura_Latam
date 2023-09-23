@@ -7,7 +7,7 @@ Resumen [Lean Startup](./lean_startup.md)
 - [Curso](https://app.aluracursos.com/course/emprendimiento-idea-plan-negocios),
 Resumen [Emprendimiento](./emprendimiento.md)
 - [Curso](https://app.aluracursos.com/course/pitch-entrevistas-presentaciones-impactantes),
-Resumen [Pitch para entrevistas]()
+Resumen [Pitch para entrevistas](./pitch_entrevistas.md)
   - Artículo
   [Elevator pitch](https://www.aluracursos.com/blog/elevator-pitch-aprenda-a-utilizar-el-metodo-eficaz-de-presentacion)
 - [Curso](https://app.aluracursos.com/course/business-model-canvas-parte-1-modelo-poderoso-negocio),
