@@ -10,7 +10,6 @@ Resumen [Emprendimiento](./emprendimiento.md)
 Resumen [Pitch para entrevistas](./pitch_entrevistas.md)
   - Artículo
   [Elevator pitch](https://www.aluracursos.com/blog/elevator-pitch-aprenda-a-utilizar-el-metodo-eficaz-de-presentacion)
-- [Curso](https://app.aluracursos.com/course/business-model-canvas-parte-1-modelo-poderoso-negocio),
-Resumen [Business Model Canvas 1]()
-- [Curso](https://app.aluracursos.com/course/business-model-canvas-parte-2-modelo-negocios)
-Resumen [Business Model Canvas 2]()
+- Cursos [Business Model Canvas 1](https://app.aluracursos.com/course/business-model-canvas-parte-1-modelo-poderoso-negocio),
+[Business Model Canvas 2](https://app.aluracursos.com/course/business-model-canvas-parte-2-modelo-negocios)
+Resumen [BMC](./bmc.md)
