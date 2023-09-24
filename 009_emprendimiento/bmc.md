@@ -96,7 +96,7 @@ los clientes**
 - **Cuantitativa**, ejm. Precio, velocidad del servicio, etc.
 - **Cualitatitva**, ejm. Diseño, experiencia del cliente, etc.
 
-| Propuesta de Valor | Explicación | Ejempo |
+| Propuesta de Valor | Explicación | Ejemplo |
 | - | - | :- |
 | Novedad | Algunas propuestas de valor satisfacen **necesidades hasta entonces inexistentes** y que los clientes no percibían porque no había ninguna oferta similar | *ClubHouse* |
 | Estatus | Se crea valor en el sencillo hecho de utilizar y mostrar una marca específica | *Rolex, Ferrari, Vans* |
@@ -158,29 +158,98 @@ de intermediación, ejm.
 ¿Que tipo de relaciones se han establecido? ¿Cual es su **costo**?  
 ¿Como se integran en el modelo de negocio?
 
-#### Servicios automáticos
-
-Chatbots, algoritmo de recomendación de películas, etc.
-
-#### Asistencia personal
-
-Atención humanizada
-
-#### Asistencia personal exclusiva
-
-Ejecutivo de cuenta, ejm. Adobe, Google Cloud
-
-#### Creación colectiva (co-creativa)
-
-Youtube, Tiktok
-
-#### Comunidades
-
-Foros, Alura, Reddit, Laneros, Worldpackers
-
-#### Autoservicio
-
-Centro de ayuda en facebok, un buffet, etc.
+| Relación | Ejemplo o descripción |
+| - | - |
+| Servicios automáticos | Chatbots, algoritmo de recomendación de películas, etc |
+| Asistencia personal | Atención humanizada |
+| Asistencia personal exclusiva | Ejecutivo de cuenta, ejm. Adobe, Google Cloud |
+| Creación colectiva (co-creativa) | Youtube, Tiktok |
+| Comunidades | Foros, Alura, Reddit, Laneros, Worldpackers |
+| Autoservicio | Centro de ayuda en facebok, un buffet, etc. |
 
 ![img](./imgs/bmc_transportme_4.png)
+
+----
+
+Curso
+[Business Model Canvas pt 2](https://app.aluracursos.com/course/business-model-canvas-parte-2-modelo-negocios/)
+
+## Fuente de Ingresos
+
+¿Que valor ***están dispuestos a pagar*** los clientes?  
+¿***Por qué pagan*** actualmente? ¿***Como pagan*** actualmente?  
+¿Como les gustaría pagar?
+
+| Fuente de Ingresos | Ejemplo o descripción |
+| - | - |
+| Cuota de Subscripción | Disney+, Deezer, Netflix, Spotify |
+| Couta por Uso | Compañias de telefonía movil, Hoteles |
+| Venta de Activos | Compra/Venta de vehículos, tienda de bicicletas |
+| Licencias | Comprar una licencia de Office |
+| Préstamo y arriendo | Arrendar una oficina |
+| Anuncios | Youtube ads |
+| Tasa de Corretaje | Instituciones financieras, MercadoPago, TransBank |
+
+![img](./imgs/bmc_transportme_5.png)
+
+## Recursos Clave
+
+| Recurso Clave | Ejemplo o descripción |
+| - | - |
+| Humano | Instructores, editores, desarrolladores, etc |
+| Físico | Estudio, oficinas, bodegas |
+| Intelectual | Marcas, patentes, derechos de autor, BBDD, información privada |
+| Económico | Aporte financiero para abrir negocio propio |
+
+![img](./imgs/bmc_transportme_6.png)
+
+## Actividades Clave
+
+| Recurso Clave | Ejemplo o descripción |
+| - | - |
+| Producción | Motorola, Samsung |
+| Resolución de problemas | Consultoría en UX design |
+| Plataforma/Red | Uber |
+
+![img](./imgs/bmc_transportme_7.png)
+
+## Socios Clave
+
+| Asociación Clave | Ejemplo o descripción |
+| - | - |
+| Recursos y actividades particulares | Conductores de Uber, Beat, etc |
+| Optimización y economía de Escala | Treck, Starker (fabricantes de bicicletas) |
+| Reducción de Riesgos e Incertidumbres | Bike Itaú - Muvo (Bicicletas Urbanas) |
+
+![img](./imgs/bmc_transportme_8.png)
+
+## Estructura de Costos
+
+¿Cuales son ***los costos más importantes inherentes al modelo de negocio***?
+¿Cuales son los recursos clave más caros?
+¿Cuales son las actividades más caras?
+
+| Estructura de costo | Ejemplo o descripción |
+| - | - |
+| Costos Variables | No hay un pago fijo, **no siempre es igual**, en frecuencia y cantidad, depende de la demanda y/o las ventas. *Condutores de Uber* |
+| Costos Fijos | El costo siempre es el mismo. El pago es igual, puede ser en frecuencia y cantidad. *Desarrolladores de la App* |
+| Estructura Direccionada según costos | Con el objetivo de recortar gastos donde sea posible. Pretende crear y mantener costos lo más reducido posible. *UberPool* |
+| Estructura direccionada por el valor | Entregan una propuesta de valor que justifican un alto costo | *Hotel de lujo* |
+| Economía de escala | Vender a un valor menor. *Cuponatic, supermercados mayoristas* |
+| Economía de Campo | Cuando la empresa tiene el mismo campo, pero un equipo reducido responsable por atender esa necesidad de los segmentos de los clientes. *MercadoLibre* |
+
+![img](./imgs/bmc_transportme_9.png)
+
+----
+
+Inversionistas:
+
+- [Endeavor](https://endeavor.org)
+- [Startup.Farm](https://startup.farm)
+- [RockStart](https://rockstartlatam.com)
+
+Otros tipos de canvas:
+
+- Lean Model Canvas ![img](./imgs/lean_canvas_model_template.webp)
+- Social Business Model Canvas ![img](./imgs/social_business_model_canvas.png)
 
