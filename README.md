@@ -19,6 +19,8 @@ para certificación ORACLE. Notas, apuntes, resumenes y actividades.
 
 [G5 ONE | Spring Boot](https://app.aluracursos.com/formacion-spring-framework-grupo-5-one)
 
+[G5 ONE | AlumniONE](https://app.aluracursos.com/corp/one-alumni-7053-p15670)
+
 ## Guias de estudio
 
 ### Etapa Selección
@@ -53,3 +55,9 @@ primoridiales en programación con Javascript
   - [Desarrollo API Rest](./010_spring_boot/spring_boot_1.md)
   - [Buenas prácticas y protección de API Rest](./010_spring_boot/spring_boot_2.md)
   - [Docs, Tests y preparación para implementacion](./010_spring_boot/spring_boot_3.md)
+
+### Etapa AlumniONE - Extra
+
+- [SQL con MySQL Server de Oracle](./011_mysql/README.md)
+- [Oracle Cloud Infrastructure](./012_oci/README.md)
+- [Python, Data Science en OCI y Oracle Analytics](./013_python_oci/README.md)
