@@ -1,6 +1,7 @@
 *.pdf
 006_challenge_encriptador/test/
 otros/
+*.bak/
 .idea/
 out/
 *.class
