@@ -91,11 +91,11 @@ condiciones es verdadera
 - **Operación NAND(NOT AND)**: Negación de la operación **AND**
 
 | Verdadero | Falso |
-| - | - |
+| :-: | :-: |
 | 1 | 0 |
 
 | A | B | OR | AND | NOR | NAND |
-| - | - | - | - | - | - |
+| :-: | :-: | :-: | :-: | :-: | :-: |
 | 0 | 0 | 0 | 0 | 1 | 1 |
 | 0 | 1 | 1 | 0 | 0 | 1 |
 | 1 | 0 | 1 | 0 | 0 | 1 |
@@ -118,7 +118,7 @@ condiciones es verdadera
 ### Ejemplo
 
 | A | B | A=B | A<=B |
-| - | - | - | - |
+| :-: | :-: | :-: | :-: |
 | 3 | 5 | 0 | 1 | 0 | 1 |
 | 5 | 23 | 0 | 1 | 0 | 1 |
 | 7 | 7 | 1 | 1 | 1 | 1 |
@@ -333,7 +333,7 @@ SELECT * FROM tabla_de_productos WHERE sabor LIKE '%manzana%' AND envase = 'bote
 Devuelve solo registros con valores diferentes
 
 | CAMPO_1 | CAMPO_2 |
-| - | - |
+| :-: | :-: |
 | A | B |
 | Z | C |
 | Z | Q |
@@ -352,7 +352,7 @@ SELECT DISTINCT * FROM tb;
 Retorna:
 
 | CAMPO_1 | CAMPO_2 |
-| - | - |
+| :-: | :-: |
 | A | B |
 | Z | C |
 | Z | Q |
@@ -596,7 +596,7 @@ ORDER BY total DESC LIMIT 10;
 ## GROUP BY
 
 | X | Y |
-| - | - |
+| :-: | :-: |
 | A | 3 |
 | Z | 5 |
 | Z | 1 |
@@ -612,7 +612,7 @@ SELECT x, SUM(y) FROM tb GROUP BY X;
 ```
 
 | X | Y |
-| - | - |
+| :-: | :-: |
 | A | 4 |
 | E | 4 |
 | T | 4 |
@@ -642,7 +642,7 @@ SELECT x, MAX(y) FROM tb GROUP BY X;
 ```
 
 | X | Y |
-| - | - |
+| :-: | :-: |
 | A | 3 |
 | E | 4 |
 | T | 3 |
@@ -660,7 +660,7 @@ SELECT x, MIN(y) FROM tb GROUP BY X;
 ```
 
 | X | Y |
-| - | - |
+| :-: | :-: |
 | A | 1 |
 | E | 4 |
 | T | 1 |
@@ -678,7 +678,7 @@ SELECT x, AVG(y) FROM tb GROUP BY X;
 ```
 
 | X | Y |
-| - | - |
+| :-: | :-: |
 | A | 2 |
 | E | 4 |
 | T | 2 |
@@ -696,7 +696,7 @@ SELECT x, COUNT(y) FROM tb GROUP BY X;
 ```
 
 | X | Y |
-| - | - |
+| :-: | :-: |
 | A | 2 |
 | E | 1 |
 | T | 2 |
@@ -832,7 +832,7 @@ SELECT COUNT(*) FROM items_facturas
 Filtro que se aplica sobre el resultado de una agregación
 
 | X | Y |
-| - | - |
+| :-: | :-: |
 | A | 3 |
 | Z | 5 |
 | Z | 1 |
@@ -850,7 +850,7 @@ SELECT x, SUM(y) FROM tb
 ```
 
 | X | Y |
-| - | - |
+| :-: | :-: |
 | Z | 16 |
 
 
@@ -955,7 +955,7 @@ CASE
 ej. Tabla `tb`
 
 | X | Y |
-| - | - |
+| :-: | :-: |
 | Cliente_1 | 8 |
 | Cliente_2 | 6 |
 | Cliente_3 | 3 |
@@ -979,7 +979,7 @@ FROM tb;
 Resultado:
 
 | X | Y |
-| - | - |
+| :-: | :-: |
 | Cliente_1 | Muy bueno |
 | Cliente_2 | Regular |
 | Cliente_3 | Inferior |
@@ -1093,7 +1093,7 @@ Permite unir dos o más tablas a través de un campo en común
 ### Tabla A
 
 | Nombre | Id |
-| - | - |
+| :-: | :-: |
 | Alejandro | 2 |
 | Zaida | 7 |
 | Ximena | 8 |
@@ -1104,7 +1104,7 @@ Permite unir dos o más tablas a través de un campo en común
 ### Tabla B
 
 | Id | Hobby |
-| - | - |
+| :-: | :-: |
 | 4 | Lectura |
 | 5 | Futbol |
 | 6 | Tenis |
@@ -1124,7 +1124,7 @@ INNER JOIN
 ```
 
 | Nombre | Hobby |
-| - | - |
+| :-: | :-: |
 | Zaida | Alpinismo |
 | Ximena | Fotografía |
 | Penélope | Hípica |
@@ -1142,7 +1142,7 @@ LEFT JOIN
 ```
 
 | Nombre | Hobby |
-| - | - |
+| :-: | :-: |
 | Alejandro | `NULL` |
 | Zaida | Alpinismo |
 | Ximena | Fotografía |
@@ -1163,7 +1163,7 @@ RIGHT JOIN
 ```
 
 | Nombre | Hobby |
-| - | - |
+| :-: | :-: |
 | `NULL`| Lectura |
 | `NULL` | Futbol |
 | `NULL` | Tenis |
@@ -1183,7 +1183,7 @@ FULL JOIN
 ```
 
 | Nombre | Hobby |
-| - | - |
+| :-: | :-: |
 | `NULL`| Lectura |
 | `NULL` | Futbol |
 | `NULL` | Tenis |
@@ -1206,7 +1206,7 @@ Devuelve 36 registros con todas las combinaciónes de todos los hobbies y nombre
 
 
 | Nombre | Hobby |
-| - | - |
+| :-: | :-: |
 | Alejandro | Lectura |
 | Zaida | Lectura |
 | Ximena | Lectura |
@@ -1420,14 +1420,14 @@ El número de campos en las tabls de ser iguales (mismos campos y tipos)
 ej.
 
 | Id | Hobby |
-| - | - |
+| :-: | :-: |
 | 4 | Lectura |
 | 5 | Futbol |
 | 6 | Tenis |
 | 7 | Alpinismo |
 
 | Id | Hobby |
-| - | - |
+| :-: | :-: |
 | 8 | Fotografía |
 | 9 | Hípica |
 | 5 | Futbol |
@@ -1444,7 +1444,7 @@ UNION
 Retorna:
 
 | Id | Hobby |
-| - | - |
+| :-: | :-: |
 | 4 | Lectura |
 | 5 | Futbol |
 | 6 | Tenis |
@@ -1464,7 +1464,7 @@ UNION ALL
 Retorna:
 
 | Id | Hobby |
-| - | - |
+| :-: | :-: |
 | 4 | Lectura |
 | 5 | Futbol |
 | 6 | Tenis |
@@ -1609,7 +1609,7 @@ FROM tabla_de_clientes
 Realizar una consulta al interior de otra
 
 | X | Y |
-| - | - |
+| :-: | :-: |
 | A | 3 |
 | Z | 5 |
 | Z | 1 |
@@ -1621,7 +1621,7 @@ Realizar una consulta al interior de otra
 | T | 1 |
 
 | Y |
-| - |
+| :-: | :-: |
 | 1 |
 | 2 |
 
@@ -1633,7 +1633,7 @@ WHERE y IN (
 ```
 
 | X | Y |
-| - | - |
+| :-: | :-: |
 | A | 3 |
 | Z | 1 |
 | A | 1 |
@@ -1647,7 +1647,7 @@ FROM tb1 GROUP BY X
 ```
 
 | X | NEW_Y |
-| - | - |
+| :-: | :-: |
 | A | 4 |
 | E | 4 |
 | T | 4 |
@@ -1661,7 +1661,7 @@ SELECT z.x, z.new_y FROM
 ```
 
 | X | NEW_Y |
-| - | - |
+| :-: | :-: |
 | A | 4 |
 | E | 4 |
 | T | 4 |
@@ -1744,7 +1744,7 @@ La vista tiene un costo de procesamiento, cada vez que es invocada se ejecuta
 su consulta.
 
 | X | Y |
-| - | - |
+| :-: | :-: |
 | A | 3 |
 | Z | 5 |
 | Z | 1 |
@@ -1764,7 +1764,7 @@ FROM tb1 GROUP BY x
 VW_VIEW
 
 | X | Y |
-| - | - |
+| :-: | :-: |
 | A | 4 |
 | E | 4 |
 | T | 4 |
@@ -1776,7 +1776,7 @@ Al almacenar una consulta, se crea una **VIEW**, en este caso llamada
 tb3
 
 | W | Y |
-| - | - |
+| :-: | :-: |
 | F | 4 |
 | H | 4 |
 | H | 5 |
@@ -1795,7 +1795,7 @@ SELECT VW_VIEW.x, tb3.w FROM VW_VIEW
 ```
 
 | X | W |
-| - | - |
+| :-: | :-: |
 | Z | P |
 
 ### Prácticas VIEW

@@ -1,0 +1,49 @@
+
+CREATE TABLE facturacion(
+    fecha DATE NULL,
+    venta_total FLOAT
+);
+
+DELIMITER //
+CREATE TRIGGER tg_facturacion_insert
+AFTER INSERT ON items
+FOR EACH ROW BEGIN
+  DELETE FROM facturacion;
+  INSERT INTO facturacion
+  SELECT A.FECHA, SUM(B.cantidad * B.precio) AS VENTA_TOTAL
+  FROM facturas A
+  INNER JOIN
+  items B
+  ON A.NUMERO = B.NUMERO
+  GROUP BY A.FECHA;
+END //
+
+DELIMITER //
+CREATE TRIGGER tg_facturacion_delete
+AFTER DELETE ON items
+FOR EACH ROW BEGIN
+  DELETE FROM facturacion;
+  INSERT INTO facturacion
+  SELECT A.fecha, SUM(B.cantidad * B.precio) AS VENTA_TOTAL
+  FROM facturas A
+  INNER JOIN
+  items B
+  ON A.numero = B.numero
+  GROUP BY A.fecha;
+END //
+
+DELIMITER //
+CREATE TRIGGER tg_facturacion_update
+AFTER UPDATE ON items
+FOR EACH ROW BEGIN
+  DELETE FROM facturacion;
+  INSERT INTO facturacion
+  SELECT A.fecha, SUM(B.cantidad * B.precio) AS VENTA_TOTAL
+  FROM facturas A
+  INNER JOIN
+  items B
+  ON A.numero = B.numero
+  GROUP BY A.fecha;
+END //
+
+DELIMITER ;
