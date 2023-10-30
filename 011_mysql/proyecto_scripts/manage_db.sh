@@ -8,61 +8,31 @@ while read LINE; do
 done < $BASEDIR/.env
 
 connect_db(){
-    mariadb -u ${DBUSER} \
-            -p${DBPASS}  \
-            -h ${DBADDR%%:*} ${DBNAME} \
-            -P ${DBADDR##*:} || \
-    echo "Ocurrio un error al intentar conectar con la DB"
+    echo "mariadb -u ${DBUSER} -p${DBPASS} -h ${DBADDR%%:*} ${DBNAME} -P ${DBADDR##*:}"
 }
 
 create_tables(){
-    mariadb -u ${DBUSER} \
-            -p${DBPASS}  \
-            -h ${DBADDR%%:*} ${DBNAME} \
-            -P ${DBADDR##*:} < ./create_tables.sql &>/dev/null && \
-    echo "DB creada" || \
-    echo "Ocurrio un error al intentar crear las tablas"
+    $(connect_db) < ./create_tables.sql
 }
 
 populate_tables(){
-    echo "Poblando tablas: Clientes, Vendedores y Productos"
-    mariadb -u ${DBUSER} \
-            -p${DBPASS}  \
-            -h ${DBADDR%%:*} ${DBNAME} \
-            -P ${DBADDR##*:} < ./populate_tables.sql &>/dev/null && \
-    echo "DB poblada" || \
-    echo "Ocurrio un error al intentar poblar la DB"
+    $(connect_db) < ./populate_tables.sql
 }
 
 import_records(){
-    echo "Importando registros de jugos_ventas, tablas -> Facturas e Items"
-    mariadb -u ${DBUSER} \
-            -p${DBPASS}  \
-            -h ${DBADDR%%:*} ${DBNAME} \
-            -P ${DBADDR##*:} < ./import_records.sql &>/dev/null && \
-    echo "DB poblada" || \
-    echo "Ocurrio un error al intentar poblar la DB"
+    $(connect_db) < ./import_records.sql
 }
 
 re_create_tables(){
-    mariadb -u ${DBUSER} \
-            -p${DBPASS}  \
-            -h ${DBADDR%%:*} ${DBNAME} \
-            -P ${DBADDR##*:} < ./re_create_tables.sql
+    $(connect_db) < ./re_create_tables.sql
 }
 
 create_f_sp(){
-    mariadb -u ${DBUSER} \
-            -p${DBPASS}  \
-            -h ${DBADDR%%:*} ${DBNAME} \
-            -P ${DBADDR##*:} < ./funcs_sp.sql
+    $(connect_db) < ./funcs_sp.sql
 }
 
 create_triggers(){
-    mariadb -u ${DBUSER} \
-            -p${DBPASS}  \
-            -h ${DBADDR%%:*} ${DBNAME} \
-            -P ${DBADDR##*:} < ./triggers.sql
+    $(connect_db) < ./triggers.sql
 }
 
 deactivate_session(){

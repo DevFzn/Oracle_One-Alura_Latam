@@ -285,7 +285,7 @@ WHERE DNI NOT IN (SELECT DNI FROM tb_cliente);
 
 ### Table Data Import Wizard
 
-![img](./table_data_import_wizard.png)
+![img](./imgs/table_data_import_wizard.png)
 
 ## Update
 
