@@ -61,35 +61,34 @@ systemctl stop mysql
 
 La puesta a punto de MySQL se puede realizar de 4 maneras
 
-### 1. Esquemas, índices, variables interdas de MySQL (mysqld), Hardware y S.O.
+### Esquemas, índices, variables internas de MySQL (mysqld), Hardware y S.O.
 
-  - HARDWARE
-    - Utilizar sistemas operativos de 64-bits. Mysql puede usar procesamiento
-    en paralelo y consumir toda la memoria
-    - Configuración de RAM. Parametro que permite indicar el máximo de memoria
-    disponible para los procesos. No se recomienda exceder el 50%
-    - Dependiendo de la forma con la que se trabaje la base de datos va a variar
-    su consumo de memoria
-    - El tipo del disco: HDD, SSD, NVME
-    - Conexión SATA, SAS, M2, PCIe.
-    - Uso del controlador de disco **RAID** (0, 1, 5 y 10) para la seguridad
-    de los datos
-      - **RAID 0**: Divide los datos en dos HD diferentes, y actuan como un
-      solo disco a nivel de S.O
-      - **RAID 1**: Uno de los HD es copia del otro, y lo que realize en uno
-      se replica automáticamente en el otro
-      - **RAID 5**: Divide los datos en más de dos HD diferentes, y actuan
-      como un solo disco a nivel de S.O
-      - **RAID 10**: Los discos tiene ***espejos***, y lo que realize en uno
-      se replica automáticamente en el otro
-      - **RAID 1 y 10**: Utilizan mas espacio producto de la redundancia, pero
-      son mas seguros por tener backup disponible
+#### HARDWARE
 
+- Utilizar sistemas operativos de 64-bits. Mysql puede usar procesamiento
+en paralelo y consumir toda la memoria
+- Configuración de RAM. Parametro que permite indicar el máximo de memoria
+disponible para los procesos. No se recomienda exceder el 50%
+- Dependiendo de la forma con la que se trabaje la base de datos va a variar
+su consumo de memoria
+- El tipo del disco: HDD, SSD, NVME
+- Conexión SATA, SAS, M2, PCIe.
+- Uso del controlador de disco **RAID** (0, 1, 5 y 10) para la seguridad
+de los datos
+  - **RAID 0**: Divide los datos en dos HD diferentes, y actuan como un
+  solo disco a nivel de S.O
+  - **RAID 1**: Uno de los HD es copia del otro, y lo que realize en uno
+  se replica automáticamente en el otro
+  - **RAID 5**: Divide los datos en más de dos HD diferentes, y actuan
+  como un solo disco a nivel de S.O
+  - **RAID 10**: Los discos tiene ***espejos***, y lo que realize en uno
+  se replica automáticamente en el otro
+  - **RAID 1 y 10**: Utilizan mas espacio producto de la redundancia, pero
+  son mas seguros por tener backup disponible
 
 > RAID [wiki](https://en.wikipedia.org/wiki/Standard_RAID_levels)  
 Nested RAID [wiki](https://en.wikipedia.org/wiki/Nested_RAID_levels)  
 RAID [ArchWiki](https://wiki.archlinux.org/title/RAID)
-
 
 <details><summary markdown="span">RAID</summary>
 
@@ -408,4 +407,618 @@ MySQL
 LOCK instance for backup;
 
 UNLOCK INSTANCE;
+```
+
+## Plan de ejecución
+
+Tomar como ejemplo esta consulta
+
+```sql
+SELECT P.codigo, YEAR(F.fecha) as "Año", SUM(I.cantidad) AS "Cantidad"
+FROM productos P
+INNER JOIN items I
+    ON P.codigo = I.codigo
+INNER JOIN facturas F
+    ON I.numero = F.numero
+GROUP BY P.codigo, YEAR(F.fecha)
+ORDER BY P.codigo,YEAR(F.fecha);
+```
+
+### EXPLAIN
+
+```sql
+EXPLAIN FORMAT=JSON
+SELECT P.codigo, YEAR(F.fecha) as "Año", SUM(I.cantidad) AS "Cantidad"
+FROM productos P
+INNER JOIN items I
+    ON P.codigo = I.codigo
+INNER JOIN facturas F
+    ON I.numero = F.numero
+GROUP BY P.codigo, YEAR(F.fecha)
+ORDER BY P.codigo,YEAR(F.fecha)\G;
+```
+
+<details><summary markdown="span">Salida</summary>
+
+```json
+*************************** 1. row ***************************
+EXPLAIN: {
+  "query_block": {
+    "select_id": 1,
+    "filesort": {
+      "sort_key": "P.codigo, year(F.fecha)",
+      "temporary_table": {
+        "nested_loop": [
+          {
+            "table": {
+              "table_name": "P",
+              "access_type": "index",
+              "possible_keys": ["PRIMARY"],
+              "key": "PRIMARY",
+              "key_length": "42",
+              "used_key_parts": ["codigo"],
+              "rows": 35,
+              "filtered": 100,
+              "using_index": true
+            }
+          },
+          {
+            "table": {
+              "table_name": "I",
+              "access_type": "ref",
+              "possible_keys": ["PRIMARY", "codigo"],
+              "key": "codigo",
+              "key_length": "42",
+              "used_key_parts": ["codigo"],
+              "ref": ["empresa.P.codigo"],
+              "rows": 3329,
+              "filtered": 100
+            }
+          },
+          {
+            "table": {
+              "table_name": "F",
+              "access_type": "eq_ref",
+              "possible_keys": ["PRIMARY"],
+              "key": "PRIMARY",
+              "key_length": "4",
+              "used_key_parts": ["numero"],
+              "ref": ["empresa.I.numero"],
+              "rows": 1,
+              "filtered": 100
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+</details>
+
+### ANALYZE
+
+```sql
+ANALYZE FORMAT=JSON
+SELECT P.codigo, YEAR(F.fecha) as "Año", SUM(I.cantidad) AS "Cantidad"
+FROM productos P
+INNER JOIN items I
+    ON P.codigo = I.codigo
+INNER JOIN facturas F
+    ON I.numero = F.numero
+GROUP BY P.codigo, YEAR(F.fecha)
+ORDER BY P.codigo,YEAR(F.fecha)\G;
+```
+
+<details><summary markdown="span">Salida</summary>
+
+```json
+*************************** 1. row ***************************
+ANALYZE: {
+  "query_optimization": {
+    "r_total_time_ms": 0.587444996
+  },
+  "query_block": {
+    "select_id": 1,
+    "r_loops": 1,
+    "r_total_time_ms": 7608.934695,
+    "filesort": {
+      "sort_key": "P.codigo, year(F.fecha)",
+      "r_loops": 1,
+      "r_total_time_ms": 0.187826969,
+      "r_used_priority_queue": false,
+      "r_output_rows": 155,
+      "r_buffer_size": "6Kb",
+      "r_sort_mode": "sort_key,rowid",
+      "temporary_table": {
+        "nested_loop": [
+          {
+            "table": {
+              "table_name": "P",
+              "access_type": "index",
+              "possible_keys": ["PRIMARY"],
+              "key": "PRIMARY",
+              "key_length": "42",
+              "used_key_parts": ["codigo"],
+              "r_loops": 1,
+              "rows": 35,
+              "r_rows": 35,
+              "r_table_time_ms": 0.15660869,
+              "r_other_time_ms": 0.195472139,
+              "filtered": 100,
+              "r_filtered": 100,
+              "using_index": true
+            }
+          },
+          {
+            "table": {
+              "table_name": "I",
+              "access_type": "ref",
+              "possible_keys": ["PRIMARY", "codigo"],
+              "key": "codigo",
+              "key_length": "42",
+              "used_key_parts": ["codigo"],
+              "ref": ["empresa.P.codigo"],
+              "r_loops": 35,
+              "rows": 3329,
+              "r_rows": 6098.6,
+              "r_table_time_ms": 2265.69671,
+              "r_other_time_ms": 306.4226053,
+              "filtered": 100,
+              "r_filtered": 100
+            }
+          },
+          {
+            "table": {
+              "table_name": "F",
+              "access_type": "eq_ref",
+              "possible_keys": ["PRIMARY"],
+              "key": "PRIMARY",
+              "key_length": "4",
+              "used_key_parts": ["numero"],
+              "ref": ["empresa.I.numero"],
+              "r_loops": 213451,
+              "rows": 1,
+              "r_rows": 1,
+              "r_table_time_ms": 2630.998751,
+              "r_other_time_ms": 2405.134662,
+              "filtered": 100,
+              "r_filtered": 100
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+</details>
+
+## Indices
+
+Facilitan la búsqueda de datos dentro de las tablas (Diccionario). Si no se
+cuenta con una estructura de índices se debe recorrer toda la tabla hasta
+encontrar el registro
+
+### Indices en MyISAM
+
+| ID | TITULO | AUTOR |
+| - | - | - |
+| 23-4567-8 | Cien años de soledad | Gabriel García Márquez |
+| 12-3456-7 | El Túnel | Ernesto Sábato |
+| 89-0123-4 | 1984 | George Orwell |
+
+El índice crea estas tablas de referencia
+
+| TITULO | Ref |
+| - | - |
+| 1984 | {3} |
+| Cien años de soledad | {1} |
+| El Túnel | {2} |
+
+| AUTOR | Ref |
+| - | - |
+| Gabriel García Márquez | {1} |
+| George Orwell | {3} |
+| Ernesto Sábato | {2} |
+
+| ID | Ref |
+| - | - |
+| 12-3456-7 | {2} |
+| 23-4567-8 | {1} |
+| 89-0123-4 | {3} |
+
+- Siempre que se modifique una tabla, todos los índices se actualizan
+- A mayor cantidad de datos, mayor tiempo de ejecución
+- Crea una estructura separada para índices PK y no PK
+- La columna inicial del índice es ordenada y toma como referencia la
+posición de la fila de la tabla original
+- Implenta índices **HASH** y **B-TREE**
+
+### Indices en InnoDB
+
+La clave primaria es el índice
+
+| ID | TITULO | AUTOR |
+| - | - | - |
+| **23-4567-8** | Cien años de soledad | Gabriel García Márquez |
+| **12-3456-7** | El Túnel | Ernesto Sábato |
+| **89-0123-4** | 1984 | George Orwell |
+
+Si se utiliza otro campo como índice, la referencia de este va a ser la clave
+primaria
+
+| TITULO | Ref |
+| - | - |
+| 1984 | 89-0123-4 |
+| Cien años de soledad | 23-4567-8 |
+| El Túnel | 12-3456-7 |
+
+| AUTOR | Ref |
+| - | - |
+| Gabriel García Márquez | 23-4567-8 |
+| George Orwell | 89-0123-4 |
+| Ernesto Sábato | 12-3456-7 |
+
+- La tabla se ordena automáticamente con la clave primaria
+- Tiene mayor desempeño en consultas buscando a través de clave primaria
+- En el caso de buscar en un campo que no seas llave primaria, el costo es el
+mismo que usando MyISAM
+- La tabla esta ordenada con la PK por defecto
+- Los índices que no son PK poseen estructuras separadas y toman como
+referencia el valor de la PK
+- Solo trabaja con **B-TREE**
+
+> **HASH** y **B-TREE** son algoritmos de busqueda en listas ordenadas
+
+## Arbol Binario
+
+- Valores a la izquierda del nodo son menores
+- Valores a la derecha del nodo son mayores
+
+```mermaid
+graph TD
+    idA((27)) --> idB1((13))
+    idA --> idB2((35))
+    idB1 --> idC1((26))
+    idB2 --> idC3((33))
+    idB2 --> idC4((39))
+```
+
+Consideraciones sobre **B-TREE**
+
+- Balanced - Binary Tree
+- +4 Mil millones de registros en 32 niveles
+
+
+```mermaid
+graph TD
+    iA((.)) --> iB1((.))
+    iA((.)) --> iB2((.))
+    iB1((.)) --> iC1((.))
+    iB1((.)) --> iC2((.))
+    iB2((.)) --> iC3((.))
+    iB2((.)) --> iC4((.))
+    iC1((.)) --> iD1((.))
+    iC1((.)) --> iD2((.))
+    iC1((.)) --> iD3((.))
+    iC1((.)) --> iD4((.))
+    iC2((.)) --> iD5((.))
+    iC2((.)) --> iD6((.))
+    iC2((.)) --> iD7((.))
+    iC2((.)) --> iD8((.))
+    iC3((.)) --> iD9((.))
+    iC3((.)) --> iD10((.))
+    iC3((.)) --> iD11((.))
+    iC3((.)) --> iD12((.))
+    iC4((.)) --> iD13((.))
+    iC4((.)) --> iD14((.))
+    iC4((.)) --> iD15((.))
+    iC4((.)) --> iD16((.))
+```
+
+Ejemplo
+
+```mermaid
+%%{init: {'theme': 'dark','themeVariables': {'clusterBkg': '#2b2f38'}}}%%
+graph TD
+
+subgraph " "
+A1 ---> B 
+A2 ---> C
+A3 ---> D
+subgraph A[" "]
+direction TB
+A1[256]
+A2[521]
+A3[768]
+end
+subgraph B[" "]
+direction TB
+B11[64]
+B12[128]
+B13[192]
+end
+subgraph C[" "]
+direction TB
+B21[256]
+B22[521]
+B23[768]
+end
+subgraph D[" "]
+direction TB
+B31[832]
+B32[896]
+B33[960]
+end
+end
+```
+
+## HASH
+
+Mapea datos grandes de tamaño variable en una "palabra" de tamaño fijo
+
+Ejemplo
+
+| Dato | Hash |
+| - | - |
+| ASDWERSDFJJKSHDFHKCUENVSIUUVSIUEURIHSCVIUHSER | 49855139 |
+| KSDFHEHS | f9c0591e |
+| 123IERUDJFH124IUDF26HD45 | f2188c85 |
+| DF | 795741b2 |
+
+[<img src="./imgs/hash_table.svg" width="1000"/>](./imgs/hash_table.svg)
+
+## Creando indices
+
+```sql
+ANALYZE FORMAT=JSON SELECT * FROM facturas WHERE fecha = '20170101'\G;
+1 row in set (0.211 sec)
+```
+
+<details><summary markdown="span">Detalle ANALYZE</summary>
+
+```json
+ANALYZE: {
+  "query_optimization": {
+    "r_total_time_ms": 0.228188173
+  },
+  "query_block": {
+    "select_id": 1,
+    "r_loops": 1,
+    "r_total_time_ms": 208.0312466,
+    "nested_loop": [
+      {
+        "table": {
+          "table_name": "facturas",
+          "access_type": "ALL",
+          "r_loops": 1,
+          "rows": 87768,
+          "r_rows": 87877,
+          "r_table_time_ms": 159.3170115,
+          "r_other_time_ms": 48.68916427,
+          "filtered": 100,
+          "r_filtered": 0.08420861,
+          "attached_condition": "facturas.FECHA_VENTA = DATE'2017-01-01'"
+        }
+      }
+    ]
+  }
+}
+```
+
+</details>
+
+#### Agregando indice `fecha`
+
+```sql
+ALTER TABLE facturas ADD INDEX(fecha_venta);
+
+ANALYZE FORMAT=JSON SELECT * FROM facturas WHERE fecha = '20170101'\G;
+1 row in set (0.004 sec)
+```
+
+<details><summary markdown="span">Detalle ANALYZE</summary>
+
+```json
+ANALYZE: {
+  "query_optimization": {
+    "r_total_time_ms": 0.383672043
+  },
+  "query_block": {
+    "select_id": 1,
+    "r_loops": 1,
+    "r_total_time_ms": 1.303775168,
+    "nested_loop": [
+      {
+        "table": {
+          "table_name": "facturas",
+          "access_type": "ref",
+          "possible_keys": ["FECHA_VENTA"],
+          "key": "FECHA_VENTA",
+          "key_length": "4",
+          "used_key_parts": ["FECHA_VENTA"],
+          "ref": ["const"],
+          "r_loops": 1,
+          "rows": 74,
+          "r_rows": 74,
+          "r_table_time_ms": 1.180700563,
+          "r_other_time_ms": 0.099922552,
+          "filtered": 100,
+          "r_filtered": 100
+        }
+      }
+    ]
+  }
+}
+```
+
+</details>
+
+#### Quitando el índice
+
+```sql
+ALTER TABLE facturas DROP INDEX(fecha_venta);
+
+ANALYZE FORMAT=JSON SELECT * FROM facturas WHERE fecha = '20170101'\G;
+1 row in set (0.180 sec)
+```
+
+<details><summary markdown="span">Detalle ANALYZE</summary>
+
+```json
+ANALYZE: {
+  "query_optimization": {
+    "r_total_time_ms": 0.192326251
+  },
+  "query_block": {
+    "select_id": 1,
+    "r_loops": 1,
+    "r_total_time_ms": 177.6817744,
+    "nested_loop": [
+      {
+        "table": {
+          "table_name": "facturas",
+          "access_type": "ALL",
+          "r_loops": 1,
+          "rows": 87768,
+          "r_rows": 87877,
+          "r_table_time_ms": 135.9970415,
+          "r_other_time_ms": 41.66515984,
+          "filtered": 100,
+          "r_filtered": 0.08420861,
+          "attached_condition": "facturas.FECHA_VENTA = DATE'2017-01-01'"
+        }
+      }
+    ]
+  }
+}
+```
+
+</details>
+
+
+### Plan de ejecución gráfico en Workbench
+
+Ejemplo
+
+[<img src="./imgs/wb-visual-explain-hash-join-sakila.png" width="350"/>](./imgs/wb-visual-explain-hash-join-sakila.png)
+
+```sql
+SELECT P.codigo_del_producto, I.cantidad FROM tabla_de_productos P
+INNER JOIN items_facturas I
+ON P.codigo_del_producto = I.codigo_del_producto;
+```
+
+[<img src="./imgs/graph_cost_query1.png" width="400"/>](./imgs/graph_cost_query1.png)
+
+```sql
+SELECT P.codigo_del_producto, YEAR(F.fecha_venta) AS "AÑO", I.cantidad
+FROM tabla_de_productos P
+INNER JOIN items_facturas I
+ON P.codigo_del_producto = I.codigo_del_producto
+INNER JOIN facturas F ON I.numero = F.numero;
+```
+
+[<img src="./imgs/graph_cost_query2.png" width="450"/>](./imgs/graph_cost_query2.png)
+
+Sin índices ni claves primarias
+
+```sql
+SELECT P.codigo_del_producto, YEAR(F.fecha_venta) AS "AÑO", I.cantidad
+FROM tabla_de_productos2 P
+INNER JOIN items_facturas2 I
+ON P.codigo_del_producto = I.codigo_del_producto
+INNER JOIN facturas2 F ON I.numero = F.numero;
+```
+
+[<img src="./imgs/graph_cost_query3.png" width="450"/>](./imgs/graph_cost_query3.png)
+
+### mysqslap
+
+`mysqslap` o `mariadb-slap`
+
+```txt
+mariadb-slap -u <user> -p -h <dbaddres> -P 3306 \
+             --concurrency=100 --iterations=10 --create-schema=jugos2 \
+             --query="SELECT * FROM facturas WHERE fecha_venta='20170101'";
+Enter password: 
+Benchmark
+    Average number of seconds to run all queries: 15.112 seconds
+    Minimum number of seconds to run all queries: 15.022 seconds
+    Maximum number of seconds to run all queries: 15.287 seconds
+    Number of clients running queries: 100
+    Average number of queries per client: 1
+```
+
+## Administración de usuarios
+
+Esto se puede realizar desde Workbench:
+
+`-> Pestaña Administración -> Users and Privileges` Donde se pueden escoger
+los roles que se quieran asignar al usuario
+
+### User Administrador Manual
+
+```sql
+CREATE USER 'dbadmin-user' identified by 'dbadmin-password';
+GRANT USAGE ON *.* TO `%`@`%` IDENTIFIED BY 'dbadmin-password';
+GRANT ALL PRIVILEGES ON *.* TO 'dbadmin-user'@`%` WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+```
+
+### Usuario con privilegios para schema `schema1`, uso local
+
+```sql
+CREATE USER 'basic-admin' identified by 'basic-admin-password';
+GRANT USAGE ON 'schema1'.* TO 'basic-admin'@'localhost' IDENTIFIED BY 'basic-admin-password';
+GRANT ALL PRIVILEGES ON 'schema1'.* TO 'basic-admin'@`%`;
+FLUSH PRIVILEGES;
+```
+
+### Usuario con privilegios limitados
+
+`SELECT`, `UPDATE`, `INSERT`, `DELETE`, `EXECUTE`, `LOCK TABLES`, `CREATE TEMPORARY TABLES` para schema `schema1`, uso local:
+
+```sql
+CREATE USER 'limited-user' identified by 'limited-user-password';
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE TEMPORARY TABLES, LOCK TABLES,
+EXECUTE ON 'schema1'.* TO 'limited-user'@'localhost'
+IDENTIFIED BY 'limited-user-password';
+FLUSH PRIVILEGES;
+```
+
+### Usuario con privilegios solo lectura
+
+Para todas los schemas con acceso remoto:
+
+```sql
+CREATE USER 'limited-user' identified by 'limited-user-password';
+GRANT SELECT, EXECUTE ON *.* TO 'limited-user'@'%'
+IDENTIFIED BY 'limited-user-password';
+FLUSH PRIVILEGES;
+```
+
+### Backup user
+
+```sql
+CREATE USER 'backup-user' identified by 'backup-user-password';
+GRANT SELECT, RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'backup-user'@'%'
+IDENTIFIED BY 'backup-user-password';
+FLUSH PRIVILEGES;
+```
+
+### Limitando accesos remotos
+
+- `192.168.1.%`: 192.168.1.0 - 192.168.1.255
+- `192.168.1.1_`: 192.168.1.100 - 192.168.1.255
+- `cliente_.empresa.com`: clientXY.empresa.com
+
+### Revocar todos los privilegios
+
+```sql
+SHOW GRANTS FOR 'usuario'@'localhost';
+REVOKE ALL PRIVILEGES, GRATN OPTION FROM 'user'@'localhost';
 ```
