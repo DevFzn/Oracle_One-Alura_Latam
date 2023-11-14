@@ -59,5 +59,19 @@ primoridiales en programación con Javascript
 ### Etapa AlumniONE - Extra
 
 - [SQL con MySQL Server de Oracle](./011_mysql/README.md)
+  - Introducción a SQL con [MySQL](./010_spring_boot/base_de_datos.md)
+  - Consultas [SQL](./011_mysql/consultas_sql.md)
+  - DML: Manipulación de [datos con MySQL](./011_mysql/dml.md)
+  - SQL [Procedures](./011_mysql/procedures.md)
+  - Proyecto final [MySQL](./011_mysql/proyecto_mysql.md)
+  - DBA [Seguridad y Optimización](./011_mysql/dba_seguridad_optimiz.md)
 - [Oracle Cloud Infrastructure](./012_oci/README.md)
 - [Python, Data Science en OCI y Oracle Analytics](./013_python_oci/README.md)
+
+## Formaciónes Adicionales
+
+### [DevOps](https://app.aluracursos.com/formacion-devops)
+
+- [Git]()
+- [Linux]()
+- [Redes]()
