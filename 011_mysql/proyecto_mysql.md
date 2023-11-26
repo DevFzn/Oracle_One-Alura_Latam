@@ -54,10 +54,10 @@ erDiagram
         PRECIO float
         CANTIDAD bigint
     }
-    Vendedor ||--|{ Ventas : realiza
-    Clientes ||--|{ Ventas : involucra
-    Productos ||--|{ Items_Vendidos : contiene
-    Ventas ||--|{ Items_Vendidos : posee
+    Vendedor ||--|{ Factura : realiza
+    Cliente ||--|{ Factura : involucra
+    Producto ||--|{ Items : contiene
+    Factura ||--|{ Items : posee
 ```
 
 ```sql

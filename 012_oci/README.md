@@ -590,3 +590,7 @@ Se crea una identica a la anterior (free tier)
 
 - Video [Load Balancer](https://www.youtube.com/watch?v=tY2UuVbDElc) -
 Docs [OCI](https://docs.oracle.com/es-ww/iaas/Content/home.htm)
+
+----
+
+## [OCI 2da Parte](./oci2.md)

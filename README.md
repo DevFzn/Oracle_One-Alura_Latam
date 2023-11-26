@@ -66,7 +66,7 @@ primoridiales en programación con Javascript
   - Proyecto final [MySQL](./011_mysql/proyecto_mysql.md)
   - DBA [Seguridad y Optimización](./011_mysql/dba_seguridad_optimiz.md)
 - [Oracle Cloud Infrastructure](./012_oci/README.md)
-- [Python, Data Science en OCI y Oracle Analytics](./013_python_oci/README.md)
+- [Python, Data Science en OCI y Oracle Analytics](./013_python_data_science/README.md)
 
 ## Formaciónes Adicionales
 
